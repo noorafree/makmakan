@@ -190,8 +190,8 @@ use yii\helpers\Html;
                                 'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Bank List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Bank', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
+                                    ['label' => 'Bank List', 'icon' => 'fa fa-table', 'url' => ['/snbank/index']],
+                                    ['label' => 'Create Bank', 'icon' => 'fa fa-edit', 'url' => ['/snbank/create']],
                                 ],
                             ],
                             [

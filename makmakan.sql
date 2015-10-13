@@ -287,3 +287,32 @@ ALTER TABLE `user`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--
+-- Table structure for table `sn_bank`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_bank` (
+  `id` int(10) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `is_disabled` tinyint(1) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Indexes for table `sn_bank`
+--
+ALTER TABLE `sn_bank`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `sn_bank`
+--
+ALTER TABLE `sn_bank`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
