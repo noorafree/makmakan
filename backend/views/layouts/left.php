@@ -33,7 +33,7 @@ use yii\helpers\Html;
                         'url' => '#',
                         'items' => [
                             ['label' => 'General', 'icon' => 'fa fa-edit', 'url' => ['/general/index']],
-                            ['label' => 'About Us', 'icon' => 'fa fa-edit', 'url' => ['/aboutUs/index']],
+                            ['label' => 'About Us', 'icon' => 'fa fa-edit', 'url' => ['/company/about-us', 'id' => 1]],
                             ['label' => 'Purchasing Guide', 'icon' => 'fa fa-edit', 'url' => ['/purchsingGuide/index']],
                             ['label' => 'Delivery Guide', 'icon' => 'fa fa-edit', 'url' => ['/deliveryGuide/index']],
                             ['label' => 'Return Policy', 'icon' => 'fa fa-edit', 'url' => ['/returnPolicy/index']],

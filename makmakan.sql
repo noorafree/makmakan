@@ -316,3 +316,107 @@ ALTER TABLE `sn_bank`
 --
 ALTER TABLE `sn_bank`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE IF NOT EXISTS `faq` (
+  `id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `answer` text NOT NULL,
+  `faq_order` int(11) DEFAULT NULL,
+  `is_disabled` tinyint(2) NOT NULL,
+  `is_deleted` tinyint(2) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `faq`
+--
+
+INSERT INTO `faq` (`id`, `question`, `answer`, `faq_order`, `is_disabled`, `is_deleted`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(2, '<p>test</p>\r\n', '<p>test</p>\r\n', NULL, 0, -1, 'admin', '2015-10-14 06:16:49', 'admin', '2015-10-13 23:10:54'),
+(3, '<p>sdasad</p>\r\n', '<p>sadsda</p>\r\n', NULL, 1, 1, 'admin', '2015-10-14 00:10:18', 'admin', '2015-10-14 00:10:18'),
+(4, '<p>sadsasda</p>\r\n', '<p>sdasadsad</p>\r\n', NULL, 0, 1, 'admin', '2015-10-14 00:10:12', 'admin', '2015-10-14 00:10:12');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+
+--
+-- Struktur dari tabel `company`
+--
+
+CREATE TABLE IF NOT EXISTS `company` (
+  `id` int(11) NOT NULL,
+  `slider_amount` tinyint(2) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `about_us` text,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `longitude` varchar(100) DEFAULT NULL,
+  `latitude` varchar(100) DEFAULT NULL,
+  `twitter_url` varchar(100) DEFAULT NULL,
+  `facebook_url` varchar(100) DEFAULT NULL,
+  `instagram_url` varchar(100) DEFAULT NULL,
+  `gplus_url` varchar(100) DEFAULT NULL,
+  `terms_and_condition` text,
+  `purchashing_guide` text,
+  `payment_guide` text,
+  `delivery_guide` text,
+  `return_policy` text,
+  `privacy_policy` text,
+  `logo_path` varchar(100) DEFAULT NULL,
+  `favicon_path` varchar(100) DEFAULT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(30) NOT NULL,
+  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `company`
+--
+
+INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchashing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
+(1, NULL, NULL, NULL, '<p>ssadsdaasdsdasadsad</p>\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'makmakan', '2015-10-14 09:39:27', 'admin', '2015-10-14 03:10:27');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `company`
+--
+ALTER TABLE `company`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
