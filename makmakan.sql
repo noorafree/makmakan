@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `instagram_url` varchar(100) DEFAULT NULL,
   `gplus_url` varchar(100) DEFAULT NULL,
   `terms_and_condition` text,
-  `purchashing_guide` text,
+  `purchasing_guide` text,
   `payment_guide` text,
   `delivery_guide` text,
   `return_policy` text,
@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `company` (
 -- Dumping data untuk tabel `company`
 --
 
-INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchashing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
+INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchasing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
 (1, NULL, NULL, NULL, '<p>ssadsdaasdsdasadsad</p>\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'makmakan', '2015-10-14 09:39:27', 'admin', '2015-10-14 03:10:27');
 
 --

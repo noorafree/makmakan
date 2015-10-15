@@ -61,14 +61,15 @@ class SnBankController extends Controller
     public function actionCreate()
     {
         $model = new SnBank();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+       
+        if ($model->load(Yii::$app->request->post()) ) {
             $model->created_by = Yii::$app->user->identity->username;
             $model->created_date = date('Y-m-d h:m:s');
-            $model->last_modified_by = Yii::$app->user->identity->username;
-            $model->last_modified_date = date('Y-m-d h:m:s');
-            $model->is_deleted = Status::STATUS_ACTIVE;
-            $model->save();
+            $model->modified_by = Yii::$app->user->identity->username;
+            $model->modified_date = date('Y-m-d h:m:s');
+            $model->is_deleted = 0;
+            $model->is_disabled = 0;
+            $model->save(); 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -88,8 +89,8 @@ class SnBankController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->last_modified_by = Yii::$app->user->identity->username;
-            $model->last_modified_date = date('Y-m-d h:m:s');
+            $model->modified_by = Yii::$app->user->identity->username;
+            $model->modified_date = date('Y-m-d h:m:s');
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -107,9 +108,21 @@ class SnBankController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null)
+            {
+                $model->is_deleted = 1;
+                $model->modified_by = Yii::$app->user->identity->username;
+                $model->modified_date = date('Y-m-d h:m:s');
+                $model->update(array('is_deleted'));
+            }
 
-        return $this->redirect(['index']);
+            if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

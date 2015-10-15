@@ -21,7 +21,7 @@ use Yii;
  * @property string $instagram_url
  * @property string $gplus_url
  * @property string $terms_and_condition
- * @property string $purchashing_guide
+ * @property string $purchasing_guide
  * @property string $payment_guide
  * @property string $delivery_guide
  * @property string $return_policy
@@ -50,7 +50,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['slider_amount'], 'integer'],
-            [['about_us', 'terms_and_condition', 'purchashing_guide', 'payment_guide', 'delivery_guide', 'return_policy', 'privacy_policy'], 'string'],
+            [['about_us', 'terms_and_condition', 'purchasing_guide', 'payment_guide', 'delivery_guide', 'return_policy', 'privacy_policy'], 'string'],
             [['created_by', 'last_modified_by'], 'required'],
             [['created_date', 'last_modified_date'], 'safe'],
             [['title', 'name', 'created_by', 'last_modified_by'], 'string', 'max' => 30],
@@ -79,7 +79,7 @@ class Company extends \yii\db\ActiveRecord
             'instagram_url' => 'Instagram Url',
             'gplus_url' => 'Gplus Url',
             'terms_and_condition' => 'Terms And Condition',
-            'purchashing_guide' => 'Purchashing Guide',
+            'purchasing_guide' => 'Purchasing Guide',
             'payment_guide' => 'Payment Guide',
             'delivery_guide' => 'Delivery Guide',
             'return_policy' => 'Return Policy',

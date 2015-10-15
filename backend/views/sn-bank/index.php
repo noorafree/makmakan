@@ -12,7 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sn-bank-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -27,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'bank',
-            'is_disabled',
-            'is_deleted',
-            'created_date',
+//            'is_disabled',
+//            'is_deleted',
+            //'created_date',
             // 'created_by',
             // 'modified_date',
             // 'modified_by',
