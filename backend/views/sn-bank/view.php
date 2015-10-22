@@ -4,13 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Newsletter */
+/* @var $model common\models\SnBank */
 
-$this->title = 'View Newsletter : '. $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Newsletters', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Sn Banks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="newsletter-view">
+<div class="sn-bank-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -26,15 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'subject:ntext',
-            'message:html',
-            [
-                'attribute' => 'is_deleted',
-                'value' => $model->getStatus()->label,
-            ],
+            'id',
+            'bank',
+            'is_disabled',
+            'is_deleted',
+            'created_date',
+            'created_by',
+            'modified_date',
+            'modified_by',
         ],
     ]) ?>
 
-
-    
 </div>

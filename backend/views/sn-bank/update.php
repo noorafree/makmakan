@@ -3,14 +3,16 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Newsletter */
+/* @var $model common\models\SnBank */
 
-$this->title = 'Update Newsletter : ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Newsletters', 'url' => ['index']];
+$this->title = 'Update Sn Bank: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Sn Banks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="newsletter-update">
+<div class="sn-bank-update">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

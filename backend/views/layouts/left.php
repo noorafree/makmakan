@@ -32,20 +32,20 @@ use yii\helpers\Html;
                         'url' => '#',
                         'items' => [
                             ['label' => 'General', 'icon' => 'fa fa-edit', 'url' => ['/company/general']],
-                            ['label' => 'About Us', 'icon' => 'fa fa-edit', 'url' => ['#']],
-                            ['label' => 'Purchasing Guide', 'icon' => 'fa fa-edit', 'url' => ['#']],
-                            ['label' => 'Delivery Guide', 'icon' => 'fa fa-edit', 'url' => ['#']],
-                            ['label' => 'Return Policy', 'icon' => 'fa fa-edit', 'url' => ['#']],
-                            ['label' => 'Privacy Policy', 'icon' => 'fa fa-edit', 'url' => ['#']],
-                            ['label' => 'Terms And Agreement', 'icon' => 'fa fa-edit', 'url' => ['#']],
-                            ['label' => 'FAQ', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                            ['label' => 'About Us', 'icon' => 'fa fa-edit', 'url' => ['/company/about-us', 'id' => 1]],
+                            ['label' => 'Purchasing Guide', 'icon' => 'fa fa-edit', 'url' => ['/purchsingGuide/index']],
+                            ['label' => 'Delivery Guide', 'icon' => 'fa fa-edit', 'url' => ['/deliveryGuide/index']],
+                            ['label' => 'Return Policy', 'icon' => 'fa fa-edit', 'url' => ['/returnPolicy/index']],
+                            ['label' => 'Privacy Policy', 'icon' => 'fa fa-edit', 'url' => ['/privacyPolicy/index']],
+                            ['label' => 'Terms And Agreement', 'icon' => 'fa fa-edit', 'url' => ['/termsAndAgreement/index']],
+                            ['label' => 'FAQ', 'icon' => 'fa fa-edit', 'url' => ['/faq/index']],
                         ],
                     ],
                     [
                         'label' => 'Slider',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Slider List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                            ['label' => 'Slider List', 'icon' => 'fa fa-list-ul', 'url' => ['/slider/index']],
                             ['label' => 'Create Slider', 'icon' => 'fa fa-edit', 'url' => ['#']],
                         ],
                     ],
@@ -158,8 +158,8 @@ use yii\helpers\Html;
                                 'label' => 'Bank', 
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Bank List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                    ['label' => 'Create Bank', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                    ['label' => 'Bank List', 'icon' => 'fa fa-list-ul', 'url' => ['/sn-bank/index']],
+                                    ['label' => 'Create Bank', 'icon' => 'fa fa-edit', 'url' => ['/sn-bank/create']],
                                 ],
                             ],
                             [
@@ -202,5 +202,5 @@ use yii\helpers\Html;
         ) ?>
 
     </section>
-
+    
 </aside>

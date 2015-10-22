@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 11 Okt 2015 pada 17.40
--- Versi Server: 5.6.24
+-- Generation Time: Oct 22, 2015 at 07:30 PM
+-- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `address`, `birthdate`, `image`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `auth_role`, `role`, `status`, `created_at`, `updated_at`) VALUES
@@ -56,7 +56,7 @@ INSERT INTO `admin` (`id`, `name`, `address`, `birthdate`, `image`, `username`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_assignment`
+-- Table structure for table `auth_assignment`
 --
 
 CREATE TABLE IF NOT EXISTS `auth_assignment` (
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_item`
+-- Table structure for table `auth_item`
 --
 
 CREATE TABLE IF NOT EXISTS `auth_item` (
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_operation`
+-- Table structure for table `auth_operation`
 --
 
 CREATE TABLE IF NOT EXISTS `auth_operation` (
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `auth_operation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11406 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `auth_operation`
+-- Dumping data for table `auth_operation`
 --
 
 INSERT INTO `auth_operation` (`id`, `parent_id`, `name`) VALUES
@@ -114,7 +114,7 @@ INSERT INTO `auth_operation` (`id`, `parent_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `auth_role`
+-- Table structure for table `auth_role`
 --
 
 CREATE TABLE IF NOT EXISTS `auth_role` (
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `auth_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `auth_role`
+-- Dumping data for table `auth_role`
 --
 
 INSERT INTO `auth_role` (`id`, `name`, `description`, `operation_list`) VALUES
@@ -137,7 +137,76 @@ INSERT INTO `auth_role` (`id`, `name`, `description`, `operation_list`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migration`
+-- Table structure for table `company`
+--
+
+CREATE TABLE IF NOT EXISTS `company` (
+  `id` int(11) NOT NULL,
+  `slider_amount` tinyint(2) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `about_us` text,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `longitude` varchar(100) DEFAULT NULL,
+  `latitude` varchar(100) DEFAULT NULL,
+  `twitter_url` varchar(100) DEFAULT NULL,
+  `facebook_url` varchar(100) DEFAULT NULL,
+  `instagram_url` varchar(100) DEFAULT NULL,
+  `gplus_url` varchar(100) DEFAULT NULL,
+  `terms_and_condition` text,
+  `purchashing_guide` text,
+  `payment_guide` text,
+  `delivery_guide` text,
+  `return_policy` text,
+  `privacy_policy` text,
+  `logo_path` varchar(100) DEFAULT NULL,
+  `favicon_path` varchar(100) DEFAULT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(30) NOT NULL,
+  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchashing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
+(1, NULL, NULL, NULL, '<p>ssadsdaasdsdasadsad</p>\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'makmakan', '2015-10-14 09:39:27', 'admin', '2015-10-14 03:10:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE IF NOT EXISTS `faq` (
+  `id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `answer` text NOT NULL,
+  `faq_order` int(11) DEFAULT NULL,
+  `is_disabled` tinyint(2) NOT NULL,
+  `is_deleted` tinyint(2) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `question`, `answer`, `faq_order`, `is_disabled`, `is_deleted`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(2, '<p>test</p>\r\n', '<p>test</p>\r\n', NULL, 0, -1, 'admin', '2015-10-14 06:16:49', 'admin', '2015-10-13 23:10:54'),
+(3, '<p>sdasad</p>\r\n', '<p>sadsda</p>\r\n', NULL, 1, 1, 'admin', '2015-10-14 00:10:18', 'admin', '2015-10-14 00:10:18'),
+(4, '<p>sadsasda</p>\r\n', '<p>sdasadsad</p>\r\n', NULL, 0, 1, 'admin', '2015-10-14 00:10:12', 'admin', '2015-10-14 00:10:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migration`
 --
 
 CREATE TABLE IF NOT EXISTS `migration` (
@@ -146,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `migration`
+-- Dumping data for table `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -156,7 +225,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `newsletter`
+-- Table structure for table `newsletter`
 --
 
 CREATE TABLE IF NOT EXISTS `newsletter` (
@@ -171,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `newsletter`
+-- Dumping data for table `newsletter`
 --
 
 INSERT INTO `newsletter` (`id`, `subject`, `message`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`, `is_deleted`) VALUES
@@ -181,27 +250,86 @@ INSERT INTO `newsletter` (`id`, `subject`, `message`, `created_by`, `created_dat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `sn_bank`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_bank` (
+  `id` int(10) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `is_disabled` tinyint(1) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sn_product_category`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_product_category` (
+  `id` int(11) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sn_product_category`
+--
+
+INSERT INTO `sn_product_category` (`id`, `category`, `status`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(5, 'Arabian Fooddd', -1, 'admin', '2015-10-16 07:52:00', 'admin', '2015-10-16 02:10:25'),
+(6, 'Chinnese Food', 1, 'admin', '2015-10-16 03:10:40', 'admin', '2015-10-16 03:10:40'),
+(7, 'Nasi Cane', -1, 'admin', '2015-10-16 10:00:42', 'admin', '2015-10-16 04:10:25'),
+(8, 'asd', -1, 'admin', '2015-10-16 10:06:06', 'admin', '2015-10-16 05:10:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL,
+  `first_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `birthdate` date NOT NULL,
+  `phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sex` enum('Male','Female') COLLATE utf8_unicode_ci NOT NULL,
+  `last_login_date` timestamp NULL DEFAULT NULL,
+  `image_path` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci NOT NULL,
+  `featured` tinyint(1) NOT NULL,
+  `makmakan_credit` int(11) DEFAULT NULL,
+  `bank_account_number` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bank_account_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sn_bank_id` int(11) DEFAULT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin123', 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 10, 1444051446, 1444146438);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
+(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
 
 --
 -- Indexes for dumped tables
@@ -238,6 +366,18 @@ ALTER TABLE `auth_role`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migration`
 --
 ALTER TABLE `migration`
@@ -247,6 +387,18 @@ ALTER TABLE `migration`
 -- Indexes for table `newsletter`
 --
 ALTER TABLE `newsletter`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_bank`
+--
+ALTER TABLE `sn_bank`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_product_category`
+--
+ALTER TABLE `sn_product_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -275,10 +427,30 @@ ALTER TABLE `auth_operation`
 ALTER TABLE `auth_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `company`
+--
+ALTER TABLE `company`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `newsletter`
 --
 ALTER TABLE `newsletter`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `sn_bank`
+--
+ALTER TABLE `sn_bank`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sn_product_category`
+--
+ALTER TABLE `sn_product_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user`
 --

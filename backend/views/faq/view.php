@@ -2,16 +2,16 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Faq;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Newsletter */
+/* @var $model common\models\Faq */
 
-$this->title = 'View Newsletter : '. $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Newsletters', 'url' => ['index']];
+$this->title = 'View Faq : '. $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Faqs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="newsletter-view">
-
+<div class="faq-view">
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -26,15 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'subject:ntext',
-            'message:html',
+            'question:html',
+            'answer:html',
+            'faq_order',
             [
-                'attribute' => 'is_deleted',
-                'value' => $model->getStatus()->label,
+                'attribute' => 'is_disabled',
+                'value' => $model->is_disabled == 0 ? "Yes": "No",
             ],
         ],
     ]) ?>
 
-
-    
 </div>
