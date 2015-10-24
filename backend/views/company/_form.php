@@ -20,31 +20,7 @@ use dosamigos\ckeditor\CKEditor;
             ]) 
         ?>
     <?php } ?>
-    
-    <?php if(Yii::$app->controller->action->id == 'purchasing-guide') { ?>
-        <?= $form->field($model, 'purchasing_guide')->widget(CKEditor::className(), [
-                'options' => ['rows' => 6],
-                'preset' => 'full'
-            ]) 
-        ?>
-    <?php } ?>
 
-    <?php if(Yii::$app->controller->action->id == 'return-policy') { ?>
-        <?= $form->field($model, 'return_policy')->widget(CKEditor::className(), [
-                'options' => ['rows' => 6],
-                'preset' => 'full'
-            ]) 
-        ?>
-    <?php } ?>
-    
-     <?php if(Yii::$app->controller->action->id == 'terms-and-agreement') { ?>
-        <?= $form->field($model, 'terms_and_condition')->widget(CKEditor::className(), [
-                'options' => ['rows' => 6],
-                'preset' => 'full'
-            ]) 
-        ?>
-    <?php } ?>
-    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -25,265 +25,175 @@ use yii\helpers\Html;
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Dashboard', 'options' => ['class' => 'header']],
+                    ['label' => 'Main Navigation', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
                     [
                         'label' => 'Company',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'General', 'icon' => 'fa fa-edit', 'url' => ['/general/index']],
+                            ['label' => 'General', 'icon' => 'fa fa-edit', 'url' => ['/company/general']],
                             ['label' => 'About Us', 'icon' => 'fa fa-edit', 'url' => ['/company/about-us', 'id' => 1]],
-                            ['label' => 'Purchasing Guide', 'icon' => 'fa fa-edit', 'url' => ['/company/purchasing-guide','id'=>1]],
-                            ['label' => 'Delivery Guide', 'icon' => 'fa fa-edit', 'url' => ['/deliveryGuide/index']],
-                            ['label' => 'Return Policy', 'icon' => 'fa fa-edit', 'url' => ['/company/return-policy','id'=>1]],
-                            ['label' => 'Privacy Policy', 'icon' => 'fa fa-edit', 'url' => ['/privacyPolicy/index']],
-                            ['label' => 'Terms And Agreement', 'icon' => 'fa fa-edit', 'url' => ['/company/terms-and-agreement','id'=>1]],
+                            ['label' => 'Purchasing Guide', 'icon' => 'fa fa-edit', 'url' => ['/company/purchasing-guide']],
+                            ['label' => 'Delivery Guide', 'icon' => 'fa fa-edit', 'url' => ['/company/delivery-guide']],
+                            ['label' => 'Return Policy', 'icon' => 'fa fa-edit', 'url' => ['/company/return-policy']],
+                            ['label' => 'Privacy Policy', 'icon' => 'fa fa-edit', 'url' => ['/company/privacy-policy']],
+                            ['label' => 'Terms And Agreement', 'icon' => 'fa fa-edit', 'url' => ['/company/terms-and-agreement']],
                             ['label' => 'FAQ', 'icon' => 'fa fa-edit', 'url' => ['/faq/index']],
                         ],
                     ],
                     [
                         'label' => 'Slider',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Slider', 'icon' => 'fa fa-table', 'url' => ['/slider/index']],
-                            ['label' => 'Create Slider', 'icon' => 'fa fa-edit', 'url' => ['/aboutUs/index']],
+                            ['label' => 'Slider List', 'icon' => 'fa fa-list-ul', 'url' => ['/slider/index']],
+                            ['label' => 'Create Slider', 'icon' => 'fa fa-edit', 'url' => ['#']],
                         ],
                     ],
                     [
                         'label' => 'Advertising',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
                             [
                                 'label' => 'Advertiser', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Advertiser List', 'icon' => 'fa fa-table', 'url' => ['/advertiser/index']],
-                                    ['label' => 'Create Advertiser', 'icon' => 'fa fa-edit', 'url' => ['/advertiser/create']],
+                                    ['label' => 'Advertiser List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Advertiser', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
                             [
                                 'label' => 'Advertising', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Advertising List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Advertising', 'icon' => 'fa fa-edit', 'url' => ['/advertising/create']],
+                                    ['label' => 'Advertising List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Advertising', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
                         ],
                     ],
                     [
                         'label' => 'User Management',
-                        'icon' => 'fa fa-table',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'User List', 'icon' => 'fa fa-table', 'url' => ['/user/index']],
-                            ['label' => 'Create User', 'icon' => 'fa fa-edit', 'url' => ['/user/index']],
+                            ['label' => 'User List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                            ['label' => 'Create User', 'icon' => 'fa fa-edit', 'url' => ['#']],
                         ],
                     ],
                     [
                         'label' => 'Product Management',
-                        'icon' => 'fa fa-table',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Product List', 'icon' => 'fa fa-table', 'url' => ['/product/index']],
-                            ['label' => 'Create Product', 'icon' => 'fa fa-edit', 'url' => ['/product/index']],
+                            ['label' => 'Product List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                            ['label' => 'Create Product', 'icon' => 'fa fa-edit', 'url' => ['#']],
                         ],
                     ],
                     [
                         'label' => 'Order Management',
-                        'icon' => 'fa fa-table',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Order List', 'icon' => 'fa fa-table', 'url' => ['/order/index']],
-                            ['label' => 'Create Order', 'icon' => 'fa fa-edit', 'url' => ['/order/index']],
+                            ['label' => 'Order List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
                         ],
                     ],
                     [
                         'label' => 'Promotion Management',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
                             [
                                 'label' => 'Voucher', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Voucher List', 'icon' => 'fa fa-table', 'url' => ['/voucher/index']],
-                                    ['label' => 'Create Voucher', 'icon' => 'fa fa-edit', 'url' => ['/voucher/create']],
+                                    ['label' => 'Voucher List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Voucher', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
                             [
                                 'label' => 'Discount', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Discount List', 'icon' => 'fa fa-table', 'url' => ['/discount/index']],
-                                    ['label' => 'Create Discount', 'icon' => 'fa fa-edit', 'url' => ['/discount/create']],
+                                    ['label' => 'Discount List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Discount', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
-                            ['label' => 'Reward Point', 'icon' => 'fa fa-table', 'url' => ['/reward/index']],
+                            ['label' => 'Reward Point', 'icon' => 'fa fa-edit', 'url' => ['#']],
                         ],
                     ],
                     [
-                        'label' => 'CRM',
-                        'icon' => 'fa fa-folder',
+                        'label' => 'CR Management',
                         'url' => '#',
                         'items' => [
                             [
                                 'label' => 'Newsletter', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Newsletter List', 'icon' => 'fa fa-table', 'url' => ['/newsletter/index']],
+                                    ['label' => 'Newsletter List', 'icon' => 'fa fa-list-ul', 'url' => ['/newsletter/index']],
                                     ['label' => 'Create Newsletter', 'icon' => 'fa fa-edit', 'url' => ['/newsletter/create']],
                                 ],
                             ],
-                            [
-                                'label' => 'Subscriber', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Subscriber List', 'icon' => 'fa fa-table', 'url' => ['/advertiser/index']],
-                                ],
-                            ],
-                            [
-                                'label' => 'User Complaint', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'User Complaint List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                ],
-                            ],
+							['label' => 'Subscriber List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+							['label' => 'Complaint List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
                         ],
                     ],
                     [
                         'label' => 'Report',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Report By User', 'icon' => 'fa fa-bar-chart', 'url' => ['/reward/index']],
-                            ['label' => 'Report By Category', 'icon' => 'fa fa-bar-chart', 'url' => ['/reward/index']],
-                            ['label' => 'Report By Time', 'icon' => 'fa fa-bar-chart', 'url' => ['/reward/index']],
+                            ['label' => 'Report By User', 'icon' => 'fa fa-bar-chart', 'url' => ['#']],
+                            ['label' => 'Report By Category', 'icon' => 'fa fa-bar-chart', 'url' => ['#']],
+                            ['label' => 'Report By Time', 'icon' => 'fa fa-bar-chart', 'url' => ['#']],
                         ],
                     ],
                     [
                         'label' => 'Structured Naming',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
                             [
-                                'label' => 'Product Category', 
-                                'icon' => 'fa fa-share',
+                                'label' => 'Product Category',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Product Category List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Product Category', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
+                                    ['label' => 'Product Category List', 'icon' => 'fa fa-list-ul', 'url' => ['/sn-product-category/index']],
+                                    ['label' => 'Create Product Category', 'icon' => 'fa fa-edit', 'url' => ['/sn-product-category/create']],
                                 ],
                             ],
                             [
                                 'label' => 'Bank', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Bank List', 'icon' => 'fa fa-table', 'url' => ['/sn-bank/index']],
+                                    ['label' => 'Bank List', 'icon' => 'fa fa-list-ul', 'url' => ['/sn-bank/index']],
                                     ['label' => 'Create Bank', 'icon' => 'fa fa-edit', 'url' => ['/sn-bank/create']],
                                 ],
                             ],
                             [
-                                'label' => 'Tag', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Tag List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Tag', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
-                                ],
-                            ],
-                            [
                                 'label' => 'Review', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Review List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Review', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
+                                    ['label' => 'Review List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Review', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
                             [
                                 'label' => 'Delivery Agent', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Delivery Agent List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Delivery Agent', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
-                                ],
-                            ],
-                            [
-                                'label' => 'Cart Status', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Cart Status List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Cart Status', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
+                                    ['label' => 'Delivery Agent List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Delivery Agent', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
                             [
                                 'label' => 'Payment Method', 
-                                'icon' => 'fa fa-share',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => 'Cart Status List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Cart Status', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
-                                ],
-                            ],
-                            [
-                                'label' => 'Advertisement Type', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Advertisement Type List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Advertisement Type', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
-                                ],
-                            ],
-                            [
-                                'label' => 'Review', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Review List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Review', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
-                                ],
-                            ],
-                            [
-                                'label' => 'Complaint Type', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Complaint Type List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Complaint Type', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
-                                ],
-                            ],
-                            [
-                                'label' => 'Voucher Type Type', 
-                                'icon' => 'fa fa-share',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Voucher Type Type List', 'icon' => 'fa fa-table', 'url' => ['/advertising/index']],
-                                    ['label' => 'Create Voucher Type Type', 'icon' => 'fa fa-edit', 'url' => ['/advertising/index']],
+                                    ['label' => 'Cart Status List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                    ['label' => 'Create Cart Status', 'icon' => 'fa fa-edit', 'url' => ['#']],
                                 ],
                             ],
                         ],
                     ],
                     [
                         'label' => 'Administrator',
-                        'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Access Level', 'icon' => 'fa fa-table', 'url' => ['/auth'],],
-                            ['label' => 'Admin List', 'icon' => 'fa fa-table', 'url' => ['/admin/index'],],
+                            ['label' => 'Access Level', 'icon' => 'fa fa-list-ul', 'url' => ['/auth'],],
+                            ['label' => 'Admin List', 'icon' => 'fa fa-list-ul', 'url' => ['/admin/index'],],
                             ['label' => 'Create Administrator', 'icon' => 'fa fa-edit', 'url' => ['/admin/create'],],
                         ],
                     ],
@@ -292,5 +202,4 @@ use yii\helpers\Html;
         ) ?>
 
     </section>
-
 </aside>

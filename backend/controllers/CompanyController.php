@@ -12,22 +12,119 @@ use yii\filters\VerbFilter;
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
-class CompanyController extends Controller
-{
-    public function behaviors()
-    {
+class CompanyController extends Controller {
+
+    public function behaviors() {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+        'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+        'delete' => ['post'],
+        ],
+        ],
         ];
     }
 
-    public function actionAboutUs($id)
-    {
+    /**
+     * Lists all Company models.
+     * @return mixed
+     */
+    public function actionIndex() {
+        $searchModel = new CompanySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Company model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id) {
+        return $this->render('view', [
+        'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Company model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate() {
+        $model = new Company();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+            'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing Company model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+            'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Deletes an existing Company model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id) {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Company model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Company the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id) {
+        if (($model = Company::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionGeneral($id = 1) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['general', 'id' => $model->id]);
+        } else {
+            return $this->render('general', [
+            'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionAboutUs($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -37,20 +134,42 @@ class CompanyController extends Controller
             return $this->redirect(['view-about-us', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+            'model' => $model,
             ]);
         }
     }
 
-    public function actionViewAboutUs($id)
-    {
+    public function actionViewAboutUs($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+        'model' => $this->findModel($id),
         ]);
     }
+
+    public function actionPrivacyPolicy($id = 1) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['privacy-policy', 'id' => $model->id]);
+        } else {
+            return $this->render('privacy-policy', [
+            'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionDeliveryGuide($id = 1) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['delivery-guide', 'id' => $model->id]);
+        } else {
+            return $this->render('delivery-guide', [
+            'model' => $model,
+            ]);
+        }
+    }
     
-    
-    public function actionPurchasingGuide($id)
+     public function actionPurchasingGuide($id = 1 )
     {
         $model = $this->findModel($id);
 
@@ -58,22 +177,23 @@ class CompanyController extends Controller
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['view-purchasing-guide', 'id' => $model->id]);
+            return $this->redirect(['purchasing-guide', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->render('purchasing-guide', [
                 'model' => $model,
             ]);
         }
     }
     
-    public function actionViewPurchasingGuide($id)
+  /*  public function actionViewPurchasingGuide($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
+   */
     
-    public function actionReturnPolicy($id)
+    public function actionReturnPolicy($id =1 )
     {
         $model = $this->findModel($id);
 
@@ -81,22 +201,24 @@ class CompanyController extends Controller
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['view-return-policy', 'id' => $model->id]);
+            return $this->redirect(['return-policy', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->render('return-policy', [
                 'model' => $model,
             ]);
         }
     }
-    
+
+    /*
     public function actionViewReturnPolicy($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-
-    public function actionTermsAndAgreement($id)
+    */
+    
+    public function actionTermsAndAgreement($id = 1)
     {
         $model = $this->findModel($id);
 
@@ -104,34 +226,20 @@ class CompanyController extends Controller
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['view-terms-and-agreement', 'id' => $model->id]);
+            return $this->redirect(['terms-and-agreement', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->render('terms-and-agreement', [
                 'model' => $model,
             ]);
         }
     }
     
+    /*
     public function actionViewTermsAndAgreement($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-    
-    /**
-     * Finds the Company model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Company the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Company::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+    */
 }
