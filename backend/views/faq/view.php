@@ -7,8 +7,8 @@ use common\models\Faq;
 /* @var $this yii\web\View */
 /* @var $model common\models\Faq */
 
-$this->title = 'View Faq : '. $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Faqs', 'url' => ['index']];
+$this->title = $model->question;
+$this->params['breadcrumbs'][] = ['label' => 'Newsletters', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faq-view">

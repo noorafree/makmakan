@@ -68,7 +68,7 @@ class FaqController extends Controller
             $model->created_date = date('Y-m-d h:m:s');
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
-            $model->is_deleted = Status::STATUS_ACTIVE;
+            $model->status = Status::STATUS_ACTIVE;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -112,8 +112,8 @@ class FaqController extends Controller
         if (Yii::$app->request->post()) {
             if ($model !== null)
             {
-                $model->is_deleted = Status::STATUS_DELETED;
-                $model->update(array('is_deleted'));
+                $model->status = Status::STATUS_DELETED;
+                $model->update(array('status'));
             }
 
             if (!isset($_GET['ajax']))

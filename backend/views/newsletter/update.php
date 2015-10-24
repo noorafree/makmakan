@@ -1,76 +1,19 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use common\models\Status;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\NewsletterSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model backend\models\Newsletter */
 
-$this->title = 'Newsletters';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Update Newsletter : ' . ' ' . $model->subject;
+$this->params['breadcrumbs'][] = ['label' => 'Newsletters', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->subject, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="newsletter-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<div class="newsletter-update">
 
-    <!-- http://www.bsourcecode.com/yiiframework2/gridview-in-yiiframework-2-0/  referensi tentang gridview -->
-    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'summary' => '', // menghilangkan tampilan total item 'summary' => '{begin} - {end} {count} {totalCount} {page} {pageCount}',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'subject:ntext',
-            'message:html',
-            [
-                'attribute' => 'status',
-                'format' => 'html',
-                'value' => function ($model) {
-                    if ($model->status === Status::STATUS_ACTIVE) {
-                        $class = 'label-success';
-                    } elseif ($model->status === Status::STATUS_INACTIVE) {
-                        $class = 'label-warning';
-                    } else {
-                        $class = 'label-danger';
-                    }
-
-                    return '<span class="label ' . $class . '">' . $model->getStatus()->label . '</span>';
-                },
-                'filter' => Html::activeDropDownList(
-                        $searchModel, 'status', Status::labels(), ['class' => 'form-control', 'prompt' => 'Please Select']
-                ),
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete} {inactive}',
-                'buttons' => [
-                    'inactive' => function ($url, $model) {
-                        if ($model->status != Status::STATUS_INACTIVE) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-close"></span>', ['inactive', 'id' => $model->id], [
-                                        'title' => 'Inactive',
-                                        'data' => [
-                                            'confirm' => 'Are you sure you want to inactive this user?',
-                                            'method' => 'post',
-                                        ],
-                            ]);
-                        } else if ($model->status == Status::STATUS_INACTIVE) {
-                            return Html::a('<span class="glyphicon glyphicon-exclamation-sign"></span>', ['active', 'id' => $model->id], [
-                                        'title' => 'Active',
-                                        'data' => [
-                                            'confirm' => 'Are you sure you want to actived this user?',
-                                            'method' => 'post',
-                                        ],
-                            ]);
-                        } else {
-                            return '<span class="glyphicon glyphicon-eye-close "></span>';
-                        }
-                    }
-                        ],
-                    ],
-                ],
-            ]);
-            ?>
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
 
 </div>
