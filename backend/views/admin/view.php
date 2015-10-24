@@ -7,14 +7,35 @@ use backend\models\User;
 /* @var $this yii\web\View */
 /* @var $model backend\models\User */
 
-$this->title = 'View Admin : ' . $model->name;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
+    <?=
+    DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            [
+                'label' => 'Profile Picture',
+                'attribute' => 'image',
+                'value' => $model->image,
+                'format' => ['image', ['width' => '100', 'height' => '100']],
+            ],
+            'name',
+            'birthdate',
+            'address',
+            'username',
+            'email:email',
+            [
+                'attribute' => 'auth_role',
+                'value' => $model->authRoleLabel,
+            ],
+        ],
+    ])
+    ?>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <p style="text-align: right">
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -22,29 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Change Password', ['/site/change-password', 'id' => Yii::$app->user->identity->id], ['class' => 'btn btn-info']) ?>
     </p>
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'name',
-            'username',
-            'address',
-            'email:email',
-            [
-                'attribute' => 'auth_role',
-                'value' => $model->authRoleLabel,
-            ],
-            [
-                'attribute'=>'image',
-                'value'=>$model->image,
-                'format' => ['image',['width'=>'100','height'=>'100']],
-            ],
-
-            [
-                'attribute' => 'status',
-                'value' => $model->statusLabel,
-            ],
-        ],
-    ]) ?>
 
 </div>

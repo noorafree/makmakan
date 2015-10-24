@@ -134,6 +134,7 @@ class Admin extends \common\models\Admin
             'admin-change-password' => ['oldpassword', 'password', 'repassword'],
             'admin-delete' => ['status'],
             'admin-inactive' => ['status'],
+            'admin-active' => ['status'],
         ];
     }
 

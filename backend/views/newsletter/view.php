@@ -6,14 +6,19 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Newsletter */
 
-$this->title = 'View Newsletter : '. $model->id;
+$this->title = $model->subject;
 $this->params['breadcrumbs'][] = ['label' => 'Newsletters', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="newsletter-view">
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'subject:ntext',
+            'message:html',
+        ],
+    ]) ?>
+    <p style="text-align: right">
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -21,20 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'subject:ntext',
-            'message:html',
-            [
-                'attribute' => 'is_deleted',
-                'value' => $model->getStatus()->label,
-            ],
-        ],
-    ]) ?>
-
 
     
 </div>

@@ -14,8 +14,9 @@ use dosamigos\ckeditor\CKEditor;
 <div class="newsletter-form">
     <div class="row">
         <div class="box box-primary">
+            <div class="box-body">
             <?php $form = ActiveForm::begin(); ?>
-                <div class="box-body">
+                
                     <?= $form->field($model, 'subject')->textInput() ?>
                     
                     <?= $form->field($model, 'message')->widget(CKEditor::className(), [
@@ -24,11 +25,12 @@ use dosamigos\ckeditor\CKEditor;
                         ]) 
                     ?>
                     
-                    <div class="form-group">    
+                    <div class="form-group pull-right">    
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                     </div>
-                </div>
+                
             <?php ActiveForm::end(); ?>
+               </div>
         </div>
     </div>
 </div>

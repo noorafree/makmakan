@@ -19,7 +19,7 @@ class FaqSearch extends Faq
     public function rules()
     {
         return [
-            [['id', 'faq_order', 'is_disabled', 'is_deleted'], 'integer'],
+            [['id', 'faq_order', 'is_disabled', 'status'], 'integer'],
             [['question', 'answer', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
@@ -45,7 +45,7 @@ class FaqSearch extends Faq
         $query = Faq::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->where(['is_deleted' => Status::STATUS_ACTIVE]),
+            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
         ]);
 
         $this->load($params);
@@ -60,7 +60,7 @@ class FaqSearch extends Faq
             'id' => $this->id,
             'faq_order' => $this->faq_order,
             'is_disabled' => $this->is_disabled,
-            'is_deleted' => $this->is_deleted,
+            'status' => $this->status,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
         ]);

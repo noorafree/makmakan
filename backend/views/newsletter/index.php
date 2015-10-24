@@ -14,43 +14,63 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="newsletter-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Newsletter', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-<!-- http://www.bsourcecode.com/yiiframework2/gridview-in-yiiframework-2-0/  referensi tentang gridview -->
-    <?= GridView::widget([
+    <!-- http://www.bsourcecode.com/yiiframework2/gridview-in-yiiframework-2-0/  referensi tentang gridview -->
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'summary'=> '', // menghilangkan tampilan total item 'summary' => '{begin} - {end} {count} {totalCount} {page} {pageCount}',
+        'summary' => '', // menghilangkan tampilan total item 'summary' => '{begin} - {end} {count} {totalCount} {page} {pageCount}',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'subject:ntext',
             'message:html',
             [
-                'attribute' => 'is_deleted',
+                'attribute' => 'status',
                 'format' => 'html',
                 'value' => function ($model) {
-                        if ($model->is_deleted === Status::STATUS_ACTIVE) {
-                            $class = 'label-success';
-                        } elseif ($model->is_deleted === Status::STATUS_INACTIVE) {
-                            $class = 'label-warning';
-                        } else {
-                            $class = 'label-danger';
-                        }
+                    if ($model->status === Status::STATUS_ACTIVE) {
+                        $class = 'label-success';
+                    } elseif ($model->status === Status::STATUS_INACTIVE) {
+                        $class = 'label-warning';
+                    } else {
+                        $class = 'label-danger';
+                    }
 
-                        return '<span class="label ' . $class . '">' . $model->getStatus()->label . '</span>';
-                    },
-                /*'filter' => Html::activeDropDownList(
-                        $searchModel,
-                        'is_deleted',
-                        Status::labels(),
-                        ['class' => 'form-control', 'prompt' => 'Please Select']
-                    )*/
-                'filter' => '',
+                    return '<span class="label ' . $class . '">' . $model->getStatus()->label . '</span>';
+                },
+                'filter' => Html::activeDropDownList(
+                        $searchModel, 'status', Status::labels(), ['class' => 'form-control', 'prompt' => 'Please Select']
+                ),
             ],
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete} {inactive}',
+                'buttons' => [
+                    'inactive' => function ($url, $model) {
+                        if ($model->status != Status::STATUS_INACTIVE) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-close"></span>', ['inactive', 'id' => $model->id], [
+                                        'title' => 'Inactive',
+                                        'data' => [
+                                            'confirm' => 'Are you sure you want to inactive this user?',
+                                            'method' => 'post',
+                                        ],
+                            ]);
+                        } else if ($model->status == Status::STATUS_INACTIVE) {
+                            return Html::a('<span class="glyphicon glyphicon-exclamation-sign"></span>', ['active', 'id' => $model->id], [
+                                        'title' => 'Active',
+                                        'data' => [
+                                            'confirm' => 'Are you sure you want to actived this user?',
+                                            'method' => 'post',
+                                        ],
+                            ]);
+                        } else {
+                            return '<span class="glyphicon glyphicon-eye-close "></span>';
+                        }
+                    }
+                        ],
+                    ],
+                ],
+            ]);
+            ?>
 
 </div>

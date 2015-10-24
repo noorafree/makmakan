@@ -12,7 +12,7 @@ use Yii;
  * @property string $answer
  * @property integer $faq_order
  * @property integer $is_disabled
- * @property integer $is_deleted
+ * @property integer $status
  * @property string $created_by
  * @property string $created_date
  * @property string $modified_by
@@ -30,6 +30,16 @@ class Faq extends \yii\db\ActiveRecord
             self::NO =>'No',
         );
     }
+    
+    private $_status;
+
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
 
     /**
      * @inheritdoc
@@ -45,9 +55,9 @@ class Faq extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['question', 'answer', 'is_disabled', 'is_deleted', 'created_by', 'modified_by'], 'required'],
+            [['question', 'answer', 'is_disabled', 'status', 'created_by', 'modified_by'], 'required'],
             [['question', 'answer'], 'string'],
-            [['faq_order', 'is_disabled', 'is_deleted'], 'integer'],
+            [['faq_order', 'is_disabled', 'status'], 'integer'],
             [['created_date', 'modified_date'], 'safe'],
             [['created_by', 'modified_by'], 'string', 'max' => 30]
         ];
@@ -64,7 +74,7 @@ class Faq extends \yii\db\ActiveRecord
             'answer' => 'Answer',
             'faq_order' => 'Faq Order',
             'is_disabled' => 'Disabled',
-            'is_deleted' => 'Status',
+            'status' => 'Status',
             'created_by' => 'Created By',
             'created_date' => 'Created Date',
             'modified_by' => 'Modified By',

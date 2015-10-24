@@ -122,6 +122,46 @@ class FaqController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionInactive($id)
+    {
+        if($id == Yii::$app->user->identity->id)
+             throw new NotFoundHttpException('The requested page does not exist.'); 
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null)
+            {
+                $model->status = Status::STATUS_INACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionActive($id)
+    {
+        if($id == Yii::$app->user->identity->id)
+             throw new NotFoundHttpException('The requested page does not exist.'); 
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null)
+            {
+                $model->status = Status::STATUS_ACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
     /**
      * Finds the Faq model based on its primary key value.

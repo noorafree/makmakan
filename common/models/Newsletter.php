@@ -15,7 +15,7 @@ use common\models\Status;
  * @property string $created_date
  * @property string $last_modified_by
  * @property string $last_modified_date
- * @property integer $is_deleted
+ * @property integer $status
  */
 class Newsletter extends \yii\db\ActiveRecord
 {
@@ -24,7 +24,7 @@ class Newsletter extends \yii\db\ActiveRecord
     public function getStatus()
     {
         if ($this->_status === null) {
-            $this->_status = new Status($this->is_deleted);
+            $this->_status = new Status($this->status);
         }
         return $this->_status;
     }
@@ -42,10 +42,10 @@ class Newsletter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subject', 'message', 'created_by', 'created_date', 'last_modified_by', 'last_modified_date', 'is_deleted'], 'required'],
+            [['subject', 'message', 'created_by', 'created_date', 'last_modified_by', 'last_modified_date', 'status'], 'required'],
             [['subject', 'message'], 'string'],
             [['created_date', 'last_modified_date'], 'safe'],
-            [['is_deleted'], 'integer'],
+            [['status'], 'integer'],
             [['created_by', 'last_modified_by'], 'string', 'max' => 30]
         ];
     }
@@ -63,7 +63,7 @@ class Newsletter extends \yii\db\ActiveRecord
             'created_date' => 'Created Date',
             'last_modified_by' => 'Last Modified By',
             'last_modified_date' => 'Last Modified Date',
-            'is_deleted' => 'Status',
+            'status' => 'Status',
         ];
     }
 }

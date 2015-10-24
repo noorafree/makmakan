@@ -79,8 +79,6 @@ class AdminController extends Controller
      */
     public function actionView($id)
     {
-        //if(!Yii::$app->user->can('viewUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -106,6 +104,7 @@ class AdminController extends Controller
                 
                 $model->image = 'uploads/admin/'.$imageName.'.'.$model->file->extension;
             }
+            $model->status = Admin::STATUS_ACTIVE;
             $model->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -180,7 +179,6 @@ class AdminController extends Controller
         
     }
 
-
     public function actionInactive($id)
     {
         //if(!Yii::$app->user->can('deleteUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
@@ -196,6 +194,31 @@ class AdminController extends Controller
             if ($model !== null)
             {
                 $model->status = Admin::STATUS_INACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionActive($id)
+    {
+        //if(!Yii::$app->user->can('deleteUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
+
+        //$this->findModel($id)->delete();
+        //return $this->redirect(['index']);
+        if($id == Yii::$app->user->identity->id)
+             throw new NotFoundHttpException('The requested page does not exist.'); 
+
+        $model = $this->findModel($id);
+        $model->setScenario('admin-active');
+        if (Yii::$app->request->post()) {
+            if ($model !== null)
+            {
+                $model->status = Admin::STATUS_ACTIVE;
                 $model->update(array('status'));
             }
 

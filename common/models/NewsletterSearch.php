@@ -19,7 +19,7 @@ class NewsletterSearch extends Newsletter
     public function rules()
     {
         return [
-            [['id', 'is_deleted'], 'integer'],
+            [['id', 'status'], 'integer'],
             [['subject', 'message', 'created_by', 'created_date', 'last_modified_by', 'last_modified_date'], 'safe'],
         ];
     }
@@ -45,7 +45,7 @@ class NewsletterSearch extends Newsletter
         $query = Newsletter::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->where(['is_deleted' => Status::STATUS_ACTIVE]),
+            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
         ]);
 
         $this->load($params);
@@ -60,7 +60,7 @@ class NewsletterSearch extends Newsletter
             'id' => $this->id,
             'created_date' => $this->created_date,
             'last_modified_date' => $this->last_modified_date,
-            'is_deleted' => $this->is_deleted,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'subject', $this->subject])

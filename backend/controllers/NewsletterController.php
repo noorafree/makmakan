@@ -68,7 +68,7 @@ class NewsletterController extends Controller
             $model->created_date = date('Y-m-d h:m:s');
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
-            $model->is_deleted = Status::STATUS_ACTIVE;
+            $model->status = Status::STATUS_ACTIVE;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -112,8 +112,48 @@ class NewsletterController extends Controller
         if (Yii::$app->request->post()) {
             if ($model !== null)
             {
-                $model->is_deleted = Status::STATUS_DELETED;
-                $model->update(array('is_deleted'));
+                $model->status = Status::STATUS_DELETED;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionInactive($id)
+    {
+        if($id == Yii::$app->user->identity->id)
+             throw new NotFoundHttpException('The requested page does not exist.'); 
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null)
+            {
+                $model->status = Status::STATUS_INACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionActive($id)
+    {
+        if($id == Yii::$app->user->identity->id)
+             throw new NotFoundHttpException('The requested page does not exist.'); 
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null)
+            {
+                $model->status = Status::STATUS_ACTIVE;
+                $model->update(array('status'));
             }
 
             if (!isset($_GET['ajax']))
