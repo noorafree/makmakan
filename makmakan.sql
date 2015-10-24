@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2015 at 07:30 PM
--- Server version: 5.6.24
--- PHP Version: 5.6.8
+-- Generation Time: Oct 24, 2015 at 08:45 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `birthdate` date DEFAULT NULL,
@@ -41,8 +41,12 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `role` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
   `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `updated_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `password_reset_token` (`password_reset_token`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `admin`
@@ -62,7 +66,8 @@ INSERT INTO `admin` (`id`, `name`, `address`, `birthdate`, `image`, `username`, 
 CREATE TABLE IF NOT EXISTS `auth_assignment` (
   `item_name` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` int(11) DEFAULT NULL
+  `created_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`item_name`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -78,7 +83,10 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   `rule_name` varchar(64) DEFAULT NULL,
   `data` text,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  KEY `rule_name` (`rule_name`),
+  KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -88,10 +96,12 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
 --
 
 CREATE TABLE IF NOT EXISTS `auth_operation` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11406 DEFAULT CHARSET=utf8;
+  `name` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11406 ;
 
 --
 -- Dumping data for table `auth_operation`
@@ -118,11 +128,12 @@ INSERT INTO `auth_operation` (`id`, `parent_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `auth_role` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `operation_list` text
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `operation_list` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `auth_role`
@@ -141,7 +152,7 @@ INSERT INTO `auth_role` (`id`, `name`, `description`, `operation_list`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `company` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `slider_amount` tinyint(2) DEFAULT NULL,
   `title` varchar(30) DEFAULT NULL,
   `name` varchar(30) DEFAULT NULL,
@@ -165,15 +176,16 @@ CREATE TABLE IF NOT EXISTS `company` (
   `created_by` varchar(30) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_modified_by` varchar(30) NOT NULL,
-  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `company`
 --
 
 INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchashing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
-(1, NULL, NULL, NULL, '<p>ssadsdaasdsdasadsad</p>\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'makmakan', '2015-10-14 09:39:27', 'admin', '2015-10-14 03:10:27');
+(1, NULL, NULL, NULL, '<p>ssadsdaasdsdasadsad</p>\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p>testdelivey guide</p>\r\n', NULL, '<p>testing</p>\r\n', NULL, NULL, 'makmakan', '2015-10-24 06:36:25', 'admin', '2015-10-24 06:36:25');
 
 -- --------------------------------------------------------
 
@@ -182,7 +194,7 @@ INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phon
 --
 
 CREATE TABLE IF NOT EXISTS `faq` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
   `answer` text NOT NULL,
   `faq_order` int(11) DEFAULT NULL,
@@ -191,8 +203,9 @@ CREATE TABLE IF NOT EXISTS `faq` (
   `created_by` varchar(30) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `faq`
@@ -211,7 +224,8 @@ INSERT INTO `faq` (`id`, `question`, `answer`, `faq_order`, `is_disabled`, `is_d
 
 CREATE TABLE IF NOT EXISTS `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL
+  `apply_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -229,15 +243,16 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `newsletter` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `subject` text NOT NULL,
   `message` text NOT NULL,
   `created_by` varchar(30) NOT NULL,
   `created_date` datetime NOT NULL,
   `last_modified_by` varchar(30) NOT NULL,
   `last_modified_date` datetime NOT NULL,
-  `is_deleted` tinyint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `is_deleted` tinyint(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `newsletter`
@@ -254,15 +269,16 @@ INSERT INTO `newsletter` (`id`, `subject`, `message`, `created_by`, `created_dat
 --
 
 CREATE TABLE IF NOT EXISTS `sn_bank` (
-  `id` int(10) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `bank` varchar(50) NOT NULL,
   `is_disabled` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(30) NOT NULL,
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_by` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `modified_by` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -271,14 +287,15 @@ CREATE TABLE IF NOT EXISTS `sn_bank` (
 --
 
 CREATE TABLE IF NOT EXISTS `sn_product_category` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
   `status` smallint(6) NOT NULL,
   `created_by` varchar(30) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `sn_product_category`
@@ -297,7 +314,7 @@ INSERT INTO `sn_product_category` (`id`, `category`, `status`, `created_by`, `cr
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `birthdate` date NOT NULL,
@@ -321,8 +338,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `password_reset_token` (`password_reset_token`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `user`
@@ -331,264 +352,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
 (1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
-
---
--- Indexes for table `auth_assignment`
---
-ALTER TABLE `auth_assignment`
-  ADD PRIMARY KEY (`item_name`,`user_id`);
-
---
--- Indexes for table `auth_item`
---
-ALTER TABLE `auth_item`
-  ADD PRIMARY KEY (`name`), ADD KEY `rule_name` (`rule_name`), ADD KEY `type` (`type`);
-
---
--- Indexes for table `auth_operation`
---
-ALTER TABLE `auth_operation`
-  ADD PRIMARY KEY (`id`), ADD KEY `parent_id` (`parent_id`);
-
---
--- Indexes for table `auth_role`
---
-ALTER TABLE `auth_role`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `company`
---
-ALTER TABLE `company`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `faq`
---
-ALTER TABLE `faq`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `migration`
---
-ALTER TABLE `migration`
-  ADD PRIMARY KEY (`version`);
-
---
--- Indexes for table `newsletter`
---
-ALTER TABLE `newsletter`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sn_bank`
---
-ALTER TABLE `sn_bank`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sn_product_category`
---
-ALTER TABLE `sn_product_category`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT for table `auth_operation`
---
-ALTER TABLE `auth_operation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11406;
---
--- AUTO_INCREMENT for table `auth_role`
---
-ALTER TABLE `auth_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `company`
---
-ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `faq`
---
-ALTER TABLE `faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `newsletter`
---
-ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `sn_bank`
---
-ALTER TABLE `sn_bank`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `sn_product_category`
---
-ALTER TABLE `sn_product_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
---
--- Table structure for table `sn_bank`
---
-
-CREATE TABLE IF NOT EXISTS `sn_bank` (
-  `id` int(10) NOT NULL,
-  `bank` varchar(50) NOT NULL,
-  `is_disabled` tinyint(1) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_by` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
---
--- Indexes for table `sn_bank`
---
-ALTER TABLE `sn_bank`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for table `sn_bank`
---
-ALTER TABLE `sn_bank`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
-CREATE TABLE IF NOT EXISTS `faq` (
-  `id` int(11) NOT NULL,
-  `question` text NOT NULL,
-  `answer` text NOT NULL,
-  `faq_order` int(11) DEFAULT NULL,
-  `is_disabled` tinyint(2) NOT NULL,
-  `is_deleted` tinyint(2) NOT NULL,
-  `created_by` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `modified_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `faq`
---
-
-INSERT INTO `faq` (`id`, `question`, `answer`, `faq_order`, `is_disabled`, `is_deleted`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
-(2, '<p>test</p>\r\n', '<p>test</p>\r\n', NULL, 0, -1, 'admin', '2015-10-14 06:16:49', 'admin', '2015-10-13 23:10:54'),
-(3, '<p>sdasad</p>\r\n', '<p>sadsda</p>\r\n', NULL, 1, 1, 'admin', '2015-10-14 00:10:18', 'admin', '2015-10-14 00:10:18'),
-(4, '<p>sadsasda</p>\r\n', '<p>sdasadsad</p>\r\n', NULL, 0, 1, 'admin', '2015-10-14 00:10:12', 'admin', '2015-10-14 00:10:12');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `faq`
---
-ALTER TABLE `faq`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `faq`
---
-ALTER TABLE `faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
-
---
--- Struktur dari tabel `company`
---
-
-CREATE TABLE IF NOT EXISTS `company` (
-  `id` int(11) NOT NULL,
-  `slider_amount` tinyint(2) DEFAULT NULL,
-  `title` varchar(30) DEFAULT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `about_us` text,
-  `phone` varchar(15) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `longitude` varchar(100) DEFAULT NULL,
-  `latitude` varchar(100) DEFAULT NULL,
-  `twitter_url` varchar(100) DEFAULT NULL,
-  `facebook_url` varchar(100) DEFAULT NULL,
-  `instagram_url` varchar(100) DEFAULT NULL,
-  `gplus_url` varchar(100) DEFAULT NULL,
-  `terms_and_condition` text,
-  `purchashing_guide` text,
-  `payment_guide` text,
-  `delivery_guide` text,
-  `return_policy` text,
-  `privacy_policy` text,
-  `logo_path` varchar(100) DEFAULT NULL,
-  `favicon_path` varchar(100) DEFAULT NULL,
-  `created_by` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `last_modified_by` varchar(30) NOT NULL,
-  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `company`
---
-
-INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchashing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
-(1, NULL, NULL, NULL, '<p>ssadsdaasdsdasadsad</p>\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'makmakan', '2015-10-14 09:39:27', 'admin', '2015-10-14 03:10:27');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `company`
---
-ALTER TABLE `company`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `company`
---
-ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -16,12 +16,12 @@ class CompanyController extends Controller {
 
     public function behaviors() {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+        'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+        'delete' => ['post'],
+        ],
+        ],
         ];
     }
 
@@ -34,8 +34,8 @@ class CompanyController extends Controller {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -46,7 +46,7 @@ class CompanyController extends Controller {
      */
     public function actionView($id) {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+        'model' => $this->findModel($id),
         ]);
     }
 
@@ -62,7 +62,7 @@ class CompanyController extends Controller {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                        'model' => $model,
+            'model' => $model,
             ]);
         }
     }
@@ -80,7 +80,7 @@ class CompanyController extends Controller {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                        'model' => $model,
+            'model' => $model,
             ]);
         }
     }
@@ -119,7 +119,7 @@ class CompanyController extends Controller {
             return $this->redirect(['general', 'id' => $model->id]);
         } else {
             return $this->render('general', [
-                        'model' => $model,
+            'model' => $model,
             ]);
         }
     }
@@ -134,15 +134,39 @@ class CompanyController extends Controller {
             return $this->redirect(['view-about-us', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                        'model' => $model,
+            'model' => $model,
             ]);
         }
     }
 
     public function actionViewAboutUs($id) {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+        'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionPrivacyPolicy($id = 1) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['privacy-policy', 'id' => $model->id]);
+        } else {
+            return $this->render('privacy-policy', [
+            'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionDeliveryGuide($id = 1) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['delivery-guide', 'id' => $model->id]);
+        } else {
+            return $this->render('delivery-guide', [
+            'model' => $model,
+            ]);
+        }
     }
 
 }
