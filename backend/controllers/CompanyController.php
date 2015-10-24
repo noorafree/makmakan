@@ -95,22 +95,14 @@ class CompanyController extends Controller {
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['purchasing-guide', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Update Success.');
+            return $this->refresh();
         } else {
             return $this->render('purchasing-guide', [
                         'model' => $model,
             ]);
         }
     }
-
-    /*  public function actionViewPurchasingGuide($id)
-      {
-      return $this->render('view', [
-      'model' => $this->findModel($id),
-      ]);
-      }
-     */
-
     public function actionReturnPolicy($id = 1) {
         $model = $this->findModel($id);
 
@@ -118,7 +110,8 @@ class CompanyController extends Controller {
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['return-policy', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Update Success.');
+            return $this->refresh();
         } else {
             return $this->render('return-policy', [
                         'model' => $model,
@@ -142,7 +135,8 @@ class CompanyController extends Controller {
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['terms-and-agreement', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Update Success.');
+            return $this->refresh();
         } else {
             return $this->render('terms-and-agreement', [
                         'model' => $model,
@@ -150,12 +144,19 @@ class CompanyController extends Controller {
         }
     }
 
-    /*
-      public function actionViewTermsAndAgreement($id)
-      {
-      return $this->render('view', [
-      'model' => $this->findModel($id),
-      ]);
-      }
+    /**
+     * Finds the Faq model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Faq the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
      */
+    protected function findModel($id)
+    {
+        if (($model = Company::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }
