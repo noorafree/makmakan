@@ -32,7 +32,8 @@ class CompanyController extends Controller {
             $model->last_modified_by = Yii::$app->user->identity->username;
             $model->last_modified_date = date('Y-m-d h:m:s');
             $model->save();
-            return $this->redirect(['general', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Update Success.');
+            return $this->refresh();
         } else {
             return $this->render('general', [
                         'model' => $model,
