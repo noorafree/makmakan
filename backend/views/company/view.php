@@ -29,6 +29,22 @@ $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
                 'visible' => Yii::$app->controller->action->id == 'view-purchasing-guide' ? true : false,
             ],
         ],
+         'attributes' => [
+            [
+                'attribute' => 'return_policy',
+                'format' => 'html',
+                'value' => $model->return_policy,
+                'visible' => Yii::$app->controller->action->id == 'view-return-policy' ? true : false,
+            ],
+        ],
+         'attributes' => [
+            [
+                'attribute' => 'terms_and_condition',
+                'format' => 'html',
+                'value' => $model->terms_and_condition,
+                'visible' => Yii::$app->controller->action->id == 'view-terms-and-agreement' ? true : false,
+            ],
+        ],
     ]) ?>
 
 </div>
