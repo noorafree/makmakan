@@ -36,15 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <p style="text-align: right">
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Change Password', ['/site/change-password', 'id' => Yii::$app->user->identity->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
 </div>
