@@ -33,12 +33,10 @@ class SnProductCategoryController extends Controller {
     public function actionIndex() {
         $searchModel = new SnProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $arrayStatus = SnProductCategory::getArrayStatus();
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'arrayStatus' => $arrayStatus,
         ]);
     }
 
@@ -59,7 +57,7 @@ class SnProductCategoryController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
-        $model = new SnProductCategory(['scenario' => 'sn-product-category-create']);
+        $model = new SnProductCategory();
 
         if ($model->load(Yii::$app->request->post())) {
             $model->created_by = Yii::$app->user->identity->username;
@@ -68,6 +66,7 @@ class SnProductCategoryController extends Controller {
             $model->modified_date = date('Y-m-d h:m:s');
             $model->status = Status::STATUS_ACTIVE;
             $model->save();
+            Yii::$app->session->setFlash('success', 'Insert Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -84,9 +83,9 @@ class SnProductCategoryController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-        $model->setScenario('sn-product-category-update');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Update Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -102,23 +101,21 @@ class SnProductCategoryController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        //$this->findModel($id)->delete();
-        //$model->setScenario('sn-product-category-delete');
-        //return $this->redirect(['index']);
 
         if ($id == Yii::$app->user->identity->id)
             throw new NotFoundHttpException('The requested page does not exist.');
 
         $model = $this->findModel($id);
-        $model->setScenario('sn-product-category-delete');
         if (Yii::$app->request->post()) {
             if ($model !== null) {
-                $model->status = SnProductCategory::STATUS_DELETED;
+                $model->status = STATUS::STATUS_DELETED;
                 $model->update(array('status'));
             }
 
-            if (!isset($_GET['ajax']))
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Delete Success.');
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
@@ -132,15 +129,16 @@ class SnProductCategoryController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
 
         $model = $this->findModel($id);
-        $model->setScenario('sn-product-category-inactive');
         if (Yii::$app->request->post()) {
             if ($model !== null) {
-                $model->status = SnProductCategory::STATUS_INACTIVE;
+                $model->status = STATUS::STATUS_INACTIVE;
                 $model->update(array('status'));
             }
 
-            if (!isset($_GET['ajax']))
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Inactive Success.');
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
@@ -154,8 +152,28 @@ class SnProductCategoryController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-       if (($model = SnProductCategory::findOne(['id' => $id, 'status' => [SnProductCategory::STATUS_ACTIVE, SnProductCategory::STATUS_INACTIVE]])) !== null) {
+        if (($model = SnProductCategory::findOne(['id' => $id, 'status' => [STATUS::STATUS_ACTIVE, STATUS::STATUS_INACTIVE]])) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionActive($id) {
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = Status::STATUS_ACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Activate Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

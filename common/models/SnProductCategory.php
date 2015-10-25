@@ -21,12 +21,16 @@ use yii\helpers\ArrayHelper;
  * @property string $modified_date
  */
 class SnProductCategory extends \yii\db\ActiveRecord {
+    
+    private $_status;
 
-    const STATUS_DELETED = -1;
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-
-    private $_statusLabel;
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
 
     /**
      * @inheritdoc
@@ -60,40 +64,6 @@ class SnProductCategory extends \yii\db\ActiveRecord {
             'created_date' => 'Created Date',
             'modified_by' => 'Modified By',
             'modified_date' => 'Modified Date',
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function getArrayStatus() {
-        return [
-            self::STATUS_ACTIVE => Yii::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_INACTIVE => Yii::t('app', 'STATUS_INACTIVE'),
-            self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getStatusLabel() {
-        if ($this->_statusLabel === null) {
-            $statuses = self::getArrayStatus();
-            $this->_statusLabel = $statuses[$this->status];
-        }
-        return $this->_statusLabel;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function scenarios() {
-        return [
-            'sn-product-category-create' => ['category', 'status'],
-            'sn-product-category-update' => ['category', 'status'],
-            'sn-product-category-delete' => ['status'],
-            'sn-product-category-inactive' => ['status'],
         ];
     }
 

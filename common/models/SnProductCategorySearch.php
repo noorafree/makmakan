@@ -44,7 +44,7 @@ class SnProductCategorySearch extends SnProductCategory
         $query = SnProductCategory::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->where(['status' => Status::STATUS_ACTIVE]),
+            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
         ]);
 
         $this->load($params);

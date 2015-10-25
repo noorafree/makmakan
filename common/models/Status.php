@@ -70,9 +70,9 @@ class Status
     public static function labels($id = null)
     {
         $data = [
-            self::STATUS_ACTIVE => 'STATUS_ACTIVE',
-            self::STATUS_INACTIVE => 'STATUS_INACTIVE',
-            self::STATUS_DELETED => 'STATUS_DELETED',
+            self::STATUS_ACTIVE => 'ACTIVE',
+            self::STATUS_INACTIVE => 'INACTIVE',
+            self::STATUS_DELETED => 'DELETED',
         ];
 
         if ($id !== null && isset($data[$id])) {
