@@ -138,7 +138,14 @@ use yii\helpers\Html;
                                         ['label' => 'Create Newsletter', 'icon' => 'fa fa-edit', 'url' => ['/newsletter/create']],
                                     ],
                                 ],
-                                ['label' => 'Subscriber List', 'icon' => 'fa fa-list-ul', 'url' => ['/subscriber/index']],
+                                [
+                                    'label' => 'Subscriber',
+                                    'url' => '#',
+                                    'items' => [ 
+                                       ['label' => 'Subscriber List', 'icon' => 'fa fa-list-ul', 'url' => ['/subscriber/index']],
+                                        ['label' => 'Create Subscriber', 'icon' => 'fa fa-edit', 'url' => ['/subscriber/create']],
+                                    ],
+                                ],
                                 ['label' => 'Complaint List', 'icon' => 'fa fa-list-ul', 'url' => ['/user-complaint/index']],
                             ],
                         ],

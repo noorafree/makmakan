@@ -17,21 +17,28 @@ use Yii;
  * @property string $modified_date
  * @property integer $status
  */
-class UserComplaint extends \yii\db\ActiveRecord
-{
+class UserComplaint extends \yii\db\ActiveRecord {
+
+    private $_status;
+
+    public function getStatus() {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'user_complaint';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['description', 'user_id', 'complaint_type', 'created_by', 'modified_by', 'status'], 'required'],
             [['description', 'complaint_type'], 'string'],
@@ -44,8 +51,7 @@ class UserComplaint extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'description' => 'Description',

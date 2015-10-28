@@ -5,14 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\SnPaymentMethod */
 
-$this->title = 'Update Sn Payment Method: ' . ' ' . $model->id;
+$this->title = 'Update Sn Payment Method: ' . ' ' . $model->payment_method;
 $this->params['breadcrumbs'][] = ['label' => 'Sn Payment Methods', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->payment_method, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="sn-payment-method-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -17,6 +17,17 @@ use Yii;
  */
 class SnDeliveryAgent extends \yii\db\ActiveRecord
 {
+    
+    private $_status;
+
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+    
     /**
      * @inheritdoc
      */

@@ -6,16 +6,28 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\UserComplaint */
 
-$this->title = $model->id;
+$this->title = $model->user_id;
 $this->params['breadcrumbs'][] = ['label' => 'User Complaints', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-complaint-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            //'id',
+            'description:ntext',
+            'user_id',
+            'complaint_type',
+            //'created_by',
+            //'created_date',
+            //'modified_by',
+            //'modified_date',
+            //'status',
+        ],
+    ]) ?>
+    
+    <p style="text-align: right">
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -23,21 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'description:ntext',
-            'user_id',
-            'complaint_type',
-            'created_by',
-            'created_date',
-            'modified_by',
-            'modified_date',
-            'status',
-        ],
-    ]) ?>
 
 </div>

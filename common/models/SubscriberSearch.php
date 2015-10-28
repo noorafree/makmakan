@@ -44,7 +44,7 @@ class SubscriberSearch extends Subscriber
         $query = Subscriber::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
         ]);
 
         $this->load($params);

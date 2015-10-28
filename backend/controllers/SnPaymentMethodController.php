@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use common\models\Status;
 use common\models\SnPaymentMethod;
 use common\models\SnPaymentMethodSearch;
 use yii\web\Controller;
@@ -62,7 +63,13 @@ class SnPaymentMethodController extends Controller
     {
         $model = new SnPaymentMethod();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->created_by = Yii::$app->user->identity->username;
+            $model->created_date = date('Y-m-d h:m:s');
+            $model->modified_by = Yii::$app->user->identity->username;
+            $model->modified_date = date('Y-m-d h:m:s');
+            $model->status = Status::STATUS_ACTIVE;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -82,6 +89,7 @@ class SnPaymentMethodController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Update Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -98,22 +106,78 @@ class SnPaymentMethodController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
 
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = STATUS::STATUS_DELETED;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Delete Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionInactive($id) {
+        //if(!Yii::$app->user->can('deleteUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
+        //$this->findModel($id)->delete();
+        //return $this->redirect(['index']);
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = STATUS::STATUS_INACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Inactive Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
-     * Finds the SnPaymentMethod model based on its primary key value.
+     * Finds the SnProductCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SnPaymentMethod the loaded model
+     * @return SnProductCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = SnPaymentMethod::findOne($id)) !== null) {
+    protected function findModel($id) {
+        if (($model = SnPaymentMethod::findOne(['id' => $id, 'status' => [STATUS::STATUS_ACTIVE, STATUS::STATUS_INACTIVE]])) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionActive($id) {
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = Status::STATUS_ACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Activate Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
