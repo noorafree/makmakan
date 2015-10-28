@@ -138,8 +138,8 @@ use yii\helpers\Html;
                                         ['label' => 'Create Newsletter', 'icon' => 'fa fa-edit', 'url' => ['/newsletter/create']],
                                     ],
                                 ],
-                                ['label' => 'Subscriber List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                ['label' => 'Complaint List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
+                                ['label' => 'Subscriber List', 'icon' => 'fa fa-list-ul', 'url' => ['/subscriber/index']],
+                                ['label' => 'Complaint List', 'icon' => 'fa fa-list-ul', 'url' => ['/user-complaint/index']],
                             ],
                         ],
                         [
@@ -175,24 +175,24 @@ use yii\helpers\Html;
                                     'label' => 'Review',
                                     'url' => '#',
                                     'items' => [
-                                        ['label' => 'Review List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                        ['label' => 'Create Review', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                        ['label' => 'Review List', 'icon' => 'fa fa-list-ul', 'url' => ['/sn-review/index']],
+                                        ['label' => 'Create Review', 'icon' => 'fa fa-edit', 'url' => ['/sn-review/create']],
                                     ],
                                 ],
                                 [
                                     'label' => 'Delivery Agent',
                                     'url' => '#',
                                     'items' => [
-                                        ['label' => 'Delivery Agent List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                        ['label' => 'Create Delivery Agent', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                        ['label' => 'Delivery Agent List', 'icon' => 'fa fa-list-ul', 'url' => ['/sn-delivery-agent/index']],
+                                        ['label' => 'Create Delivery Agent', 'icon' => 'fa fa-edit', 'url' => ['/sn-delivery-agent/create']],
                                     ],
                                 ],
                                 [
                                     'label' => 'Payment Method',
                                     'url' => '#',
                                     'items' => [
-                                        ['label' => 'Cart Status List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                        ['label' => 'Create Cart Status', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                        ['label' => 'Payment Method List', 'icon' => 'fa fa-list-ul', 'url' => ['/sn-payment-method/index']],
+                                        ['label' => 'Create Payment Method', 'icon' => 'fa fa-edit', 'url' => ['/sn-payment-method/create']],
                                     ],
                                 ],
                             ],
