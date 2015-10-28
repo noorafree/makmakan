@@ -19,13 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'bank') ?>
 
-    <?= $form->field($model, 'is_disabled') ?>
+    <?= $form->field($model, 'status') ?>
 
-    <?= $form->field($model, 'is_deleted') ?>
-
+    <?= $form->field($model, 'created_by') ?>
+    
     <?= $form->field($model, 'created_date') ?>
-
-    <?php // echo $form->field($model, 'created_by') ?>
 
     <?php // echo $form->field($model, 'modified_date') ?>
 

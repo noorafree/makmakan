@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\SnBank;
 use common\models\SnBankSearch;
+use common\models\Status;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,9 +68,9 @@ class SnBankController extends Controller
             $model->created_date = date('Y-m-d h:m:s');
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
-            $model->is_deleted = 0;
-            $model->is_disabled = 0;
+            $model->status = Status::STATUS_ACTIVE;
             $model->save(); 
+            Yii::$app->session->setFlash('success', 'Insert Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -92,6 +93,7 @@ class SnBankController extends Controller
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
             $model->save();
+            Yii::$app->session->setFlash('success', 'Update Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -108,18 +110,65 @@ class SnBankController extends Controller
      */
     public function actionDelete($id)
     {
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
+        
         $model = $this->findModel($id);
         if (Yii::$app->request->post()) {
             if ($model !== null)
             {
-                $model->is_deleted = 1;
+                $model->status = STATUS::STATUS_DELETED;
                 $model->modified_by = Yii::$app->user->identity->username;
                 $model->modified_date = date('Y-m-d h:m:s');
-                $model->update(array('is_deleted'));
+                $model->update(array('status'));
             }
 
             if (!isset($_GET['ajax']))
+                    Yii::$app->session->setFlash('success', 'Delete Success.');
                     $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionInactive($id) {
+        //if(!Yii::$app->user->can('deleteUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
+        //$this->findModel($id)->delete();
+        //return $this->redirect(['index']);
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = STATUS::STATUS_INACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Inactive Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionActive($id) {
+        if ($id == Yii::$app->user->identity->id)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = Status::STATUS_ACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Activate Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
@@ -134,7 +183,7 @@ class SnBankController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = SnBank::findOne($id)) !== null) {
+        if (($model = SnBank::findOne(['id' => $id, 'status' => [STATUS::STATUS_ACTIVE, STATUS::STATUS_INACTIVE]])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

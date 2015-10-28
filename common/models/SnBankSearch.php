@@ -18,7 +18,7 @@ class SnBankSearch extends SnBank
     public function rules()
     {
         return [
-            [['id', 'is_disabled', 'is_deleted'], 'integer'],
+            [['id', 'status'], 'integer'],
             [['bank', 'created_date', 'created_by', 'modified_date', 'modified_by'], 'safe'],
         ];
     }
@@ -44,7 +44,7 @@ class SnBankSearch extends SnBank
         $query = SnBank::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
         ]);
 
         $this->load($params);
@@ -57,8 +57,7 @@ class SnBankSearch extends SnBank
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_disabled' => $this->is_disabled,
-            'is_deleted' => $this->is_deleted,
+            'status' => $this->status,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
         ]);

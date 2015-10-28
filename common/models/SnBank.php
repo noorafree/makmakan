@@ -9,31 +9,37 @@ use Yii;
  *
  * @property integer $id
  * @property string $bank
- * @property integer $is_disabled
- * @property integer $is_deleted
+ * @property integer $status
  * @property string $created_date
  * @property string $created_by
  * @property string $modified_date
  * @property string $modified_by
  */
-class SnBank extends \yii\db\ActiveRecord
-{
+class SnBank extends \yii\db\ActiveRecord {
+
+    private $_status;
+
+    public function getStatus() {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'sn_bank';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['bank', 'is_disabled', 'is_deleted', 'created_by', 'modified_by'], 'required'],
-            [['is_disabled', 'is_deleted'], 'integer'],
+            [['bank', 'status', 'created_by', 'modified_by'], 'required'],
+            [['status'], 'integer'],
             [['created_date', 'modified_date'], 'safe'],
             [['bank'], 'string', 'max' => 50],
             [['created_by', 'modified_by'], 'string', 'max' => 30]
@@ -43,17 +49,16 @@ class SnBank extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'bank' => 'Bank',
-            'is_disabled' => 'Is Disabled',
-            'is_deleted' => 'Is Deleted',
+            'status' => 'Status',
             'created_date' => 'Created Date',
             'created_by' => 'Created By',
             'modified_date' => 'Modified Date',
             'modified_by' => 'Modified By',
         ];
     }
+
 }
