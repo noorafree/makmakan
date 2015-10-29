@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\SnBank;
+use common\models\UserComplaint;
 
 /**
- * SnBankSearch represents the model behind the search form about `common\models\SnBank`.
+ * UserComplaintSearch represents the model behind the search form about `common\models\UserComplaint`.
  */
-class SnBankSearch extends SnBank
+class UserComplaintSearch extends UserComplaint
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class SnBankSearch extends SnBank
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['bank', 'created_date', 'created_by', 'modified_date', 'modified_by'], 'safe'],
+            [['id', 'user_id', 'status'], 'integer'],
+            [['description', 'complaint_type', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SnBankSearch extends SnBank
      */
     public function search($params)
     {
-        $query = SnBank::find();
+        $query = UserComplaint::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
@@ -57,12 +57,14 @@ class SnBankSearch extends SnBank
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'user_id' => $this->user_id,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'bank', $this->bank])
+        $query->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'complaint_type', $this->complaint_type])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
 

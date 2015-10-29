@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2015 at 05:09 PM
+-- Generation Time: Oct 28, 2015 at 06:15 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -265,6 +265,53 @@ CREATE TABLE IF NOT EXISTS `sn_bank` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sn_delivery_agent`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_delivery_agent` (
+  `id` int(11) NOT NULL,
+  `delivery_agent` varchar(50) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` smallint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sn_delivery_agent`
+--
+
+INSERT INTO `sn_delivery_agent` (`id`, `delivery_agent`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(1, 'JNE', 'admin', '2015-10-28 16:06:28', 'admin', '2015-10-27 22:10:02', -1),
+(2, 'asd', 'admin', '2015-10-27 22:10:36', 'admin', '2015-10-27 22:10:36', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sn_payment_method`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_payment_method` (
+  `id` int(11) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` smallint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sn_payment_method`
+--
+
+INSERT INTO `sn_payment_method` (`id`, `payment_method`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(1, 'Kredit', 'admin', '2015-10-27 22:10:14', 'admin', '2015-10-27 22:10:14', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sn_product_category`
 --
 
@@ -276,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `sn_product_category` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` varchar(30) NOT NULL,
   `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sn_product_category`
@@ -286,7 +333,57 @@ INSERT INTO `sn_product_category` (`id`, `category`, `status`, `created_by`, `cr
 (5, 'Arabian Fooddd', -1, 'admin', '2015-10-16 07:52:00', 'admin', '2015-10-16 02:10:25'),
 (6, 'Chinnese Food', 1, 'admin', '2015-10-16 03:10:40', 'admin', '2015-10-16 03:10:40'),
 (7, 'Nasi Cane', -1, 'admin', '2015-10-16 10:00:42', 'admin', '2015-10-16 04:10:25'),
-(8, 'asd', -1, 'admin', '2015-10-16 10:06:06', 'admin', '2015-10-16 05:10:33');
+(8, 'asd', -1, 'admin', '2015-10-16 10:06:06', 'admin', '2015-10-16 05:10:33'),
+(9, 'alamakk', -1, 'admin', '2015-10-25 16:30:52', 'admin', '2015-10-24 22:10:25'),
+(10, 'asd', -1, 'admin', '2015-10-25 17:23:42', 'admin', '2015-10-24 22:10:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sn_review`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_review` (
+  `id` int(11) NOT NULL,
+  `review` varchar(50) NOT NULL,
+  `icon_path` varchar(255) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` smallint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sn_review`
+--
+
+INSERT INTO `sn_review` (`id`, `review`, `icon_path`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(1, 'Good', 'image/good', 'admin', '2015-10-28 16:33:15', 'admin', '2015-10-27 22:10:05', -1),
+(2, 'Bad', 'image/bad', 'admin', '2015-10-28 16:34:04', 'admin', '2015-10-27 22:10:31', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subscriber`
+--
+
+CREATE TABLE IF NOT EXISTS `subscriber` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` smallint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subscriber`
+--
+
+INSERT INTO `subscriber` (`id`, `email`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(1, 'sandy_lalalala@yahoo.comm', 'admin', '2015-10-28 16:58:07', 'admin', '2015-10-27 22:10:56', -1);
 
 -- --------------------------------------------------------
 
@@ -328,6 +425,31 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
 (1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_complaint`
+--
+
+CREATE TABLE IF NOT EXISTS `user_complaint` (
+  `id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `complaint_type` enum('Kualitas Produk','Kesegaran Produk','Pengiriman Produk','Pelayanan','Alasan Lain') NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` smallint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_complaint`
+--
+
+INSERT INTO `user_complaint` (`id`, `description`, `user_id`, `complaint_type`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(1, 'Makanannya ngga enak', 1, 'Kesegaran Produk', 'Sandy', '2015-10-28 16:49:28', 'Sandy', '0000-00-00 00:00:00', 1);
 
 --
 -- Indexes for dumped tables
@@ -394,16 +516,46 @@ ALTER TABLE `sn_bank`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sn_delivery_agent`
+--
+ALTER TABLE `sn_delivery_agent`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_payment_method`
+--
+ALTER TABLE `sn_payment_method`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sn_product_category`
 --
 ALTER TABLE `sn_product_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sn_review`
+--
+ALTER TABLE `sn_review`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subscriber`
+--
+ALTER TABLE `subscriber`
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- Indexes for table `user_complaint`
+--
+ALTER TABLE `user_complaint`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -445,14 +597,39 @@ ALTER TABLE `newsletter`
 ALTER TABLE `sn_bank`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `sn_delivery_agent`
+--
+ALTER TABLE `sn_delivery_agent`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `sn_payment_method`
+--
+ALTER TABLE `sn_payment_method`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `sn_product_category`
 --
 ALTER TABLE `sn_product_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `sn_review`
+--
+ALTER TABLE `sn_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `subscriber`
+--
+ALTER TABLE `subscriber`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `user_complaint`
+--
+ALTER TABLE `user_complaint`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

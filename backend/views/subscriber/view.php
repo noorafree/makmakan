@@ -4,24 +4,28 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\SnBank */
+/* @var $model common\models\Subscriber */
 
-$this->title = $model->bank;
-$this->params['breadcrumbs'][] = ['label' => 'Sn Banks', 'url' => ['index']];
+$this->title = $model->email;
+$this->params['breadcrumbs'][] = ['label' => 'Subscribers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sn-bank-view">
-
-
+<div class="subscriber-view">
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'bank',
+            //'id',
+            'email:email',
+            //'created_by',
+            //'created_date',
+            //'modified_by',
+            //'modified_date',
+            //'status',
         ],
     ]) ?>
     
-     <p style="text-align: right">
+    <p style="text-align: right">
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [

@@ -5,14 +5,13 @@ use yii\grid\GridView;
 use common\models\Status;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\SnBankSearch */
+/* @var $searchModel common\models\SnDeliveryAgentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sn Banks';
+$this->title = 'Sn Delivery Agents';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sn-bank-index">
-
+<div class="sn-delivery-agent-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?=
@@ -23,14 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-//            'id',
-            'bank',
-//            'is_disabled',
-//            'is_deleted',
+            //'id',
+            'delivery_agent',
+            //'created_by',
             //'created_date',
-            // 'created_by',
+            //'modified_by',
             // 'modified_date',
-            // 'modified_by',
+            // 'status',
+            //['class' => 'yii\grid\ActionColumn'],
             [
                 'attribute' => 'status',
                 'format' => 'html',
@@ -79,4 +78,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
+
 </div>

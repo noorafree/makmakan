@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\SnBank;
+use common\models\Subscriber;
 
 /**
- * SnBankSearch represents the model behind the search form about `common\models\SnBank`.
+ * SubscriberSearch represents the model behind the search form about `common\models\Subscriber`.
  */
-class SnBankSearch extends SnBank
+class SubscriberSearch extends Subscriber
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class SnBankSearch extends SnBank
     {
         return [
             [['id', 'status'], 'integer'],
-            [['bank', 'created_date', 'created_by', 'modified_date', 'modified_by'], 'safe'],
+            [['email', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SnBankSearch extends SnBank
      */
     public function search($params)
     {
-        $query = SnBank::find();
+        $query = Subscriber::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
@@ -57,12 +57,12 @@ class SnBankSearch extends SnBank
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'bank', $this->bank])
+        $query->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
 
