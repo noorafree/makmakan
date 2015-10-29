@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\SnProductCategory;
-use common\models\Status;
+use common\models\ProductReview;
+
 /**
- * SnProductCategorySearch represents the model behind the search form about `common\models\SnProductCategory`.
+ * ProductReviewSearch represents the model behind the search form about `common\models\ProductReview`.
  */
-class SnProductCategorySearch extends SnProductCategory
+class ProductReviewSearch extends ProductReview
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class SnProductCategorySearch extends SnProductCategory
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['category', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
+            [['id', 'stars', 'product_id', 'user_id', 'sn_review_id', 'status'], 'integer'],
+            [['description', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SnProductCategorySearch extends SnProductCategory
      */
     public function search($params)
     {
-        $query = SnProductCategory::find();
+        $query = ProductReview::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
@@ -57,12 +57,16 @@ class SnProductCategorySearch extends SnProductCategory
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'stars' => $this->stars,
+            'product_id' => $this->product_id,
+            'user_id' => $this->user_id,
+            'sn_review_id' => $this->sn_review_id,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'category', $this->category])
+        $query->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
 

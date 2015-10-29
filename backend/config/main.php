@@ -1,9 +1,7 @@
 <?php
+
 $params = array_merge(
-    require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+        require(__DIR__ . '/../../common/config/params.php'), require(__DIR__ . '/../../common/config/params-local.php'), require(__DIR__ . '/params.php'), require(__DIR__ . '/params-local.php')
 );
 
 return [
@@ -17,7 +15,7 @@ return [
             'controllerNamespace' => 'funson86\auth\controllers'
         ],
     ],
-    'name'=>'Makmakan',
+    'name' => 'Makmakan',
     'components' => [
         'user' => [
             'identityClass' => 'backend\models\Admin',
@@ -45,6 +43,12 @@ return [
                     'skin' => 'skin-black',
                 ],
             ],
+        ],
+        'formatter' => [
+            'class' => 'yii\i18n\formatter',
+            'thousandSeparator' => ',',
+            'decimalSeparator' => '.',
+            'currencyCode' => 'Rp'
         ],
     ],
     'as beforeRequest' => [

@@ -5,29 +5,27 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\SnProductCategory;
+use common\models\SnReview;
 use common\models\Status;
 /**
- * SnProductCategorySearch represents the model behind the search form about `common\models\SnProductCategory`.
+ * SnReviewSearch represents the model behind the search form about `common\models\SnReview`.
  */
-class SnProductCategorySearch extends SnProductCategory
-{
+class SnReviewSearch extends SnReview {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'status'], 'integer'],
-            [['category', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
+            [['review', 'icon_path', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,9 +37,8 @@ class SnProductCategorySearch extends SnProductCategory
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = SnProductCategory::find();
+    public function search($params) {
+        $query = SnReview::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
@@ -57,15 +54,17 @@ class SnProductCategorySearch extends SnProductCategory
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'category', $this->category])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
+        $query->andFilterWhere(['like', 'review', $this->review])
+                ->andFilterWhere(['like', 'icon_path', $this->icon_path])
+                ->andFilterWhere(['like', 'created_by', $this->created_by])
+                ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
 
         return $dataProvider;
     }
+
 }
