@@ -125,9 +125,6 @@ class FaqController extends Controller
     
     public function actionInactive($id)
     {
-        if($id == Yii::$app->user->identity->id)
-             throw new NotFoundHttpException('The requested page does not exist.'); 
-
         $model = $this->findModel($id);
         if (Yii::$app->request->post()) {
             if ($model !== null)
@@ -145,9 +142,6 @@ class FaqController extends Controller
     
     public function actionActive($id)
     {
-        if($id == Yii::$app->user->identity->id)
-             throw new NotFoundHttpException('The requested page does not exist.'); 
-
         $model = $this->findModel($id);
         if (Yii::$app->request->post()) {
             if ($model !== null)

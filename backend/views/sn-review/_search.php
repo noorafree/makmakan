@@ -25,9 +25,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'created_date') ?>
 
-    <?php // echo $form->field($model, 'modified_by') ?>
+    <?php // echo $form->field($model, 'last_modified_by') ?>
 
-    <?php // echo $form->field($model, 'modified_date') ?>
+    <?php // echo $form->field($model, 'last_modified_date') ?>
 
     <?php // echo $form->field($model, 'status') ?>
 

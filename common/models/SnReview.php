@@ -15,9 +15,12 @@ use Yii;
  * @property string $modified_by
  * @property string $modified_date
  * @property integer $status
+ *
+ * @property ProductReview[] $productReviews
  */
 class SnReview extends \yii\db\ActiveRecord
 {
+    public $file;
     
     private $_status;
 
@@ -40,17 +43,29 @@ class SnReview extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+   
     public function rules()
     {
         return [
-            [['review', 'icon_path', 'created_by', 'modified_by', 'status'], 'required'],
-            [['created_date', 'modified_date'], 'safe'],
+            [['review', 'icon_path', 'created_by', 'created_date', 'modified_by', 'modified_date', 'status'], 'required'],
+            [['created_date', 'file', 'modified_date'], 'safe'],
             [['status'], 'integer'],
             [['review'], 'string', 'max' => 50],
-            [['icon_path'], 'string', 'max' => 255],
-            [['created_by', 'modified_by'], 'string', 'max' => 30]
+            [['icon_path'], 'string', 'max' => 100],
+            [['created_by', 'modified_by'], 'string', 'max' => 30],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024],
         ];
     }
+    
+    public function scenarios()
+    {
+        return [
+            'sn-review-create' => ['file', 'review', 'icon_path', 'created_by', 'created_date', 'modified_by', 'modified_date', 'status'],            
+            'sn-review-update' => ['review', 'icon_path', 'modified_by', 'modified_date', 'status'],            
+            'sn-review-status' => ['status'],
+        ];
+    }
+    
 
     /**
      * @inheritdoc
@@ -66,6 +81,15 @@ class SnReview extends \yii\db\ActiveRecord
             'modified_by' => 'Modified By',
             'modified_date' => 'Modified Date',
             'status' => 'Status',
+            'file' => 'Icon File',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductReviews()
+    {
+        return $this->hasMany(ProductReview::className(), ['sn_review_id' => 'id']);
     }
 }

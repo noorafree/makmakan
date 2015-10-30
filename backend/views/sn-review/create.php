@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Sn Reviews', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sn-review-create">
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

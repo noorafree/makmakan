@@ -13,25 +13,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sn-review-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' => ['class' => 'table table-bordered table-hover'],
-        'summary' => '',
+        'summary'=> '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            //'id',
-            'review',
-            'icon_path',
-            //'created_by',
-            //'created_date',
-            // 'modified_by',
-            // 'modified_date',
-            // 'status',
-            //['class' => 'yii\grid\ActionColumn'],
+            'review:html',
             [
                 'attribute' => 'status',
                 'format' => 'html',
@@ -59,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['inactive', 'id' => $model->id], [
                                         'title' => 'Inactive',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to deactive this user?',
+                                            'confirm' => 'Are you sure you want to inactive this user?',
                                             'method' => 'post',
                                         ],
                             ]);
@@ -67,12 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['active', 'id' => $model->id], [
                                         'title' => 'Active',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to activate this user?',
+                                            'confirm' => 'Are you sure you want to actived this user?',
                                             'method' => 'post',
                                         ],
                             ]);
                         } else {
-                            return '<span class="glyphicon glyphicon-ok"></span>';
+                            return '<span class="glyphicon glyphicon-eye-close "></span>';
                         }
                     }
                         ],

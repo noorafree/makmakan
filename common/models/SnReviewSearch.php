@@ -6,17 +6,16 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\SnReview;
-
+use common\models\Status;
 /**
  * SnReviewSearch represents the model behind the search form about `common\models\SnReview`.
  */
-class SnReviewSearch extends SnReview
-{
+class SnReviewSearch extends SnReview {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'status'], 'integer'],
             [['review', 'icon_path', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
@@ -26,8 +25,7 @@ class SnReviewSearch extends SnReview
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class SnReviewSearch extends SnReview
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = SnReview::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -63,10 +60,11 @@ class SnReviewSearch extends SnReview
         ]);
 
         $query->andFilterWhere(['like', 'review', $this->review])
-            ->andFilterWhere(['like', 'icon_path', $this->icon_path])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
+                ->andFilterWhere(['like', 'icon_path', $this->icon_path])
+                ->andFilterWhere(['like', 'created_by', $this->created_by])
+                ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
 
         return $dataProvider;
     }
+
 }

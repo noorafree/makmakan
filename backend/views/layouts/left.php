@@ -13,7 +13,7 @@ use yii\helpers\Html;
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-<?= Html::Img(Html::Encode(Yii::$app->user->identity->image), ['alt' => 'User Image', 'class' => 'img-circle']); ?>
+                <?= Html::Img(Html::Encode(Yii::$app->user->identity->image), ['alt' => 'User Image', 'class' => 'img-circle']); ?>
             </div>
             <div class="pull-left info">
                 <p><?= Html::Encode(Yii::$app->user->identity->name); ?></p>
@@ -92,8 +92,8 @@ use yii\helpers\Html;
                             'label' => 'Product Management',
                             'url' => '#',
                             'items' => [
-                                ['label' => 'Product List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                ['label' => 'Create Product', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                ['label' => 'Product List', 'icon' => 'fa fa-list-ul', 'url' => ['/product/index']],
+                                ['label' => 'Create Product', 'icon' => 'fa fa-edit', 'url' => ['/product/create']],
                             ],
                         ],
                         [

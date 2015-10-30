@@ -3,20 +3,20 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Status;
 use common\models\SnReview;
 use common\models\SnReviewSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Status;
+use yii\web\UploadedFile;
 
 /**
  * SnReviewController implements the CRUD actions for SnReview model.
  */
-class SnReviewController extends Controller
-{
-    public function behaviors()
-    {
+class SnReviewController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -31,14 +31,13 @@ class SnReviewController extends Controller
      * Lists all SnReview models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new SnReviewSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -47,10 +46,9 @@ class SnReviewController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -59,9 +57,8 @@ class SnReviewController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new SnReview();
+    public function actionCreate() {
+        $model = new SnReview(['scenario' => 'sn-review-create']);
 
         if ($model->load(Yii::$app->request->post())) {
             $model->created_by = Yii::$app->user->identity->username;
@@ -69,12 +66,21 @@ class SnReviewController extends Controller
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
             $model->status = Status::STATUS_ACTIVE;
-            $model->save();
-            Yii::$app->session->setFlash('success', 'Insert Success.');
+
+            $imageName = substr(md5(rand()), 0, 7);
+            if (UploadedFile::getInstance($model, 'file')) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $model->icon_path = 'uploads/sn-review/' . $imageName . '.' . $model->file->extension;
+            }
+
+            if ($model->validate() && $model->save()) {
+                $model->file->saveAs('uploads/sn-review/' . $imageName . '.' . $model->file->extension);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -85,102 +91,105 @@ class SnReviewController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
+        $model->setScenario('sn-review-update');
+        if ($model->load(Yii::$app->request->post())) {
+            $model->modified_by = Yii::$app->user->identity->username;
+            $model->modified_date = date('Y-m-d h:m:s');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Update Success.');
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if (isset($model->file->extension)) {
+                unlink(getcwd() . '/' . $model->icon_path);
+
+                $imageName = substr(md5(rand()), 0, 7);
+                if (UploadedFile::getInstance($model, 'file')) {
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    $model->icon_path = 'uploads/sn-review/' . $imageName . '.' . $model->file->extension;
+                }
+            }
+
+            if ($model->validate() && $model->save()) {
+                if (isset($model->file->extension)) {
+                    $model->file->saveAs('uploads/sn-review/' . $imageName . '.' . $model->file->extension);
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
 
     /**
-     * Deletes an existing SnReview model.
+     * Deletes an existing Faq model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-        if ($id == Yii::$app->user->identity->id)
-            throw new NotFoundHttpException('The requested page does not exist.');
-
+    public function actionDelete($id) {
         $model = $this->findModel($id);
+        $model->setScenario('sn-review-status');
         if (Yii::$app->request->post()) {
             if ($model !== null) {
-                $model->status = STATUS::STATUS_DELETED;
+                $model->status = Status::STATUS_DELETED;
                 $model->update(array('status'));
             }
 
-            if (!isset($_GET['ajax'])) {
-                Yii::$app->session->setFlash('success', 'Delete Success.');
+            if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
     public function actionInactive($id) {
-        //if(!Yii::$app->user->can('deleteUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
-        //$this->findModel($id)->delete();
-        //return $this->redirect(['index']);
-        if ($id == Yii::$app->user->identity->id)
-            throw new NotFoundHttpException('The requested page does not exist.');
-
         $model = $this->findModel($id);
+        $model->setScenario('sn-review-status');
         if (Yii::$app->request->post()) {
             if ($model !== null) {
-                $model->status = STATUS::STATUS_INACTIVE;
+                $model->status = Status::STATUS_INACTIVE;
                 $model->update(array('status'));
             }
 
-            if (!isset($_GET['ajax'])) {
-                Yii::$app->session->setFlash('success', 'Inactive Success.');
+            if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-            }
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    /**
-     * Finds the SnProductCategory model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return SnProductCategory the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id) {
-        if (($model = SnReview::findOne(['id' => $id, 'status' => [STATUS::STATUS_ACTIVE, STATUS::STATUS_INACTIVE]])) !== null) {
-            return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
     public function actionActive($id) {
-        if ($id == Yii::$app->user->identity->id)
-            throw new NotFoundHttpException('The requested page does not exist.');
-
         $model = $this->findModel($id);
+        $model->setScenario('sn-review-status');
         if (Yii::$app->request->post()) {
             if ($model !== null) {
                 $model->status = Status::STATUS_ACTIVE;
                 $model->update(array('status'));
             }
 
-            if (!isset($_GET['ajax'])) {
-                Yii::$app->session->setFlash('success', 'Activate Success.');
+            if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * Finds the SnReview model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return SnReview the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id) {
+        if (($model = SnReview::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 }
