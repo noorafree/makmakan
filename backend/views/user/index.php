@@ -5,31 +5,44 @@ use yii\grid\GridView;
 use common\models\Status;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\SnBankSearch */
+/* @var $searchModel common\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sn Banks';
+$this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sn-bank-index">
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<div class="user-index">
 
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' => ['class' => 'table table-bordered table-hover'],
-        'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            'bank',
-//            'is_disabled',
-//            'is_deleted',
-            //'created_date',
-            // 'created_by',
+            'first_name',
+            'last_name',
+            'birthdate',
+            'phone',
+            'mobile',
+            'username',
+            // 'sex',
+            // 'last_login_date',
+            // 'image_path',
+//            'address:ntext',
+            // 'featured',
+            // 'makmakan_credit',
+            // 'bank_account_number',
+            // 'bank_account_name',
+            // 'sn_bank_id',
+            // 'auth_key',
+            // 'password_hash',
+            // 'password_reset_token',
+            // 'email:email',
+            // 'status',
+            // 'created_date',
             // 'modified_date',
+            // 'created_by',
             // 'modified_by',
             [
                 'attribute' => 'status',
@@ -58,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['inactive', 'id' => $model->id], [
                                         'title' => 'Inactive',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to deactive this bank?',
+                                            'confirm' => 'Are you sure you want to deactive this user?',
                                             'method' => 'post',
                                         ],
                             ]);
@@ -66,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['active', 'id' => $model->id], [
                                         'title' => 'Active',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to activate this bank?',
+                                            'confirm' => 'Are you sure you want to activate this user?',
                                             'method' => 'post',
                                         ],
                             ]);
@@ -79,4 +92,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
+
 </div>

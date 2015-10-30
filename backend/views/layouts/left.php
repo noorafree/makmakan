@@ -84,8 +84,8 @@ use yii\helpers\Html;
                             'label' => 'User Management',
                             'url' => '#',
                             'items' => [
-                                ['label' => 'User List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                ['label' => 'Create User', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                ['label' => 'User List', 'icon' => 'fa fa-list-ul', 'url' => ['/user/index']],
+                                ['label' => 'Create User', 'icon' => 'fa fa-edit', 'url' => ['/user/create']],
                             ],
                         ],
                         [
