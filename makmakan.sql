@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   `created_date` datetime NOT NULL,
   `last_modified_by` varchar(30) NOT NULL,
   `last_modified_date` datetime NOT NULL,
-  `is_deleted` tinyint(6) NOT NULL
+  `status` tinyint(6) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
@@ -634,3 +634,109 @@ ALTER TABLE `user_complaint`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL,
+  `plu` varchar(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `selling_price` int(10) NOT NULL,
+  `sn_product_category_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `seen` int(10) NOT NULL,
+  `sold` int(10) NOT NULL,
+  `stock` int(10) NOT NULL,
+  `is_po` tinyint(1) NOT NULL,
+  `po_start_date` date NOT NULL,
+  `po_end_date` date NOT NULL,
+  `expired_date` date NOT NULL,
+  `is_non_halal` tinyint(1) NOT NULL,
+  `minimum_order` int(5) NOT NULL,
+  `is_ready_for_order` tinyint(1) NOT NULL,
+  `featured` tinyint(1) NOT NULL,
+  `description` text NOT NULL,
+  `meta_tag` text NOT NULL,
+  `meta_description` text NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`), ADD KEY `sn_product_category_id` (`sn_product_category_id`), ADD KEY `user_id` (`user_id`), ADD KEY `sn_product_category_id_2` (`sn_product_category_id`);
+
+CREATE TABLE IF NOT EXISTS `product_photo` (
+  `id` int(11) NOT NULL,
+  `image_path` varchar(100) NOT NULL,
+  `caption` varchar(100) NOT NULL,
+  `product_id` int(10) NOT NULL,
+  `product_photo_order` int(2) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(30) NOT NULL,
+  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `product_photo`
+  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`);
+
+
+CREATE TABLE IF NOT EXISTS `product_review` (
+  `id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `stars` int(5) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `sn_review_id` int(11) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `product_review`
+  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`), ADD KEY `user_id` (`user_id`), ADD KEY `sn_review_id` (`sn_review_id`);
+
+CREATE TABLE IF NOT EXISTS `sn_review` (
+  `id` int(11) NOT NULL,
+  `review` varchar(50) NOT NULL,
+  `icon_path` varchar(100) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `sn_review`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product_photo`
+--
+ALTER TABLE `product_photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product_review`
+--
+ALTER TABLE `product_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `sn_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `product`
+ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`sn_product_category_id`) REFERENCES `sn_product_category` (`id`);
+
+ALTER TABLE `product_photo`
+ADD CONSTRAINT `product_photo_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+ALTER TABLE `product_review`
+ADD CONSTRAINT `product_review_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+ADD CONSTRAINT `product_review_ibfk_2` FOREIGN KEY (`sn_review_id`) REFERENCES `sn_review` (`id`);
