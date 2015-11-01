@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2015 at 06:15 PM
+-- Generation Time: Nov 01, 2015 at 04:29 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -52,6 +52,67 @@ INSERT INTO `admin` (`id`, `name`, `address`, `birthdate`, `image`, `username`, 
 (13, 'Admin', '', '2015-10-20', 'uploads/admin/tsuwandi.jpg', 'admin', 'OKuvEY1apT2DxP6wuZZ2oI3lKf6NZT71', '$2y$13$/5Lvz5HFzZJBiC8ii/pAIevitXEr7Ysapt9uE16vZVyjiMS.6EMLu', '9zVKqvOSVoHlRBZSV18LgaXMdkqycQkW_1444157099', 'admin@gmail.com', 1, 'user', 1, 1444157099, 1444573463),
 (14, 'dsffds', 'aaaaa', NULL, '', 'aaaaa', 'Wiy7LVM8xupD5e1026Ee3U2HHl93BUmA', '$2y$13$moERyOXm9sC3N504d0Jp4.USYHPs4EmmaOv1vGpq8yee3J.T9Il2u', '7daeO39RLm-EfuV1ROl5qX45tczRYXpp_1444315620', 'aaa@aa.com', 1, '', 0, 1444315620, 1444404634),
 (15, 'aadad', 'aad', '2015-10-01', 'uploads/admin/aadad.jpg', 'aadad', 'lMlw7pFl9ydk2NH5wAoIREzGhfx-9hDQ', '$2y$13$lyWrCA881RD7Nsz1G8npBOMlsorCv870VpKJaLrnXB9JPabPoOF1q', 'wbRJIeXDbEfEqEEzYDxeyR3At_MNk8dK_1444402173', 'adaaamin123@gmail.com', 1, '', -1, 1444402173, 1444402815);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `advertisement`
+--
+
+CREATE TABLE IF NOT EXISTS `advertisement` (
+  `id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `advertisement_type` enum('Right Menu','Left Menu','','') NOT NULL,
+  `advertiser_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `advertisement_picture`
+--
+
+CREATE TABLE IF NOT EXISTS `advertisement_picture` (
+  `id` int(11) NOT NULL,
+  `advertisement_id` int(11) NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `image_link` varchar(255) NOT NULL,
+  `hit` int(11) DEFAULT NULL,
+  `advertisement_picture_order` int(2) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `advertiser`
+--
+
+CREATE TABLE IF NOT EXISTS `advertiser` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `mobile` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `company` varchar(50) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -137,6 +198,39 @@ INSERT INTO `auth_role` (`id`, `name`, `description`, `operation_list`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blocked_user`
+--
+
+CREATE TABLE IF NOT EXISTS `blocked_user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `try_limit` int(1) NOT NULL,
+  `last_login_try_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carousel`
+--
+
+CREATE TABLE IF NOT EXISTS `carousel` (
+  `id` int(11) NOT NULL,
+  `is_target_self` tinyint(1) NOT NULL,
+  `carousel_order` int(2) NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `image_link` varchar(255) DEFAULT NULL,
+  `caption` varchar(255) DEFAULT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `company`
 --
 
@@ -148,6 +242,8 @@ CREATE TABLE IF NOT EXISTS `company` (
   `about_us` text,
   `phone` varchar(15) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `email_1` varchar(50) DEFAULT NULL,
+  `email_2` varchar(50) DEFAULT NULL,
   `longitude` varchar(100) DEFAULT NULL,
   `latitude` varchar(100) DEFAULT NULL,
   `twitter_url` varchar(100) DEFAULT NULL,
@@ -162,6 +258,9 @@ CREATE TABLE IF NOT EXISTS `company` (
   `privacy_policy` text,
   `logo_path` varchar(100) DEFAULT NULL,
   `favicon_path` varchar(100) DEFAULT NULL,
+  `meta_tag` text,
+  `meta_description` text,
+  `sn_geostructure_id` int(11) DEFAULT NULL,
   `created_by` varchar(30) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_modified_by` varchar(30) NOT NULL,
@@ -172,8 +271,45 @@ CREATE TABLE IF NOT EXISTS `company` (
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchasing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
-(1, 5, 'Makmakan', 'Makmakan', '', '42880478', 'Jalan Kebon Kosong Raya No.1', '1', '2', 'twitter.com', 'facebook.com', 'instagram.com', 'gplus.com', NULL, NULL, NULL, NULL, NULL, NULL, 'image/logo', 'image/favicon', 'makmakan', '2015-10-25 11:29:53', 'admin', '2015-10-25 05:10:53');
+INSERT INTO `company` (`id`, `slider_amount`, `title`, `name`, `about_us`, `phone`, `address`, `email_1`, `email_2`, `longitude`, `latitude`, `twitter_url`, `facebook_url`, `instagram_url`, `gplus_url`, `terms_and_condition`, `purchasing_guide`, `payment_guide`, `delivery_guide`, `return_policy`, `privacy_policy`, `logo_path`, `favicon_path`, `meta_tag`, `meta_description`, `sn_geostructure_id`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`) VALUES
+(1, 5, 'Makmakan', 'Makmakan', '', '42880478', 'Jalan Kebon Kosong Raya No.1', NULL, NULL, '1', '2', 'twitter.com', 'facebook.com', 'instagram.com', 'gplus.com', NULL, NULL, NULL, NULL, NULL, NULL, 'image/logo', 'image/favicon', NULL, NULL, NULL, 'makmakan', '2015-10-25 11:29:53', 'admin', '2015-10-25 05:10:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount`
+--
+
+CREATE TABLE IF NOT EXISTS `discount` (
+  `id` int(15) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `amount` decimal(5,0) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount_product`
+--
+
+CREATE TABLE IF NOT EXISTS `discount_product` (
+  `id` int(11) NOT NULL,
+  `discount_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -185,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `faq` (
   `id` int(11) NOT NULL,
   `question` text NOT NULL,
   `answer` text NOT NULL,
-  `faq_order` int(11) DEFAULT NULL,
+  `faq_order` int(2) NOT NULL,
   `status` smallint(6) NOT NULL,
   `created_by` varchar(30) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -198,9 +334,26 @@ CREATE TABLE IF NOT EXISTS `faq` (
 --
 
 INSERT INTO `faq` (`id`, `question`, `answer`, `faq_order`, `status`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
-(2, '<p>test</p>\r\n', '<p>test</p>\r\n', NULL, 0, 'admin', '2015-10-14 06:16:49', 'admin', '2015-10-13 23:10:54'),
-(3, '<p>sdasad</p>\r\n', '<p>sadsda</p>\r\n', NULL, 0, 'admin', '2015-10-14 00:10:18', 'admin', '2015-10-14 00:10:18'),
-(4, '<p>sadsasda</p>\r\n', '<p>sdasadsad</p>\r\n', NULL, 0, 'admin', '2015-10-14 00:10:12', 'admin', '2015-10-14 00:10:12');
+(2, '<p>test</p>\r\n', '<p>test</p>\r\n', 0, 0, 'admin', '2015-10-14 06:16:49', 'admin', '2015-10-13 23:10:54'),
+(3, '<p>sdasad</p>\r\n', '<p>sadsda</p>\r\n', 0, 0, 'admin', '2015-10-14 00:10:18', 'admin', '2015-10-14 00:10:18'),
+(4, '<p>sadsasda</p>\r\n', '<p>sdasadsad</p>\r\n', 0, 0, 'admin', '2015-10-14 00:10:12', 'admin', '2015-10-14 00:10:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ingredients`
+--
+
+CREATE TABLE IF NOT EXISTS `ingredients` (
+  `id` int(11) NOT NULL,
+  `ingredient` varchar(100) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -236,15 +389,99 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   `last_modified_by` varchar(30) NOT NULL,
   `last_modified_date` datetime NOT NULL,
   `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `newsletter`
+-- Table structure for table `owner_bank_account`
 --
 
-INSERT INTO `newsletter` (`id`, `subject`, `message`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`, `is_deleted`) VALUES
-(1, 'Test', '<p><strong>Ini news letter loh</strong></p>\r\n', 'tsuwandi', '2015-10-07 11:10:25', 'tsuwandi', '2015-10-07 11:10:25', -1),
-(2, 'safsaasf', '<p>safsfasfasfa</p>\r\n', 'tsuwandi', '2015-10-09 03:10:10', 'tsuwandi', '2015-10-09 03:10:10', 1);
+CREATE TABLE IF NOT EXISTS `owner_bank_account` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `number` varchar(50) NOT NULL,
+  `notes` text NOT NULL,
+  `sn_bank_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL,
+  `plu` varchar(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `selling_price` int(10) NOT NULL,
+  `sn_product_category_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `seen` int(10) NOT NULL,
+  `sold` int(10) NOT NULL,
+  `stock` int(10) DEFAULT NULL,
+  `is_po` tinyint(1) NOT NULL,
+  `po_start_date` date DEFAULT NULL,
+  `po_end_date` date DEFAULT NULL,
+  `expired_date` date DEFAULT NULL,
+  `is_non_halal` tinyint(1) NOT NULL,
+  `minimum_order` int(5) DEFAULT NULL,
+  `is_ready_for_order` tinyint(1) NOT NULL,
+  `featured` tinyint(1) NOT NULL,
+  `description` text,
+  `meta_tag` text NOT NULL,
+  `meta_description` text NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_photo`
+--
+
+CREATE TABLE IF NOT EXISTS `product_photo` (
+  `id` int(11) NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `caption` varchar(255) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_photo_order` int(2) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(30) NOT NULL,
+  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_review`
+--
+
+CREATE TABLE IF NOT EXISTS `product_review` (
+  `id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `stars` int(5) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `sn_review_id` int(11) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -285,6 +522,24 @@ CREATE TABLE IF NOT EXISTS `sn_delivery_agent` (
 INSERT INTO `sn_delivery_agent` (`id`, `delivery_agent`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
 (1, 'JNE', 'admin', '2015-10-28 16:06:28', 'admin', '2015-10-27 22:10:02', -1),
 (2, 'asd', 'admin', '2015-10-27 22:10:36', 'admin', '2015-10-27 22:10:36', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sn_geostructure`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_geostructure` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `post_code` varchar(5) DEFAULT NULL,
+  `sn_geostructure_parent_id` int(11) DEFAULT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -412,6 +667,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sn_geostructure_id` int(11) NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
   `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -423,8 +679,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
-(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `sn_geostructure_id`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
+(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 0, 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -451,6 +707,28 @@ CREATE TABLE IF NOT EXISTS `user_complaint` (
 INSERT INTO `user_complaint` (`id`, `description`, `user_id`, `complaint_type`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
 (1, 'Makanannya ngga enak', 1, 'Kesegaran Produk', 'Sandy', '2015-10-28 16:49:28', 'Sandy', '0000-00-00 00:00:00', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voucher`
+--
+
+CREATE TABLE IF NOT EXISTS `voucher` (
+  `id` int(11) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `is_percentage` tinyint(1) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `voucher_type` enum('Nominal','Percentage','','') NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -460,6 +738,24 @@ INSERT INTO `user_complaint` (`id`, `description`, `user_id`, `complaint_type`, 
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- Indexes for table `advertisement`
+--
+ALTER TABLE `advertisement`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `advertisement_picture`
+--
+ALTER TABLE `advertisement_picture`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `advertiser`
+--
+ALTER TABLE `advertiser`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `auth_assignment`
@@ -486,15 +782,45 @@ ALTER TABLE `auth_role`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `blocked_user`
+--
+ALTER TABLE `blocked_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `carousel`
+--
+ALTER TABLE `carousel`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `discount`
+--
+ALTER TABLE `discount`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `discount_product`
+--
+ALTER TABLE `discount_product`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `faq`
 --
 ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ingredients`
+--
+ALTER TABLE `ingredients`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -510,6 +836,30 @@ ALTER TABLE `newsletter`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `owner_bank_account`
+--
+ALTER TABLE `owner_bank_account`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`), ADD KEY `sn_product_category_id` (`sn_product_category_id`), ADD KEY `user_id` (`user_id`), ADD KEY `sn_product_category_id_2` (`sn_product_category_id`);
+
+--
+-- Indexes for table `product_photo`
+--
+ALTER TABLE `product_photo`
+  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `product_review`
+--
+ALTER TABLE `product_review`
+  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`), ADD KEY `user_id` (`user_id`), ADD KEY `sn_review_id` (`sn_review_id`);
+
+--
 -- Indexes for table `sn_bank`
 --
 ALTER TABLE `sn_bank`
@@ -519,6 +869,12 @@ ALTER TABLE `sn_bank`
 -- Indexes for table `sn_delivery_agent`
 --
 ALTER TABLE `sn_delivery_agent`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_geostructure`
+--
+ALTER TABLE `sn_geostructure`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -558,6 +914,12 @@ ALTER TABLE `user_complaint`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `voucher`
+--
+ALTER TABLE `voucher`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -566,6 +928,21 @@ ALTER TABLE `user_complaint`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `advertisement`
+--
+ALTER TABLE `advertisement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `advertisement_picture`
+--
+ALTER TABLE `advertisement_picture`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `advertiser`
+--
+ALTER TABLE `advertiser`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `auth_operation`
 --
@@ -577,20 +954,65 @@ ALTER TABLE `auth_operation`
 ALTER TABLE `auth_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `blocked_user`
+--
+ALTER TABLE `blocked_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `carousel`
+--
+ALTER TABLE `carousel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `discount`
+--
+ALTER TABLE `discount`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `discount_product`
+--
+ALTER TABLE `discount_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `faq`
 --
 ALTER TABLE `faq`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `ingredients`
+--
+ALTER TABLE `ingredients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `owner_bank_account`
+--
+ALTER TABLE `owner_bank_account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product_photo`
+--
+ALTER TABLE `product_photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product_review`
+--
+ALTER TABLE `product_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sn_bank`
 --
@@ -601,6 +1023,11 @@ ALTER TABLE `sn_bank`
 --
 ALTER TABLE `sn_delivery_agent`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `sn_geostructure`
+--
+ALTER TABLE `sn_geostructure`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sn_payment_method`
 --
@@ -631,112 +1058,34 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_complaint`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(11) NOT NULL,
-  `plu` varchar(10) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `selling_price` int(10) NOT NULL,
-  `sn_product_category_id` int(10) NOT NULL,
-  `user_id` int(10) NOT NULL,
-  `seen` int(10) NOT NULL,
-  `sold` int(10) NOT NULL,
-  `stock` int(10) NOT NULL,
-  `is_po` tinyint(1) NOT NULL,
-  `po_start_date` date NOT NULL,
-  `po_end_date` date NOT NULL,
-  `expired_date` date NOT NULL,
-  `is_non_halal` tinyint(1) NOT NULL,
-  `minimum_order` int(5) NOT NULL,
-  `is_ready_for_order` tinyint(1) NOT NULL,
-  `featured` tinyint(1) NOT NULL,
-  `description` text NOT NULL,
-  `meta_tag` text NOT NULL,
-  `meta_description` text NOT NULL,
-  `created_by` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`), ADD KEY `sn_product_category_id` (`sn_product_category_id`), ADD KEY `user_id` (`user_id`), ADD KEY `sn_product_category_id_2` (`sn_product_category_id`);
-
-CREATE TABLE IF NOT EXISTS `product_photo` (
-  `id` int(11) NOT NULL,
-  `image_path` varchar(100) NOT NULL,
-  `caption` varchar(100) NOT NULL,
-  `product_id` int(10) NOT NULL,
-  `product_photo_order` int(2) NOT NULL,
-  `created_by` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_modified_by` varchar(30) NOT NULL,
-  `last_modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `product_photo`
-  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`);
-
-
-CREATE TABLE IF NOT EXISTS `product_review` (
-  `id` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `stars` int(5) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `sn_review_id` int(11) NOT NULL,
-  `created_by` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ALTER TABLE `product_review`
-  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`), ADD KEY `user_id` (`user_id`), ADD KEY `sn_review_id` (`sn_review_id`);
-
-CREATE TABLE IF NOT EXISTS `sn_review` (
-  `id` int(11) NOT NULL,
-  `review` varchar(50) NOT NULL,
-  `icon_path` varchar(100) NOT NULL,
-  `created_by` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_by` varchar(30) NOT NULL,
-  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `sn_review`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `product`
+--
+-- AUTO_INCREMENT for table `voucher`
+--
+ALTER TABLE `voucher`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `product_photo`
+-- Constraints for dumped tables
 --
-ALTER TABLE `product_photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `product_review`
---
-ALTER TABLE `product_review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `sn_review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- Constraints for table `product`
+--
 ALTER TABLE `product`
 ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`sn_product_category_id`) REFERENCES `sn_product_category` (`id`);
 
+--
+-- Constraints for table `product_photo`
+--
 ALTER TABLE `product_photo`
 ADD CONSTRAINT `product_photo_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
+--
+-- Constraints for table `product_review`
+--
 ALTER TABLE `product_review`
 ADD CONSTRAINT `product_review_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
 ADD CONSTRAINT `product_review_ibfk_2` FOREIGN KEY (`sn_review_id`) REFERENCES `sn_review` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
