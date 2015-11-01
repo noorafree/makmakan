@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Status;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -63,13 +64,25 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-             $model->created_by = Yii::$app->user->identity->username;
+        if ($model->load(Yii::$app->request->post())) {
+            $model->created_by = Yii::$app->user->identity->username;
             $model->created_date = date('Y-m-d h:m:s');
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
             $model->status = Status::STATUS_ACTIVE;
-            $model->save(); 
+            $model->password_hash = md5($model->auth_key);
+            
+            $imageName = substr(md5(rand()), 0, 7);
+            if (UploadedFile::getInstance($model, 'file')) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $model->image_path = 'uploads/user/' . $imageName . '.' . $model->file->extension;
+            }
+
+            if ($model->save()) {
+                $model->file->saveAs('uploads/user/' . $imageName . '.' . $model->file->extension);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            
             Yii::$app->session->setFlash('success', 'Insert Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

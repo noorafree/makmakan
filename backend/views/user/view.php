@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\SnBank;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = $model->id;
+$this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
    <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+//            'id',
             'first_name',
             'last_name',
             'birthdate',
@@ -24,22 +25,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'sex',
             'last_login_date',
-            'image_path',
+//            'image_path',
             'address:ntext',
             'featured',
             'makmakan_credit',
             'bank_account_number',
             'bank_account_name',
-            'sn_bank_id',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
+            [
+                'attribute' => 'Bank',
+                'value' => SnBank::findOne($model->sn_bank_id)->bank
+            ],
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
             'email:email',
 //            'status',
 //            'created_date',
 //            'modified_date',
 //            'created_by',
 //            'modified_by',
+            [
+                'attribute' => 'image',
+                'value' => $model->image_path,
+                'format' => ['image', ['width' => '50', 'height' => '50']],
+            ],
         ],
     ]) ?>
     

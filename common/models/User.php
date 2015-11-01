@@ -36,6 +36,7 @@ use Yii;
 class User extends \yii\db\ActiveRecord
 {
     private $_status;
+    public $file;
 
     public function getStatus()
     {
@@ -44,6 +45,7 @@ class User extends \yii\db\ActiveRecord
         }
         return $this->_status;
     }
+    
     /**
      * @inheritdoc
      */
@@ -70,7 +72,8 @@ class User extends \yii\db\ActiveRecord
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
-            [['password_reset_token'], 'unique']
+            [['password_reset_token'], 'unique'],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
         ];
     }
 
