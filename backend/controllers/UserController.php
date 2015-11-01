@@ -103,6 +103,28 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->modified_by = Yii::$app->user->identity->username;
+            $model->modified_date = date('Y-m-d h:m:s');
+
+            
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if (isset($model->file->extension)) {
+                unlink(getcwd() . '/' . $model->image_path);
+
+                $imageName = substr(md5(rand()), 0, 7);
+                if (UploadedFile::getInstance($model, 'file')) {
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    $model->image_path = 'uploads/user/' . $imageName . '.' . $model->file->extension;
+                }
+            }
+
+            if ($model->validate() && $model->save()) {
+                if (isset($model->file->extension)) {
+                    $model->file->saveAs('uploads/user/' . $imageName . '.' . $model->file->extension);
+                }
+                Yii::$app->session->setFlash('success', 'Update Success.');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
             Yii::$app->session->setFlash('success', 'Update Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
