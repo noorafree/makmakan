@@ -43,7 +43,7 @@ use common\models\Status;
 
                 <?= $form->field($model, 'address')->textarea(['rows' => 6]) ?>
 
-                <?= $form->field($model, 'featured')->textInput() ?>
+                <?= $form->field($model, 'featured')->checkbox() ?>
 
                 <?= $form->field($model, 'makmakan_credit')->textInput() ?>
 

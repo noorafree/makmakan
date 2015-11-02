@@ -71,16 +71,21 @@ class UserController extends Controller
             $model->modified_date = date('Y-m-d h:m:s');
             $model->status = Status::STATUS_ACTIVE;
             $model->password_hash = md5($model->auth_key);
-            
+            $model->save();
             $imageName = substr(md5(rand()), 0, 7);
             if (UploadedFile::getInstance($model, 'file')) {
                 $model->file = UploadedFile::getInstance($model, 'file');
-                $model->image_path = 'uploads/user/' . $imageName . '.' . $model->file->extension;
+                $model->image_path = 'uploads/user/' .$model->file->baseName . $imageName . '.' . $model->file->extension;
             }
 
             if ($model->save()) {
-                $model->file->saveAs('uploads/user/' . $imageName . '.' . $model->file->extension);
+                $model->file->saveAs('uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
                 return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                Yii::$app->session->setFlash('error', 'Insert Failed.');
+                return $this->render('create', [
+                'model' => $model,
+            ]); 
             }
             
             Yii::$app->session->setFlash('success', 'Insert Success.');
@@ -114,13 +119,13 @@ class UserController extends Controller
                 $imageName = substr(md5(rand()), 0, 7);
                 if (UploadedFile::getInstance($model, 'file')) {
                     $model->file = UploadedFile::getInstance($model, 'file');
-                    $model->image_path = 'uploads/user/' . $imageName . '.' . $model->file->extension;
+                    $model->image_path = 'uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
                 }
             }
 
             if ($model->validate() && $model->save()) {
                 if (isset($model->file->extension)) {
-                    $model->file->saveAs('uploads/user/' . $imageName . '.' . $model->file->extension);
+                    $model->file->saveAs('uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
                 }
                 Yii::$app->session->setFlash('success', 'Update Success.');
                 return $this->redirect(['view', 'id' => $model->id]);
