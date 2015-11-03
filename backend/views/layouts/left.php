@@ -66,8 +66,8 @@ use yii\helpers\Html;
                                     'label' => 'Advertiser',
                                     'url' => '#',
                                     'items' => [
-                                        ['label' => 'Advertiser List', 'icon' => 'fa fa-list-ul', 'url' => ['#']],
-                                        ['label' => 'Create Advertiser', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                        ['label' => 'Advertiser List', 'icon' => 'fa fa-list-ul', 'url' => ['/advertiser/index']],
+                                        ['label' => 'Create Advertiser', 'icon' => 'fa fa-edit', 'url' => ['/advertiser/create']],
                                     ],
                                 ],
                                 [
