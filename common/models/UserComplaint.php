@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\User;
 
 /**
  * This is the model class for table "user_complaint".
@@ -62,6 +63,19 @@ class UserComplaint extends \yii\db\ActiveRecord {
             'modified_by' => 'Modified By',
             'modified_date' => 'Modified Date',
             'status' => 'Status',
+            'username' => Yii::t('app', 'Username')
         ];
+    }
+    
+    /* ActiveRelation */
+
+    public function getUser() {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /* Getter for user name */
+
+    public function getUsername() {
+        return $this->user->username;
     }
 }
