@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = 'Update';
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-                    
-                     <?= $form->field($model, 'email_1')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'email_1')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'email_2')->textInput(['maxlength' => true]) ?>
 
@@ -45,15 +45,11 @@ $this->params['breadcrumbs'][] = 'Update';
 
                     <?= $form->field($model, 'gplus_url')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'logo_path')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'favicon_path')->textInput(['maxlength' => true]) ?>
-                  
                     <?= $form->field($model, 'slider_amount')->textInput() ?>
-                    
-                    <?= $form->field($model, 'meta_tag')->textInput() ?>
 
-                    <?= $form->field($model, 'meta_description')->textInput() ?>
+                    <?= $form->field($model, 'meta_tag')->textArea(['rows' => '6']) ?>
+
+                    <?= $form->field($model, 'meta_description')->textArea(['rows' => '6']) ?>
 
                     <div class="form-group pull-right">
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

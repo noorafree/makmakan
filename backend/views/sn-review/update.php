@@ -5,14 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\SnReview */
 
-$this->title = 'Update Sn Review: ' . ' ' . $model->id;
+$this->title = 'Update Sn Review: ' . ' ' . $model->review;
 $this->params['breadcrumbs'][] = ['label' => 'Sn Reviews', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="sn-review-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

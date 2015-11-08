@@ -47,7 +47,7 @@ class Company extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['slider_amount'], 'integer'],
+            [['slider_amount'], 'integer', 'max' => 99],
             [['about_us', 'terms_and_condition', 'purchasing_guide', 'payment_guide', 'delivery_guide', 'return_policy', 'privacy_policy', 'meta_tag', 'meta_description'], 'string'],
             [['created_by', 'last_modified_by'], 'required'],
             [['created_date', 'last_modified_date'], 'safe'],
