@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sn-bank-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,

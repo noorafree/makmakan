@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Advertiser;
+use common\models\Advertisement;
 
 /**
- * AdvertiserSearch represents the model behind the search form about `common\models\Advertiser`.
+ * AdvertisementSearch represents the model behind the search form about `common\models\Advertisement`.
  */
-class AdvertiserSearch extends Advertiser
+class AdvertisementSearch extends Advertisement
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AdvertiserSearch extends Advertiser
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['name', 'address', 'phone', 'mobile', 'email', 'company', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
+            [['id', 'amount', 'advertiser_id', 'status'], 'integer'],
+            [['start_date', 'end_date', 'advertisement_type', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
 
@@ -41,10 +41,10 @@ class AdvertiserSearch extends Advertiser
      */
     public function search($params)
     {
-        $query = Advertiser::find();
+        $query = Advertisement::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
+            'query' => $query->where(['status'=>[Status::STATUS_ACTIVE,  Status::STATUS_INACTIVE]]),
         ]);
 
         $this->load($params);
@@ -57,17 +57,16 @@ class AdvertiserSearch extends Advertiser
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'amount' => $this->amount,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'advertiser_id' => $this->advertiser_id,
             'status' => $this->status,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'company', $this->company])
+        $query->andFilterWhere(['like', 'advertisement_type', $this->advertisement_type])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'modified_by', $this->modified_by]);
 

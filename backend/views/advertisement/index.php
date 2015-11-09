@@ -5,30 +5,28 @@ use yii\grid\GridView;
 use common\models\Status;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\AdvertiserSearch */
+/* @var $searchModel common\models\AdvertisementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Advertisers';
+$this->title = 'Advertisements';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="advertiser-index">
+<div class="advertisement-index">
 
-
-    <?=
-    GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel, 
+        'filterModel' => $searchModel,
         'options' => ['class' => 'table table-bordered table-hover'],
         'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
 //            'id',
-            'name',
-            'address',
-            'phone',
-            'mobile',
-            // 'email:email',
-            // 'company',
+            'amount',
+            'start_date',
+            'end_date',
+            'advertisement_type',
+            // 'advertiser_id',
             // 'status',
             // 'created_by',
             // 'created_date',
@@ -61,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['inactive', 'id' => $model->id], [
                                         'title' => 'Inactive',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to deactive this bank?',
+                                            'confirm' => 'Are you sure you want to inactive this advertisement?',
                                             'method' => 'post',
                                         ],
                             ]);
@@ -69,18 +67,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['active', 'id' => $model->id], [
                                         'title' => 'Active',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to activate this bank?',
+                                            'confirm' => 'Are you sure you want to actived this advertisement?',
                                             'method' => 'post',
                                         ],
                             ]);
                         } else {
-                            return '<span class="glyphicon glyphicon-ok"></span>';
+                            return '<span class="glyphicon glyphicon-eye-close "></span>';
                         }
                     }
                         ],
-                    ],
-                ],
-            ]);
-            ?>
+            ],
+        ],
+    ]); ?>
 
 </div>

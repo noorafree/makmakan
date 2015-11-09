@@ -21,6 +21,18 @@ use Yii;
  */
 class Advertisement extends \yii\db\ActiveRecord
 {
+    
+    public $files;
+    private $_status;
+
+    public function getStatus() {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+    
+    
     /**
      * @inheritdoc
      */
