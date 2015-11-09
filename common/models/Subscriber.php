@@ -47,7 +47,8 @@ class Subscriber extends \yii\db\ActiveRecord
             [['status'], 'integer'],
             [['email'], 'string', 'max' => 50],
             [['created_by', 'modified_by'], 'string', 'max' => 30],
-            [['email'], 'unique']
+            [['email'], 'unique'],
+            [['email'], 'email']
         ];
     }
 

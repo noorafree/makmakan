@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
-            'description:ntext',
-            'user_id',
+            'username',
             'complaint_type',
+            'description:ntext',
             //'created_by',
             // 'created_date',
             // 'modified_by',
@@ -53,27 +53,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete} {inactive}',
+                'template' => '{view} {inactive}',
                 'buttons' => [
                     'inactive' => function ($url, $model) {
                         if ($model->status != Status::STATUS_INACTIVE) {
-                            return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['inactive', 'id' => $model->id], [
+                            return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['inactive', 'id' => $model->id], [
                                         'title' => 'Inactive',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to deactive this user?',
+                                            'confirm' => 'Are you sure you want to deactive this complaint?',
                                             'method' => 'post',
                                         ],
                             ]);
                         } else if ($model->status == Status::STATUS_INACTIVE) {
-                            return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['active', 'id' => $model->id], [
+                            return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['active', 'id' => $model->id], [
                                         'title' => 'Active',
                                         'data' => [
-                                            'confirm' => 'Are you sure you want to activate this user?',
+                                            'confirm' => 'Are you sure you want to activate this complaint?',
                                             'method' => 'post',
                                         ],
                             ]);
                         } else {
-                            return '<span class="glyphicon glyphicon-ok"></span>';
+                            return '<span class="glyphicon glyphicon-remove"></span>';
                         }
                     }
                         ],

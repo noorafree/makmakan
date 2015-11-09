@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'inactive' => function ($url, $model) {
                         if ($model->status != Status::STATUS_INACTIVE) {
-                            return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['inactive', 'id' => $model->id], [
+                            return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['inactive', 'id' => $model->id], [
                                         'title' => 'Inactive',
                                         'data' => [
                                             'confirm' => 'Are you sure you want to deactive this user?',
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ],
                             ]);
                         } else if ($model->status == Status::STATUS_INACTIVE) {
-                            return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['active', 'id' => $model->id], [
+                            return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['active', 'id' => $model->id], [
                                         'title' => 'Active',
                                         'data' => [
                                             'confirm' => 'Are you sure you want to activate this user?',
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ],
                             ]);
                         } else {
-                            return '<span class="glyphicon glyphicon-ok"></span>';
+                            return '<span class="glyphicon glyphicon-remove"></span>';
                         }
                     }
                         ],

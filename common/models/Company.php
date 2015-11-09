@@ -33,37 +33,36 @@ use Yii;
  * @property string $last_modified_by
  * @property string $last_modified_date
  */
-class Company extends \yii\db\ActiveRecord
-{
+class Company extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'company';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['slider_amount'], 'integer'],
-            [['about_us', 'terms_and_condition', 'purchasing_guide', 'payment_guide', 'delivery_guide', 'return_policy', 'privacy_policy'], 'string'],
+            [['slider_amount'], 'integer', 'max' => 99],
+            [['about_us', 'terms_and_condition', 'purchasing_guide', 'payment_guide', 'delivery_guide', 'return_policy', 'privacy_policy', 'meta_tag', 'meta_description'], 'string'],
             [['created_by', 'last_modified_by'], 'required'],
             [['created_date', 'last_modified_date'], 'safe'],
             [['title', 'name', 'created_by', 'last_modified_by'], 'string', 'max' => 30],
             [['phone'], 'string', 'max' => 15],
-            [['address', 'longitude', 'latitude', 'twitter_url', 'facebook_url', 'instagram_url', 'gplus_url', 'logo_path', 'favicon_path'], 'string', 'max' => 100]
+            [['address', 'longitude', 'latitude', 'twitter_url', 'facebook_url', 'instagram_url', 'gplus_url', 'logo_path', 'favicon_path'], 'string', 'max' => 100],
+            [['email_1', 'email_2'], 'string', 'max' => 50],
+            [['email_1', 'email_2'], 'email']
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'slider_amount' => 'Slider Amount',
@@ -86,10 +85,15 @@ class Company extends \yii\db\ActiveRecord
             'privacy_policy' => 'Privacy Policy',
             'logo_path' => 'Logo Path',
             'favicon_path' => 'Favicon Path',
+            'email_1' => 'Email 1',
+            'email_2' => 'Email 2',
+            'meta_tag' => 'Meta Tag',
+            'meta_description' => 'Meta Description',
             'created_by' => 'Created By',
             'created_date' => 'Created Date',
             'last_modified_by' => 'Last Modified By',
             'last_modified_date' => 'Last Modified Date',
         ];
     }
+
 }
