@@ -59,14 +59,28 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ])
     ?>
-
+    
+   <h3>Ingredients</h3>
     <?=
     GridView::widget([
-        'dataProvider' => $dataProvider,
+        'dataProvider' => $ingredients,
+        'summary' => '',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'ingredient',
+        ],
+    ]);
+    ?>
+    
+    <h3>Product Photos</h3>
+    <?=
+    GridView::widget([
+        'dataProvider' => $productPhotos,
         'summary' => '',
         'columns' => [
             [
                 'attribute' => 'product_id',
+                'label' => 'Product Name',
                 'value' => 'product.name'
             ],
             'caption',
@@ -94,6 +108,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
+    
+    
+    
+     <h3>Review</h3>
+    <?=
+    GridView::widget([
+        'dataProvider' => $productReviews,
+        'summary' => '',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'description:html',
+            'stars',
+            [
+                'attribute' => 'sn_review_id',
+                'label' => 'Review Type',
+                'value' => 'review.review'
+            ],
+        ],
+    ]);
+    ?>
 
             <p style="text-align: right">
                 <?=

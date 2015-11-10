@@ -39,9 +39,9 @@ class AuthOperation extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'parent_id' => 'Parent ID',
-            'name' => 'Name',
+            'id' => Module::t('auth', 'ID'),
+            'parent_id' => Module::t('auth', 'Parent ID'),
+            'name' => Module::t('auth', 'Name'),
         ];
     }
 }

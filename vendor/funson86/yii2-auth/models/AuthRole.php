@@ -50,10 +50,10 @@ class AuthRole extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'operation_list' => 'Operation List',
+            'id' => Module::t('auth', 'ID'),
+            'name' => Module::t('auth', 'Name'),
+            'description' => Module::t('auth', 'Description'),
+            'operation_list' => Module::t('auth', 'Operation List'),
         ];
     }
 

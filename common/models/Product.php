@@ -43,21 +43,21 @@ class Product extends \yii\db\ActiveRecord {
     const NO = 1;
     const YES_LITERAL = 'Yes';
     const NO_LITERAL = 'No';
-    
+
     public $files;
 
     public function getPo() {
         return ($this->is_po) ? self::NO_LITERAL : self::YES_LITERAL;
     }
-    
+
     public function getNonHalal() {
         return ($this->is_non_halal) ? self::NO_LITERAL : self::YES_LITERAL;
     }
-    
+
     public function getReadyForOrder() {
         return ($this->is_ready_for_order) ? self::NO_LITERAL : self::YES_LITERAL;
     }
-    
+
     public function getFeatured() {
         return ($this->featured) ? self::NO_LITERAL : self::YES_LITERAL;
     }
@@ -90,15 +90,14 @@ class Product extends \yii\db\ActiveRecord {
             [['plu'], 'string', 'max' => 10],
             [['name'], 'string', 'max' => 50],
             [['created_by', 'modified_by'], 'string', 'max' => 30],
-            [['files'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 10],
+            [['files'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024 * 1024, 'maxFiles' => 10],
         ];
     }
-    
-    public function scenarios()
-    {
+
+    public function scenarios() {
         return [
-            'product-create' => ['plu', 'files', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],            
-            'product-update' => ['plu', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],            
+            'product-create' => ['plu', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],
+            'product-update' => ['plu', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],
             'product-status' => ['status'],
         ];
     }
@@ -134,6 +133,13 @@ class Product extends \yii\db\ActiveRecord {
             'modified_date' => 'Modified Date',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery 
+     */
+    public function getIngredients() {
+        return $this->hasMany(Ingredients::className(), ['product_id' => 'id']);
     }
 
     /**

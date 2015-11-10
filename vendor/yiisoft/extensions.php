@@ -102,16 +102,6 @@ return array (
       '@dmstr' => $vendorDir . '/dmstr/yii2-adminlte-asset',
     ),
   ),
-  'funson86/yii2-auth' => 
-  array (
-    'name' => 'funson86/yii2-auth',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@funson86/auth' => $vendorDir . '/funson86/yii2-auth',
-    ),
-    'bootstrap' => 'funson86\\auth\\Bootstrap',
-  ),
   '2amigos/yii2-date-picker-widget' => 
   array (
     'name' => '2amigos/yii2-date-picker-widget',
@@ -129,5 +119,24 @@ return array (
     array (
       '@dosamigos/ckeditor' => $vendorDir . '/2amigos/yii2-ckeditor-widget/src',
     ),
+  ),
+  'wbraganca/yii2-dynamicform' => 
+  array (
+    'name' => 'wbraganca/yii2-dynamicform',
+    'version' => '2.0.2.0',
+    'alias' => 
+    array (
+      '@wbraganca/dynamicform' => $vendorDir . '/wbraganca/yii2-dynamicform',
+    ),
+  ),
+  'funson86/yii2-auth' => 
+  array (
+    'name' => 'funson86/yii2-auth',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@funson86/auth' => $vendorDir . '/funson86/yii2-auth',
+    ),
+    'bootstrap' => 'funson86\\auth\\Bootstrap',
   ),
 );

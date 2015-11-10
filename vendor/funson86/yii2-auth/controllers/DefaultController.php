@@ -42,7 +42,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        if(!Yii::$app->user->can('viewRole')) throw new ForbiddenHttpException('No Auth');
+        if(!Yii::$app->user->can('viewRole')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
 
         $searchModel = new AuthRoleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -60,7 +60,7 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
-        if(!Yii::$app->user->can('viewRole')) throw new ForbiddenHttpException('No Auth');
+        if(!Yii::$app->user->can('viewRole')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
 
         $model = $this->findModel($id);
 
@@ -71,7 +71,7 @@ class DefaultController extends Controller
             $arrayOperation = explode(';', $model->operation_list);
             foreach($arrayOperation as $item)
             {
-                $strOperation .= $item . ' | ';
+                $strOperation .= Yii::t('auth', $item) . ' | ';
                 $i++;
                 if($i % 5 == 0)
                     $strOperation .= "\n";
@@ -91,7 +91,7 @@ class DefaultController extends Controller
      */
     public function actionCreate()
     {
-        if(!Yii::$app->user->can('createRole')) throw new ForbiddenHttpException('No Auth');
+        if(!Yii::$app->user->can('createRole')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
 
         $model = new AuthRole();
 
@@ -112,7 +112,7 @@ class DefaultController extends Controller
             $subOperations = AuthOperation::find()->where('parent_id <> 0')->all();
             foreach($subOperations as $subOperation)
             {
-                $operations[$subOperation->parent_id]['sub'][$subOperation->name] = $subOperation->name;
+                $operations[$subOperation->parent_id]['sub'][$subOperation->name] = Yii::t('auth', $subOperation->name);
             }
 
             return $this->render('create', [
@@ -130,8 +130,8 @@ class DefaultController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!Yii::$app->user->can('updateRole')) throw new ForbiddenHttpException('No Auth');
-        if($id == 1) throw new ForbiddenHttpException('No Auth');
+        if(!Yii::$app->user->can('updateRole')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
+        if($id == 1) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
 
         $model = $this->findModel($id);
 
@@ -152,7 +152,7 @@ class DefaultController extends Controller
             $subOperations = AuthOperation::find()->where('parent_id <> 0')->all();
             foreach($subOperations as $subOperation)
             {
-                $operations[$subOperation->parent_id]['sub'][$subOperation->name] = $subOperation->name;
+                $operations[$subOperation->parent_id]['sub'][$subOperation->name] = Yii::t('auth', $subOperation->name);
             }
 
             //generate selected operations
@@ -173,8 +173,8 @@ class DefaultController extends Controller
      */
     public function actionDelete($id)
     {
-        if(!Yii::$app->user->can('deleteRole')) throw new ForbiddenHttpException('No Auth');
-        if(1 == $id) throw new ForbiddenHttpException('No Auth');
+        if(!Yii::$app->user->can('deleteRole')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
+        if(1 == $id) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
 
         $this->findModel($id)->delete();
 
