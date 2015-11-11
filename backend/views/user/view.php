@@ -24,17 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'mobile',
             'username',
             'sex',
-            'last_login_date',
+            [
+                'attribute' => 'last_login_date',
+                'value' => date("d-M-Y", strtotime($model->last_login_date)),
+            ],
 //            'image_path',
             'address:ntext',
-            'featured',
+            [
+                'attribute' => 'featured',
+                'value'=> $model->featured==1?'YES':'NO'
+            ],
             'makmakan_credit',
             'bank_account_number',
             'bank_account_name',
-            [
-                'attribute' => 'Bank',
-                'value' => SnBank::findOne($model->sn_bank_id)->bank
-            ],
+            'snBank.bank',
 //            'auth_key',
 //            'password_hash',
 //            'password_reset_token',

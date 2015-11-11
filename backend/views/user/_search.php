@@ -23,8 +23,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'birthdate') ?>
 
-    <?= $form->field($model, 'phone') ?>
-
     <?= $form->field($model, 'mobile') ?>
 
     <?= $form->field($model, 'username') ?>
