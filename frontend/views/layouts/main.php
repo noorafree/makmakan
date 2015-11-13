@@ -36,7 +36,7 @@ AppAsset::register($this);
                     <div class="col-md-8">
                         <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
                             <ul class="nav navbar-nav navbar-right menu">
-                                <li><?= Html::a("Home", 'site/index.php', ['class' => 'active']); ?></li>
+                                <li><?= Html::a("Home", 'index.php', ['class' => 'active']); ?></li>
                                 <li><a href="#">Menu</a></li>
                                 <li><a href="#">Sign In</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
