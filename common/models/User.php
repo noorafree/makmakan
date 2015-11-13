@@ -44,8 +44,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     private $_status;
     public $file;
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    public $password;
+    public $repassword;
+    const STATUS_DELETED = -1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    
 
     public function getStatus()
     {
@@ -79,7 +83,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['first_name', 'birthdate', 'mobile', 'username', 'sex', 'address', 'featured', 'auth_key', 'password_hash', 'email', 'created_by', 'modified_by'], 'required'],
+            [['first_name', 'birthdate', 'mobile', 'username', 'sex', 'address', 'featured', 'email', 'created_by', 'modified_by'], 'required'],
             [['birthdate', 'last_login_date', 'created_date', 'modified_date'], 'safe'],
             [['sex', 'address'], 'string'],
             [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer'],
@@ -92,9 +96,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+             [['file'], 'safe'],
             [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
 
@@ -261,5 +266,36 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+    
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBank()
+    {
+        return $this->hasOne(\common\models\SnBank::className(), ['id' => 'sn_bank_id']);
+    }
+    
+        /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord || (!$this->isNewRecord && $this->password)) {
+                $this->setPassword($this->password);
+                $this->generateAuthKey();
+                $this->generatePasswordResetToken();
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSnBank() {
+        return $this->hasOne(SnBank::className(), ['id' => 'sn_bank_id']);
     }
 }

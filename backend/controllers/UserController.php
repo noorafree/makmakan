@@ -70,10 +70,10 @@ class UserController extends Controller
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
             $model->status = Status::STATUS_ACTIVE;
-            $model->password_hash = md5($model->auth_key);
-            $model->save();
+//            $model->password_hash = md5($model->auth_key);
+//            $model->save();
             $imageName = substr(md5(rand()), 0, 7);
-            if (UploadedFile::getInstance($model, 'file')) {
+             if (UploadedFile::getInstance($model, 'file')) {
                 $model->file = UploadedFile::getInstance($model, 'file');
                 $model->image_path = 'uploads/user/' .$model->file->baseName . $imageName . '.' . $model->file->extension;
             }
