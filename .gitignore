@@ -28,3 +28,5 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+/backend/web/uploads/sn-review/f0bbf5f.jpg
+/vendor/funson86/yii2-auth/yii2-auth-preview.png
