@@ -23,6 +23,10 @@ class Carousel extends \yii\db\ActiveRecord
 {
     public $file;
     public $isSelfTarget;
+    const STATUS_DELETED = -1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
 
     /**
      * @inheritdoc
@@ -42,7 +46,11 @@ class Carousel extends \yii\db\ActiveRecord
             [['is_target_self', 'carousel_order', 'status'], 'integer'],
             [['created_date', 'modified_date'], 'safe'],
             [['image_path', 'image_link', 'caption'], 'string', 'max' => 255],
-            [['created_by', 'modified_by'], 'string', 'max' => 30]
+            [['created_by', 'modified_by'], 'string', 'max' => 30],
+            [['file'], 'safe'],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
 

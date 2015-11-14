@@ -14,17 +14,16 @@ use common\models\Status;
 /**
  * CarouselController implements the CRUD actions for Carousel model.
  */
-class CarouselController extends Controller
-{
-    public function behaviors()
-    {
+class CarouselController extends Controller {
+
+    public function behaviors() {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+        'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+        'delete' => ['post'],
+        ],
+        ],
         ];
     }
 
@@ -32,14 +31,13 @@ class CarouselController extends Controller
      * Lists all Carousel models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new CarouselSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -48,10 +46,9 @@ class CarouselController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+        'model' => $this->findModel($id),
         ]);
     }
 
@@ -60,12 +57,10 @@ class CarouselController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Carousel();
 
         if ($model->load(Yii::$app->request->post())) {
-
             $model->created_by = Yii::$app->user->identity->username;
             $model->created_date = date('Y-m-d h:m:s');
             $model->modified_by = Yii::$app->user->identity->username;
@@ -73,23 +68,26 @@ class CarouselController extends Controller
             $model->status = Status::STATUS_ACTIVE;
 
             $imageName = substr(md5(rand()), 0, 7);
-            if(UploadedFile::getInstance($model, 'file')) {
+            if (UploadedFile::getInstance($model, 'file')) {
                 $model->file = UploadedFile::getInstance($model, 'file');
                 $model->caption = $imageName;
                 $model->image_path = 'uploads/carousel/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
-
             }
-            if($model->save()) {
+            if ($model->save()) {
                 $model->file->saveAs('uploads/carousel/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
                 return $this->redirect(['view', 'id' => $model->id]);
-            }else{
+            } else {
+                Yii::$app->session->setFlash('error', 'Insert Failed.');
                 return $this->render('create', [
-                    'model' => $model,
+                'model' => $model,
                 ]);
             }
+
+            Yii::$app->session->setFlash('success', 'Insert Success.');
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+            'model' => $model,
             ]);
         }
     }
@@ -100,15 +98,14 @@ class CarouselController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+            'model' => $model,
             ]);
         }
     }
@@ -119,8 +116,7 @@ class CarouselController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -133,12 +129,12 @@ class CarouselController extends Controller
      * @return Carousel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = Carousel::findOne($id)) !== null) {
+    protected function findModel($id) {
+        if (($model = Carousel::findOne(['id' => $id, 'status' => [STATUS::STATUS_ACTIVE, STATUS::STATUS_INACTIVE]])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

@@ -73,21 +73,21 @@ class UserController extends Controller
 //            $model->password_hash = md5($model->auth_key);
 //            $model->save();
             $imageName = substr(md5(rand()), 0, 7);
-             if (UploadedFile::getInstance($model, 'file')) {
+            if (UploadedFile::getInstance($model, 'file')) {
                 $model->file = UploadedFile::getInstance($model, 'file');
-                $model->image_path = 'uploads/user/' .$model->file->baseName . $imageName . '.' . $model->file->extension;
+                $model->image_path = 'uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
             }
 
             if ($model->save()) {
                 $model->file->saveAs('uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
                 return $this->redirect(['view', 'id' => $model->id]);
-            }else{
+            } else {
                 Yii::$app->session->setFlash('error', 'Insert Failed.');
                 return $this->render('create', [
-                'model' => $model,
-            ]); 
+                    'model' => $model,
+                ]);
             }
-            
+
             Yii::$app->session->setFlash('success', 'Insert Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -111,7 +111,7 @@ class UserController extends Controller
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
 
-            
+
             $model->file = UploadedFile::getInstance($model, 'file');
             if (isset($model->file->extension)) {
                 unlink(getcwd() . '/' . $model->image_path);
@@ -181,8 +181,9 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-     public function actionInactive($id) {
+
+    public function actionInactive($id)
+    {
         //if(!Yii::$app->user->can('deleteUser')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
         //$this->findModel($id)->delete();
         //return $this->redirect(['index']);
@@ -204,8 +205,9 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-     public function actionActive($id) {
+
+    public function actionActive($id)
+    {
         if ($id == Yii::$app->user->identity->id)
             throw new NotFoundHttpException('The requested page does not exist.');
 

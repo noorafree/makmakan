@@ -139,4 +139,22 @@ return array (
     ),
     'bootstrap' => 'funson86\\auth\\Bootstrap',
   ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '1.7.7.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
+    ),
+  ),
+  'kartik-v/yii2-widget-fileinput' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-fileinput',
+    'version' => '1.0.3.0',
+    'alias' => 
+    array (
+      '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput',
+    ),
+  ),
 );
