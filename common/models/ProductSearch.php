@@ -86,4 +86,33 @@ class ProductSearch extends Product
 
         return $dataProvider;
     }
+    
+    public function searchBy($params)
+    {
+        $query = Product::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]]),
+            'sort'=> ['defaultOrder' => ['id'=>SORT_ASC]],
+            'pagination'=>[
+                                'pageSize'=>3,
+                        ],
+        ]);
+
+//        $this->load($params);
+//
+//        if (!$this->validate()) {
+//            // uncomment the following line if you do not want to return any records when validation fails
+//            // $query->where('0=1');
+//            return $dataProvider;
+//        }
+//
+//        $query->andFilterWhere([
+//            'sn_product_category_id' => $category, false, 'OR',
+//        ]);
+
+        $query->andFilterWhere(['like', 'name', $params]);
+
+        return $dataProvider;
+    }
 }
