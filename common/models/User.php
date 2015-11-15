@@ -147,6 +147,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'modified_by' => 'Modified By',
             'password' => 'Password',
             'repassword' => 'Confirm Password',
+            'file' => 'Profile Picture'
         ];
     }
     
