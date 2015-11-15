@@ -38,15 +38,15 @@ AppAsset::register($this);
                     <div class="col-md-8">
                         <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
                             <ul class="nav navbar-nav navbar-right menu">
-                                <li><?= Html::a("Home", 'index.php', ['class' => 'active']); ?></li>
-                                <li><a href="#" >Menu</a></li>
+                                <li><?= Html::a('Home', ['site/index'], ['class' => 'active']); ?></li>
+                                <li><?= Html::a('Home', ['site/about'], ['class' => 'active']); ?></li>
                                 <li>
-                                    <?= Html::a('Sign In','#', ['value'=>  Url::to('index.php?r=site/login'),'id'=>'loginLink',
+                                    <?= Html::a('Masuk','#', ['value'=>  Url::to('index.php?r=site/login'),'id'=>'loginLink',
                                         'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'loginModal','data-backdrop'=>'static', 'data-keyboard'=>'false'])
                                          ?>
                                 </li>
                                 <li>
-                                    <?= Html::a('Sign Up','#', ['value'=>  Url::to('index.php?r=site/signup'),'id'=>'signupLink',
+                                    <?= Html::a('Daftar','#', ['value'=>  Url::to('index.php?r=site/signup'),'id'=>'signupLink',
                                         'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'signupModal']) 
                                     ?>
                                 </li>

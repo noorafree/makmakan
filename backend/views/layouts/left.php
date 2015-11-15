@@ -51,11 +51,11 @@ use yii\helpers\Html;
                             ],
                         ],
                         [
-                            'label' => 'Slider',
+                            'label' => 'Carousel',
                             'url' => '#',
                             'items' => [
-                                ['label' => 'Slider List', 'icon' => 'fa fa-list-ul', 'url' => ['/slider/index']],
-                                ['label' => 'Create Slider', 'icon' => 'fa fa-edit', 'url' => ['#']],
+                                ['label' => 'Carousel List', 'icon' => 'fa fa-list-ul', 'url' => ['/carousel/index']],
+                                ['label' => 'Create Carousel', 'icon' => 'fa fa-edit', 'url' => ['/carousel/create']],
                             ],
                         ],
                         [

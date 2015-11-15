@@ -9,6 +9,7 @@
     ],
     "require": {
         "wbraganca/yii2-dynamicform": "*",
-        "funson86/yii2-auth": "dev-master"
+        "funson86/yii2-auth": "dev-master",
+        "kartik-v/yii2-widget-fileinput": "^1.0"
     }
 }
