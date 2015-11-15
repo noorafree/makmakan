@@ -29,12 +29,14 @@ class AppAsset extends AssetBundle
 //        'https://oss.maxcdn.com/respond/1.4.2/respond.min.js',
     ];
     public $js = [
-        'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js',
+//        'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js',
+        'js/jquery-2.1.4.min',
         'js/bootstrap.min.js',
         'js/jquery.countTo.js',
         'js/jquery.waypoints.min.js',
         'https://maps.googleapis.com/maps/api/js',
         'js/lightbox.min.js',
+        'js/modal.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

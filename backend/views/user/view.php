@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'created_by',
 //            'modified_by',
             [
-                'attribute' => 'image',
+                'attribute' => 'Profile Picture',
                 'value' => $model->image_path,
                 'format' => ['image', ['width' => '50', 'height' => '50']],
             ],

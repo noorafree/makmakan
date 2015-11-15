@@ -8,7 +8,7 @@ use Yii;
 /**
  * Signup form
  */
-class SignupForm extends Model
+class SignupForm extends User
 {
     public $username;
     public $email;

@@ -8,6 +8,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
 
 AppAsset::register($this);
 ?>
@@ -37,8 +39,17 @@ AppAsset::register($this);
                         <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
                             <ul class="nav navbar-nav navbar-right menu">
                                 <li><?= Html::a("Home", 'index.php', ['class' => 'active']); ?></li>
-                                <li><a href="#">Menu</a></li>
-                                <li><a href="#">Sign In</a></li>
+                                <li><a href="#" >Menu</a></li>
+                                <li>
+                                    <?= Html::a('Sign In','#', ['value'=>  Url::to('index.php?r=site/login'),'id'=>'loginLink',
+                                        'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'loginModal','data-backdrop'=>'static', 'data-keyboard'=>'false'])
+                                         ?>
+                                </li>
+                                <li>
+                                    <?= Html::a('Sign Up','#', ['value'=>  Url::to('index.php?r=site/signup'),'id'=>'signupLink',
+                                        'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'signupModal']) 
+                                    ?>
+                                </li>
                                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
                             </ul>
                         </nav>
@@ -49,7 +60,24 @@ AppAsset::register($this);
         <?php $this->beginBody() ?>
         <?= $content ?>
         <?php $this->endBody() ?>
-
+        <?php
+            Modal::begin([                
+                'id'=>'loginModal',
+                'size'=>'modal-sm',
+                'header'=>'<h4>Sign In</h4>',
+            ]);
+                echo "<div id=loginModalContent> </div> ";
+            Modal::end();                 
+        ?>
+        <?php
+            Modal::begin([                
+                'id'=>'signupModal',
+                'size'=>'modal-sm',
+                'header'=>'<h4>Sign Up</h4>',
+            ]);
+                echo "<div id=signupModalContent> </div> ";
+            Modal::end();
+        ?>
         <script>
             function initialize() {
                 var mapCanvas = document.getElementById('map-canvas');
@@ -64,26 +92,26 @@ AppAsset::register($this);
         </script>
         <script>
             $(document).ready(function () {
-                $(document).on("scroll", onScroll);
+//                $(document).on("scroll", onScroll);
+//
+//                $('a[href^="#"]').on('click', function (e) {
+//                    e.preventDefault();
+//                    $(document).off("scroll");
+//
+//                    $('a').each(function () {
+//                        $(this).removeClass('active');
+//                    });
+//                    $(this).addClass('active');
 
-                $('a[href^="#"]').on('click', function (e) {
-                    e.preventDefault();
-                    $(document).off("scroll");
-
-                    $('a').each(function () {
-                        $(this).removeClass('active');
-                    })
-                    $(this).addClass('active');
-
-                    var target = this.hash;
-                    $target = $(target);
-                    $('html, body').stop().animate({
-                        'scrollTop': $target.offset().top
-                    }, 500, 'swing', function () {
-                        window.location.hash = target;
-                        $(document).on("scroll", onScroll);
-                    });
-                });
+//                    var target = this.hash;
+//                    $target = $(target);
+//                    $('html, body').stop().animate({
+//                        'scrollTop': $target.offset().top
+//                    }, 500, 'swing', function () {
+//                        window.location.hash = target;
+//                        $(document).on("scroll", onScroll);
+//                    });
+//                });
             });
 
             function onScroll(event) {
