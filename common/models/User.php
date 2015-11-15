@@ -89,7 +89,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer'],
             [['first_name', 'last_name'], 'string', 'max' => 30],
             [['phone', 'mobile'], 'string', 'max' => 15],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['username', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['image_path'], 'string', 'max' => 200],
             [['bank_account_number', 'bank_account_name', 'created_by', 'modified_by'], 'string', 'max' => 50],
             [['auth_key'], 'string', 'max' => 32],
@@ -100,9 +100,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['password','repassword'],'required'],
+            ['repassword','compare','compareAttribute'=>'password'],
+            [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
+            // Username
+            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
+            ['username', 'string', 'min' => 3, 'max' => 30],
+            // E-mail
+            ['email', 'string', 'max' => 100],
+            ['email', 'email'],
         ];
     }
 
+    
+    
     /**
      * @inheritdoc
      */
@@ -134,6 +145,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'modified_date' => 'Modified Date',
             'created_by' => 'Created By',
             'modified_by' => 'Modified By',
+            'password' => 'Password',
+            'repassword' => 'Confirm Password',
         ];
     }
     

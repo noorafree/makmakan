@@ -79,8 +79,10 @@ class UserController extends Controller
             }
 
             if ($model->save()) {
-                $model->file->saveAs('uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
-                return $this->redirect(['view', 'id' => $model->id]);
+                if($model->image_path!= null){
+                    $model->file->saveAs('uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             } else {
                 Yii::$app->session->setFlash('error', 'Insert Failed.');
                 return $this->render('create', [

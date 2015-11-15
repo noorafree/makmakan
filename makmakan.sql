@@ -674,7 +674,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `created_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `modified_by` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

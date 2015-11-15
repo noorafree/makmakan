@@ -39,17 +39,23 @@ AppAsset::register($this);
                         <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
                             <ul class="nav navbar-nav navbar-right menu">
                                 <li><?= Html::a('Home', ['site/index'], ['class' => 'active']); ?></li>
-                                <li><?= Html::a('Home', ['site/about'], ['class' => 'active']); ?></li>
-                                <li>
-                                    <?= Html::a('Masuk','#', ['value'=>  Url::to('index.php?r=site/login'),'id'=>'loginLink',
-                                        'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'loginModal','data-backdrop'=>'static', 'data-keyboard'=>'false'])
-                                         ?>
-                                </li>
-                                <li>
-                                    <?= Html::a('Daftar','#', ['value'=>  Url::to('index.php?r=site/signup'),'id'=>'signupLink',
-                                        'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'signupModal']) 
-                                    ?>
-                                </li>
+                                <li><?= Html::a('About', ['site/about'], ['class' => 'active']); ?></li>
+                                <?php 
+                                    if(Yii::$app->user->isGuest){
+                                        echo '<li>';
+                                        echo Html::a('Masuk','#', ['value'=>  Url::to('index.php?r=site/login'),'id'=>'loginLink',
+                                            'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'loginModal','data-backdrop'=>'static', 'data-keyboard'=>'false']);
+                                        echo '</li>';
+                                        echo '<li>';
+                                        echo Html::a('Daftar','#', ['value'=>  Url::to('index.php?r=site/signup'),'id'=>'signupLink',
+                                            'data-toggle'=>'modal','data-dismiss'=>'modal','data-modal'=>'signupModal']);
+                                        echo '</li>';
+                                    }else{
+                                        echo '<li>';
+                                        echo Html::a('Keluar',['site/logout'],['data-method'=>'post']);
+                                        echo '</li>';
+                                    }
+                                ?>
                                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
                             </ul>
                         </nav>

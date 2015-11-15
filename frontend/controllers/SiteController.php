@@ -13,6 +13,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\widgets\ActiveForm;
 
 /**
  * Site controller
@@ -86,10 +87,14 @@ class SiteController extends Controller {
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
+        }elseif (!$model->load(Yii::$app->request->post())) {
             return $this->renderAjax('login', [
                         'model' => $model,
             ]);
+        } 
+        else {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
         }
     }
 

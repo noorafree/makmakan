@@ -38,6 +38,12 @@ use common\models\Status;
                 <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+                
+                <?php if (Yii::$app->controller->action->id != 'update') { ?>
+                    <?= $form->field($model, 'password')->passwordInput(['maxlength' => 30]) ?>
+
+                    <?= $form->field($model, 'repassword')->passwordInput(['maxlength' => 30]) ?>
+                <?php } ?>
 
                 <?= $form->field($model, 'sex')->dropDownList([ 'Male' => 'Male', 'Female' => 'Female',], ['prompt' => 'Select Sex']) ?>
 
@@ -58,8 +64,6 @@ use common\models\Status;
                 );
                 ?>
 
-                <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
-                
                 <?php // $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>

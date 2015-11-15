@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
     <p>Please fill out the following fields to login:</p>
     <div class="row">
         <div class="col-lg-10">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'login-form','enableAjaxValidation'=>TRUE]); ?>
 
                 <?= $form->field($model, 'username') ?>
 
