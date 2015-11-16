@@ -21,12 +21,21 @@ use Yii;
  */
 class Carousel extends \yii\db\ActiveRecord
 {
+
     public $file;
-    public $isSelfTarget;
     const STATUS_DELETED = -1;
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
 
+    private $_status;
+
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
 
     /**
      * @inheritdoc
@@ -48,7 +57,7 @@ class Carousel extends \yii\db\ActiveRecord
             [['image_path', 'image_link', 'caption'], 'string', 'max' => 255],
             [['created_by', 'modified_by'], 'string', 'max' => 30],
             [['file'], 'safe'],
-            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024 * 1024, 'maxFiles' => 1],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
