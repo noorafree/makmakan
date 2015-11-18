@@ -13,5 +13,12 @@ return [
             'class' => 'yii\rbac\DbManager',
             //'defaultRoles' => ['guest'],
         ],
+        'formatter' => [
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'IDR',
+        ],
     ],
 ];

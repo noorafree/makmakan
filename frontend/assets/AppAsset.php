@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/bootstrap.min.css',
         'style.css',
+        'custom-style.css',
         'css/lightbox.css',
         'http://fonts.googleapis.com/css?family=Poppins:400,600,700,500,300',
         'http://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700italic,700,400italic,500,500italic,300,100italic,100,300italic',
