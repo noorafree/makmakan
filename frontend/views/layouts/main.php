@@ -38,7 +38,7 @@ AppAsset::register($this);
                     <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
                         <ul class="nav navbar-nav navbar-right menu">
                             <li><?= Html::a('Home', ['site/index'], ['class' => Yii::$app->controller->action->id == 'index' ? 'active' : '']); ?></li>
-                            <li><?= Html::a('Menu', ['site/menu'], ['class' => Yii::$app->controller->action->id == 'menu' ? 'active' : '']); ?></li>
+                            <li><?= Html::a('Menu', ['site/product'], ['class' => Yii::$app->controller->action->id == 'menu' ? 'active' : '']); ?></li>
                             <li><?= Html::a('About Us', ['site/about'], ['class' => Yii::$app->controller->action->id == 'about' ? 'active' : '']); ?></li>
                             <?php
                             if (Yii::$app->user->isGuest) {
