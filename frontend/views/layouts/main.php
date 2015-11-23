@@ -3,11 +3,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
@@ -25,46 +21,39 @@ AppAsset::register($this);
     </head>
     <body>
         <header class="header">
-            <div class="row">
-                <div class="col-md-3 ">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle menu-button" data-toggle="collapse" data-target="#myNavbar">
-                            <span class="glyphicon glyphicon-align-justify"></span>
-                        </button>
-                        <a class="navbar-brand logo"><img src="images/logo.png" /></a>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
-                        <ul class="nav navbar-nav navbar-right menu">
-                            <li><?= Html::a('Home', ['site/index'], ['class' => Yii::$app->controller->action->id == 'index' ? 'active' : '']); ?></li>
-                            <li><?= Html::a('Menu', ['site/product'], ['class' => Yii::$app->controller->action->id == 'menu' ? 'active' : '']); ?></li>
-                            <li><?= Html::a('About Us', ['site/about'], ['class' => Yii::$app->controller->action->id == 'about' ? 'active' : '']); ?></li>
-                            <?php
-                            if (Yii::$app->user->isGuest) {
-                                echo '<li>';
-                                echo Html::a('Masuk', '#', ['value' => Url::to('index.php?r=site/login'), 'id' => 'loginLink',
-                                    'data-toggle' => 'modal', 'data-dismiss' => 'modal', 'data-modal' => 'loginModal', 'data-backdrop' => 'static', 'data-keyboard' => 'false']);
-                                echo '</li>';
-                                echo '<li>';
-                                echo Html::a('Daftar', '#', ['value' => Url::to('index.php?r=site/signup'), 'id' => 'signupLink',
-                                    'data-toggle' => 'modal', 'data-dismiss' => 'modal', 'data-modal' => 'signupModal']);
-                                echo '</li>';
-                            } else {
-                                echo '<li>';
-                                echo Html::a('Keluar', ['site/logout'], ['data-method' => 'post']);
-                                echo '</li>';
-                            }
-                            ?>
-                            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle offcanvas-toggle pull-right menu-button" data-toggle="offcanvas" data-target="#myNavbar" style="float:left;">
+                    <span class="glyphicon glyphicon-align-justify"></span>
+                </button>
+                <a class="navbar-brand logo"><img src="images/logo.png" /></a>
+            </div>
+            <div class="navbar-offcanvas navbar-offcanvas-touch" style="margin-right: 20px; background-color: #FFF" id="myNavbar" role="navigation">
+                <ul class="nav navbar-nav navbar-right menu">
+                    <li><?= Html::a('Home', ['site/index'], ['class' => Yii::$app->controller->action->id == 'index' ? 'active' : '']); ?></li>
+                    <li><?= Html::a('Menu', ['site/product'], ['class' => Yii::$app->controller->action->id == 'menu' ? 'active' : '']); ?></li>
+                    <li><?= Html::a('About Us', ['site/about'], ['class' => Yii::$app->controller->action->id == 'about' ? 'active' : '']); ?></li>
+                    <?php
+                    if (Yii::$app->user->isGuest) {
+                        echo '<li>';
+                        echo Html::a('Masuk', '#', ['value' => Url::to('index.php?r=site/login'), 'id' => 'loginLink',
+                            'data-toggle' => 'modal', 'data-dismiss' => 'modal', 'data-modal' => 'loginModal', 'data-backdrop' => 'static', 'data-keyboard' => 'false']);
+                        echo '</li>';
+                        echo '<li>';
+                        echo Html::a('Daftar', '#', ['value' => Url::to('index.php?r=site/signup'), 'id' => 'signupLink',
+                            'data-toggle' => 'modal', 'data-dismiss' => 'modal', 'data-modal' => 'signupModal']);
+                        echo '</li>';
+                    } else {
+                        echo '<li>';
+                        echo Html::a('Keluar', ['site/logout'], ['data-method' => 'post']);
+                        echo '</li>';
+                    }
+                    ?>
+                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
+                </ul>
             </div>
         </header>
         <?php $this->beginBody() ?>
         <?= $content ?>
-        <?php $this->endBody() ?>
         <div class="container-fluid footer" id="section4">
             <div class="container">
                 <div class="row">
@@ -110,6 +99,7 @@ AppAsset::register($this);
                 </div>
             </div>
         </div>
+        <?php $this->endBody() ?>
         <?php
         Modal::begin([
             'id' => 'loginModal',
@@ -128,27 +118,6 @@ AppAsset::register($this);
         echo "<div id=signupModalContent> </div> ";
         Modal::end();
         ?>
-        <script type="text/javascript">
-            jQuery(function ($) {
-                // custom formatting example
-                $('.timer').data('countToOptions', {
-                    formatter: function (value, options) {
-                        return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
-                    }
-                });
-
-                // start all the timers
-                $('#starts').waypoint(function () {
-                    $('.timer').each(count);
-                });
-
-                function count(options) {
-                    var $this = $(this);
-                    options = $.extend({}, options || {}, $this.data('countToOptions') || {});
-                    $this.countTo(options);
-                }
-            });
-        </script>
     </body>
 </html>
 <?php $this->endPage() ?>
