@@ -20,7 +20,7 @@
 
 <div class="container-fluid work" id="work">
     <div class="container">
-        <div class="row" id="starts">
+        <div class="row "id="starts">
             <div class="col-md-12 col-sm-12 col-xs-12 work-list">
                 <h2 class="text-center portfolio-text">TOP CATEGORIES</h2>
                 <div class="col-md-4 col-sm-6 col-xs-12 work-space">
@@ -112,7 +112,7 @@
         <div class="row" id="starts">
             <div class="col-md-12 col-sm-12 col-xs-12 work-list">
                 <h2 class="text-center portfolio-text">MOST POPULAR DISHES</h2>
-                <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story1.png" data-lightbox="image-1">
                         <div class="featured-img">
                             <img src="images/story1.png"/>
@@ -125,7 +125,7 @@
                     <p class="productname">GRILLED STEAK</p>
                     <p>IDR 20.000</p>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story2.png" data-lightbox="image-1">
                         <div class="featured-img">
                             <img src="images/story2.png"/>
@@ -138,7 +138,7 @@
                     <p class="productname">GRILLED STEAK</p>
                     <p>IDR 20.000</p>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story3.png" data-lightbox="image-1">
                         <div class="featured-img">
                             <img src="images/story3.png"/>
@@ -151,7 +151,20 @@
                     <p class="productname">GRILLED STEAK</p>
                     <p>IDR 20.000</p>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                <div class="col-lg-3 hidden-md col-sm-6 col-xs-12 work-space">
+                    <a href="images/story1.png" data-lightbox="image-1">
+                        <div class="featured-img">
+                            <img src="images/story1.png"/>
+                        </div>
+                        <div class="image-hover">
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                        </div>
+                        <h3>American Food</h3>
+                    </a>
+                    <p class="productname">GRILLED STEAK</p>
+                    <p>IDR 20.000</p>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story1.png" data-lightbox="image-1">
                         <div class="featured-img">
                             <img src="images/story1.png"/>
@@ -164,7 +177,7 @@
                     <p class="productname">CAPCAY</p>
                     <p>IDR 20.000</p>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story2.png" data-lightbox="image-1">
                         <div class="featured-img">
                             <img src="images/story2.png"/>
@@ -177,10 +190,23 @@
                     <p class="productname">CAPCAY</p>
                     <p>IDR 20.000</p>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story3.png" data-lightbox="image-1">
                         <div class="featured-img">
                             <img src="images/story3.png"/>
+                        </div>
+                        <div class="image-hover">
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                        </div>
+                        <h3>Chinnese Food</h3>
+                    </a>
+                    <p class="productname">CAPCAY</p>
+                    <p>IDR 20.000</p>
+                </div>
+                <div class="col-lg-3 hidden-md col-sm-6 col-xs-12 work-space">
+                    <a href="images/story1.png" data-lightbox="image-1">
+                        <div class="featured-img">
+                            <img src="images/story1.png"/>
                         </div>
                         <div class="image-hover">
                             <i class="glyphicon glyphicon-eye-open"></i>

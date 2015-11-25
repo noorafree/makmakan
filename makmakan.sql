@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2015 at 03:48 PM
+-- Generation Time: Nov 25, 2015 at 05:51 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -405,6 +405,56 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
 INSERT INTO `newsletter` (`id`, `varchar`, `message`, `created_by`, `created_date`, `last_modified_by`, `last_modified_date`, `status`) VALUES
 (1, 'Makmakan', '<p>asdasdasdasdasd</p>\r\n', 'admin', '2015-11-08 02:11:13', 'admin', '2015-11-08 02:11:13', -1),
 (2, 'asdasd', '<p>asdasd</p>\r\n', 'admin', '2015-11-08 04:11:24', 'admin', '2015-11-08 04:11:24', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order`
+--
+
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `sn_bank_id` int(11) NOT NULL,
+  `delivery_address` text NOT NULL,
+  `delivery_contact` varchar(15) NOT NULL,
+  `delivery_cost` int(11) NOT NULL,
+  `total_payment` int(11) NOT NULL,
+  `makmakan_credit` int(11) NOT NULL,
+  `voucher_id` int(11) DEFAULT NULL,
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `payment_date` timestamp NULL DEFAULT NULL,
+  `sn_payment_method_id` int(11) NOT NULL,
+  `order_status` enum('Menunggu Pembayaran','Pembayaran Diterima','Proses Persiapan','Pengiriman Barang','Barang Diterima') NOT NULL,
+  `remark` text,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `order_detail` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `actual_selling_price` int(11) NOT NULL,
+  `delivery_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delivery_date` int(11) DEFAULT NULL,
+  `received_date` int(11) DEFAULT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -856,6 +906,18 @@ ALTER TABLE `newsletter`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `owner_bank_account`
 --
 ALTER TABLE `owner_bank_account`
@@ -1007,6 +1069,16 @@ ALTER TABLE `ingredients`
 --
 ALTER TABLE `newsletter`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_detail`
+--
+ALTER TABLE `order_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `owner_bank_account`
 --

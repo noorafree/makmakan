@@ -459,4 +459,12 @@ h2.portfolio-text::before {
         max-height: 100%;
         margin-top: 8px;
     }
+
+    .footer .division h3 {
+        text-align: center;
+    }
+    
+    .footer .division div {
+        text-align: center;
+    }
 }

@@ -85,9 +85,11 @@ AppAsset::register($this);
                             <h3>KEEP IN TOUCH</h3>
                             <input style="border-radius: 0;" id="subscriber" type="text" class="form-control" placeholder="enter your email here"/>
                             <h3>BE SOCIAL</h3>
-                            <a href="#"><img src="images/facebook.gif" style="width: 20%; height: auto;"/></a>
-                            <a href="#"><img src="images/twitter.gif" style="width: 20%; height: auto;"/></a>
-                            <a href="#"><img src="images/gplus.gif" style="width: 20%; height: auto;"/></a>
+                            <div>
+                                <a href="#"><img src="images/facebook.gif" style="width: 20%; height: auto;"/></a>
+                                <a href="#"><img src="images/twitter.gif" style="width: 20%; height: auto;"/></a>
+                                <a href="#"><img src="images/gplus.gif" style="width: 20%; height: auto;"/></a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-12">
