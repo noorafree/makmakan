@@ -21,6 +21,21 @@ html *
     padding-top: 15px !important;
 }
 
+.modal-logo
+{
+    width:70%; 
+    height:auto; 
+    margin-left:35px;
+}
+
+.modal-header {
+    border-bottom: 3px solid #e5e5e5;
+}
+
+.modal-body p {
+    text-align: center;
+}
+
 .menu{
     margin:0px !important;
     border: none;

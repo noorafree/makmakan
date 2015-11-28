@@ -106,7 +106,7 @@ AppAsset::register($this);
         Modal::begin([
             'id' => 'loginModal',
             'size' => 'modal-sm',
-            'header' => '<h4>Sign In</h4>',
+            'header' => '<img src="images/logo.png" class="modal-logo" />',
         ]);
         echo "<div id=loginModalContent> </div> ";
         Modal::end();
@@ -115,7 +115,7 @@ AppAsset::register($this);
         Modal::begin([
             'id' => 'signupModal',
             'size' => 'modal-sm',
-            'header' => '<h4>Sign Up</h4>',
+            'header' => '<img src="images/logo.png" class="modal-logo" />',
         ]);
         echo "<div id=signupModalContent> </div> ";
         Modal::end();

@@ -6,15 +6,15 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
-$this->title = 'Signup';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<p>Home made food right into your doorstep!</p>
+
 <div class="site-signup">
-    <p>Please fill out the following fields to signup:</p>
+    <p>Dengan mendaftar anda berarti telah menyetujui <?= Html::a('persetujuan pengguna Makmakan', ['#']) ?> </p>
 
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
             
                 <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
