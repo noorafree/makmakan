@@ -30,7 +30,7 @@ class AppAsset extends AssetBundle {
     ];
     
     public $js = [
-        'js/jquery-2.1.4.min.js',
+//        'js/jquery-2.1.4.min.js',
         'js/bootstrap.min.js',
         'js/bootstrap.offcanvas.min.js',
         'https://maps.googleapis.com/maps/api/js',
