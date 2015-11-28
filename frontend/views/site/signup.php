@@ -52,10 +52,11 @@ use yii\bootstrap\ActiveForm;
                      url: '<?php echo \Yii::$app->getUrlManager()->createUrl('site/submit-signup') ?>',
                      data:data,
                      success:function(data){
-                            if(data== "success"){
-                                $('#flass_message').attr('class','alert-success alert fade in').html("Registrasi Berhasil, Silahkan konfirmasi email anda").fadeOut("slow");
+                            if(data.isSuccess){
+                                $('#signup-form').closest('form').find('input[type=text],input[type=password], textarea').val("");
+                                $('#flass_message').attr('class','alert-success alert fade in').html(data.message).fadeOut("slow");
                             }else{
-                                $('#flass_message').attr('class','alert-success alert fade in').html("Registrasi Gagal").fadeOut("slow");
+                                $('#flass_message').attr('class','alert-success alert fade in').html(data.message).fadeOut("slow");
                             }
                      },
                      error: function(data) { // if error occured

@@ -68,10 +68,34 @@ class SignupForm extends User
             $user->first_name = $this->first_name;
             $user->last_name = $this->last_name;
             $user->mobile = $this->mobile;
+            $user->status = self::STATUS_INACTIVE;
+            $user->generateUserActivationCode();
             if ($user->save()) {
                 return $user;
             }
         }
         return null;
+    }
+    
+    public function sendEmailActivation(){
+        /* @var $user User */
+        $user = User::findOne([
+            'status' => User::STATUS_INACTIVE,
+            'email' => $this->email,
+        ]);
+
+        if ($user) {
+            if (!User::isUserActivationCodeValid($user->activation_code)) {
+                $user->generateUserActivationCode();
+            }
+
+            return \Yii::$app->mailer->compose(['html' => 'userActivation-html', 'text' => 'userActivation-text'], ['user' => $user])
+                ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                ->setTo($this->email)
+                ->setSubject('Aktifasi Akun untuk ' . \Yii::$app->name)
+                ->send();
+        }
+
+        return false;
     }
 }

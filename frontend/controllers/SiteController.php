@@ -122,11 +122,17 @@ class SiteController extends Controller {
     
     public function actionSubmitSignup(){
          $model = new SignupForm();
+         $submitResponse;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->signup()) {
-                echo 'Registrasi Berhasil, Silahkan konfirmasi email anda';
+                $model->sendEmailActivation();
+                $submitResponse= ['isSuccess'=>true,
+                                  'message'=>'Registrasi Berhasil, Silahkan aktifkan akun anda melalui email.'];
+                return $submitResponse;
             }else{
-                echo 'Registrasi Gagal';
+                $submitResponse= ['isSuccess'=>false,
+                                  'message'=>'Registrasi Gagal'];
+                return $submitResponse;
             }
         }
     }

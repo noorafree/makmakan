@@ -39,6 +39,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $activation_code
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -89,16 +90,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer'],
             [['first_name', 'last_name'], 'string', 'max' => 30],
             [['phone', 'mobile'], 'string', 'max' => 15],
-            [['username', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
+            [['username', 'password_hash', 'password_reset_token','activation_code'], 'string', 'max' => 255],
             [['image_path'], 'string', 'max' => 200],
             [['bank_account_number', 'bank_account_name', 'created_by', 'modified_by'], 'string', 'max' => 50],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+            [['activation_code'],'unique'],
             [['file'], 'safe'],
             [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
             [['password','repassword'],'required'],
             ['repassword','compare','compareAttribute'=>'password'],
@@ -147,7 +149,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'modified_by' => 'Modified By',
             'password' => 'Password',
             'repassword' => 'Confirm Password',
-            'file' => 'Profile Picture'
+            'file' => 'Profile Picture',
+            'activation_code' => 'Activation Code',
         ];
     }
     
@@ -312,4 +315,43 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getSnBank() {
         return $this->hasOne(SnBank::className(), ['id' => 'sn_bank_id']);
     }
+    
+    /**
+     * Generates new activation code
+     */
+    public function generateUserActivationCode()
+    {
+        $this->activation_code = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+    
+     /**
+     * Finds out if user activation is valid
+     *
+     * @param string $token password reset token
+     * @return boolean
+     */
+    public static function isUserActivationCodeValid($code)
+    {
+        if (empty($code)) {
+            return false;
+        }
+
+        $timestamp = (int) substr($code, strrpos($code, '_') + 1);
+        $expire = Yii::$app->params['user.activationCodeExpire'];
+        return $timestamp + $expire >= time();
+    }
+    
+    public static function findByActivationCode($code)
+    {
+        if (!static::isUserActivationCodeValid($code)) {
+            return null;
+        }
+
+        return static::findOne([
+            'activation_code' => $code,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+    
+    
 }
