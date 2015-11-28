@@ -1,16 +1,12 @@
-<?php
-
-/* @var $this yii\web\View */
-
-use yii\helpers\Html;
-
-$this->title = 'About';
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>This is the About page. You may modify the following file to customize its content:</p>
-
-    <code><?= __FILE__ ?></code>
+<div class="container-fluid user-profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 hidden-xs">                
+                <div id="profile"></div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+                <h2 class="text-center portfolio-text">TREE TABLE</h2>
+            </div>
+        </div>
+    </div>
 </div>

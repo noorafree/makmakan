@@ -8,22 +8,23 @@ use common\models\CarouselSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 use common\models\Status;
+use yii\web\UploadedFile;
 
 /**
  * CarouselController implements the CRUD actions for Carousel model.
  */
-class CarouselController extends Controller {
-
-    public function behaviors() {
+class CarouselController extends Controller
+{
+    public function behaviors()
+    {
         return [
-        'verbs' => [
-        'class' => VerbFilter::className(),
-        'actions' => [
-        'delete' => ['post'],
-        ],
-        ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
         ];
     }
 
@@ -31,13 +32,14 @@ class CarouselController extends Controller {
      * Lists all Carousel models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new CarouselSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-        'searchModel' => $searchModel,
-        'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -46,9 +48,10 @@ class CarouselController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', [
-        'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -57,7 +60,8 @@ class CarouselController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Carousel();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -73,21 +77,21 @@ class CarouselController extends Controller {
                 $model->caption = $imageName;
                 $model->image_path = 'uploads/carousel/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
             }
+
             if ($model->save()) {
                 $model->file->saveAs('uploads/carousel/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
+                Yii::$app->session->setFlash('success', 'Insert Success.');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', 'Insert Failed.');
                 return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
                 ]);
             }
 
-            Yii::$app->session->setFlash('success', 'Insert Success.');
-            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-            'model' => $model,
+                'model' => $model,
             ]);
         }
     }
@@ -98,14 +102,39 @@ class CarouselController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
-
+        $imageName = "";
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->modified_by = Yii::$app->user->identity->username;
+            $model->modified_date = date('Y-m-d h:m:s');
+
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if (isset($model->file->extension)) {
+                unlink(getcwd() . '/' . $model->image_path);
+
+                $imageName = substr(md5(rand()), 0, 7);
+                if (UploadedFile::getInstance($model, 'file')) {
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    $model->caption = $imageName;
+                    $model->image_path = 'uploads/carousel/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
+                }
+            }
+
+            if ($model->validate() && $model->save()) {
+                if (isset($model->file->extension)) {
+                    $model->file->saveAs('uploads/carousel/' . $model->file->baseName . $imageName . '.' . $model->file->extension);
+                }
+                Yii::$app->session->setFlash('success', 'Update Success.');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            Yii::$app->session->setFlash('success', 'Update Success.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-            'model' => $model,
+                'model' => $model,
             ]);
         }
     }
@@ -116,10 +145,23 @@ class CarouselController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id) {
-        $this->findModel($id)->delete();
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
 
-        return $this->redirect(['index']);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = STATUS::STATUS_DELETED;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Delete Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -129,7 +171,8 @@ class CarouselController extends Controller {
      * @return Carousel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = Carousel::findOne(['id' => $id, 'status' => [STATUS::STATUS_ACTIVE, STATUS::STATUS_INACTIVE]])) !== null) {
             return $model;
         } else {
@@ -137,4 +180,39 @@ class CarouselController extends Controller {
         }
     }
 
+    public function actionInactive($id)
+    {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = STATUS::STATUS_INACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Inactive Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionActive($id)
+    {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->post()) {
+            if ($model !== null) {
+                $model->status = Status::STATUS_ACTIVE;
+                $model->update(array('status'));
+            }
+
+            if (!isset($_GET['ajax'])) {
+                Yii::$app->session->setFlash('success', 'Activate Success.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }

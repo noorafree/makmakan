@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     
-    <p style="text-align: right">
+    <p s>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [

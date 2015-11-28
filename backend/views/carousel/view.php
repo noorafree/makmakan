@@ -4,18 +4,35 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Carousel */
+/* @var $model common\models\Carousel */
 
-$this->title = $model->id;
+$this->title = $model->caption;
 $this->params['breadcrumbs'][] = ['label' => 'Carousels', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="carousel-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'image_path',
+            'image_link',
+            'caption',
+            'carousel_order',
+            [
+                'attribute' => 'is_target_self',
+                'value' => $model->is_target_self == 1 ? 'YES' : 'NO'
+            ],
+            'status',
+            [
+                'attribute' => 'file',
+                'value' => $model->image_path,
+                'format' => ['image', ['width' => '100', 'height' => '100']],
+            ],
+        ],
+    ]) ?>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <p tyle="text-align: right">
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -23,23 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'is_target_self',
-            'carousel_order',
-            'image_path',
-            'image_link',
-            'caption',
-            'status',
-            'created_by',
-            'created_date',
-            'modified_by',
-            'modified_date',
-        ],
-    ]) ?>
 
 </div>

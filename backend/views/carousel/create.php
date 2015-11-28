@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Carousel */
+/* @var $model common\models\Carousel */
 
 $this->title = 'Create Carousel';
 $this->params['breadcrumbs'][] = ['label' => 'Carousels', 'url' => ['index']];

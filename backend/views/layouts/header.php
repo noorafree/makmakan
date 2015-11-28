@@ -7,7 +7,8 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . '<img src="' . Yii::$app->request->baseUrl . '/backend/assets/logo.jpg' . '" class=" img-responsive" >' . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -21,17 +22,17 @@ use yii\helpers\Html;
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <?= Html::Img(Html::Encode(Yii::$app->user->identity->image), ['alt'=>'User Image', 'class'=>'user-image']);  ?>
-                        <span class="hidden-xs"><?= Html::Encode(Yii::$app->user->identity->name);  ?></span>
+                        <?= Html::Img(Html::Encode(Yii::$app->user->identity->image), ['alt' => 'User Image', 'class' => 'user-image']); ?>
+                        <span class="hidden-xs"><?= Html::Encode(Yii::$app->user->identity->name); ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <?= Html::Img(Html::Encode(Yii::$app->user->identity->image), ['alt'=>'User Image', 'class'=>'img-circle']);  ?>
-                            
+                            <?= Html::Img(Html::Encode(Yii::$app->user->identity->image), ['alt' => 'User Image', 'class' => 'img-circle']); ?>
+
                             <p>
-                                <?= Html::Encode(Yii::$app->user->identity->name);  ?>
-                                <small><?= Html::Encode(Yii::$app->user->identity->email);  ?></small>
+                                <?= Html::Encode(Yii::$app->user->identity->name); ?>
+                                <small><?= Html::Encode(Yii::$app->user->identity->email); ?></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->

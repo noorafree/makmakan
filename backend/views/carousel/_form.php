@@ -11,14 +11,14 @@ use kartik\file\FileInput;
 
 <div class="carousel-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?=
     $form->field($model, 'file')->widget(FileInput::className(), [
             'pluginOptions' => [
                 'showCaption' => false,
                 'showUpload' => false,
-                'showRemove'=>false,
+                'showRemove' => false,
                 'browseClass' => 'btn btn-primary btn-block',
                 'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
                 'browseLabel' => 'Select Photo',
@@ -29,12 +29,12 @@ use kartik\file\FileInput;
     )
     ?>
 
+
     <?= $form->field($model, 'image_link')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'carousel_order')->textInput() ?>
 
     <?= $form->field($model, 'is_target_self')->checkBox(['label' => 'Self']); ?>
-
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
