@@ -75,26 +75,59 @@ class SiteController extends Controller {
     }
 
     /**
-     * Logs in a user.
+     * Renders Logs in a user.
      *
      * @return mixed
      */
     public function actionLogin() {
-        if (!\Yii::$app->user->isGuest) {
+            if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }elseif (!$model->load(Yii::$app->request->post())) {
+        if (!$model->load(Yii::$app->request->post())) {
             return $this->renderAjax('login', [
                         'model' => $model,
             ]);
-        } 
-        else {
+        }
+    }
+    
+    public function actionSubmitLogin() {
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->login()){
+                echo "success";
+            }else{                
+                echo "Incorrect username or password.";
+            }
+        }
+    }
+    
+    /**
+     * Render Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionSignup() {
+        $model = new SignupForm();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = 'json';
-            return ActiveForm::validate($model);
+                return ActiveForm::validate($model);
+        }else{
+            return $this->renderAjax('signup', [
+                        'model' => $model,
+            ]);
+        }
+    }
+    
+    public function actionSubmitSignup(){
+         $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->signup()) {
+                echo 'Registrasi Berhasil, Silahkan konfirmasi email anda';
+            }else{
+                echo 'Registrasi Gagal';
+            }
         }
     }
 
@@ -138,26 +171,6 @@ class SiteController extends Controller {
      */
     public function actionAbout() {
         return $this->render('about');
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
-    public function actionSignup() {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
-
-        return $this->renderAjax('signup', [
-                    'model' => $model,
-        ]);
     }
 
     /**

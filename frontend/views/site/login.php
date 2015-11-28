@@ -11,7 +11,8 @@ use yii\bootstrap\ActiveForm;
     <p>Please fill out the following fields to login:</p>
     <div class="row">
         <div class="col-lg-10">
-            <?php $form = ActiveForm::begin(['id' => 'login-form','enableAjaxValidation'=>TRUE]); ?>
+            <?php $form = ActiveForm::begin(['id' => 'login-form',
+                    'options'=>['onsubmit'=>'return false;']]) ?>
 
                 <?= $form->field($model, 'username') ?>
 
@@ -24,9 +25,37 @@ use yii\bootstrap\ActiveForm;
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-default', 'name' => 'login-button','style'=>'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0;']) ?>
+                    <?= Html::submitButton('Login', ['id'=>'login-btn','class' => 'btn btn-default', 'name' => 'login-button',
+                        'style'=>'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0;']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+    
+    <script type="text/javascript">        
+        $(document).ready(function (){
+            $('#login-btn').on('click',function(){
+                var data=$("#login-form").serialize();
+                $.ajax({
+                 type: 'POST',
+                 url: '<?php echo \Yii::$app->getUrlManager()->createUrl('site/submit-login') ?>',
+                 data:data,
+                 success:function(data){
+                        if(data=="success"){
+                            var passwordField = ".field-loginform-password";
+                            $(passwordField).removeClass('has-error');
+                            $(passwordField).find('.help-block').text("");
+                            window.location="<?php echo Yii::$app->getHomeUrl(); ?>";
+                        }else{
+                            var passwordField = ".field-loginform-password";
+                            $(passwordField).addClass('has-error').find('.help-block').text(data).fadeIn("fast");
+                        }                           
+                 },
+                 error: function(data) { // if error occured
+                        console.log("server error");
+                  }
+                });
+            });
+        });
+</script>
