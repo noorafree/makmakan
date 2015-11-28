@@ -21,7 +21,7 @@ $(function(){
        //close all dialog
        $('.modal').modal('hide');
        // select login lodel to show
-       $('#signupModal').css('top','40px').modal({backdrop:'static'})
+       $('#signupModal').css('top','40px').modal('show')
                .find('#signupModalContent')
                .load($(this).attr('value'));
    });   

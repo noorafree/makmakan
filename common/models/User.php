@@ -4,7 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
+//use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -70,12 +70,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            TimestampBehavior::className(),
+//        ];
+//    }
 
     /**
      * @inheritdoc
@@ -83,7 +83,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['first_name', 'birthdate', 'mobile', 'username', 'sex', 'address', 'featured', 'email', 'created_by', 'modified_by'], 'required'],
+            [['first_name', 'username','mobile', 'email', 'created_by', 'modified_by'], 'required'],
             [['birthdate', 'last_login_date', 'created_date', 'modified_date'], 'safe'],
             [['sex', 'address'], 'string'],
             [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer'],
@@ -96,7 +96,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
-             [['file'], 'safe'],
+            [['file'], 'safe'],
             [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
@@ -125,7 +125,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'last_name' => 'Last Name',
             'birthdate' => 'Birthdate',
             'phone' => 'Phone',
-            'mobile' => 'Mobile',
+            'mobile' => 'Handphone',
             'username' => 'Username',
             'sex' => 'Sex',
             'last_login_date' => 'Last Login Date',

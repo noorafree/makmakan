@@ -9,7 +9,8 @@ use yii\bootstrap\ActiveForm;
 <p>Home made food right into your doorstep!</p>
 <div class="row">
     <div class="col-lg-12">
-        <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableAjaxValidation' => TRUE]); ?>
+        <?php $form = ActiveForm::begin(['id' => 'login-form',
+                    'options'=>['onsubmit'=>'return false;']]) ?>
 
         <?=
         $form->field($model, 'username', [
@@ -46,3 +47,30 @@ use yii\bootstrap\ActiveForm;
     </div>
 </div>
 <p>Belum memiliki akun? <br/> <?= Html::a('Daftar sekarang!', ['#']) ?></p>
+    
+    <script type="text/javascript">        
+        $(document).ready(function (){
+            $('#login-btn').on('click',function(){
+                var data=$("#login-form").serialize();
+                $.ajax({
+                 type: 'POST',
+                 url: '<?php echo \Yii::$app->getUrlManager()->createUrl('site/submit-login') ?>',
+                 data:data,
+                 success:function(data){
+                        if(data=="success"){
+                            var passwordField = ".field-loginform-password";
+                            $(passwordField).removeClass('has-error');
+                            $(passwordField).find('.help-block').text("");
+                            window.location="<?php echo Yii::$app->getHomeUrl(); ?>";
+                        }else{
+                            var passwordField = ".field-loginform-password";
+                            $(passwordField).addClass('has-error').find('.help-block').text(data).fadeIn("fast");
+                        }                           
+                 },
+                 error: function(data) { // if error occured
+                        console.log("server error");
+                  }
+                });
+            });
+        });
+</script>

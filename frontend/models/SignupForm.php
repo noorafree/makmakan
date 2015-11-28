@@ -23,16 +23,28 @@ class SignupForm extends User
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 3, 'max' => 30],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'string', 'max' => 255],
+            ['email', 'string', 'max' => 100],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['repassword','compare','compareAttribute'=>'password'],
+            [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
+            // Username
+            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
+            
+            [['first_name'], 'required'],
+            [['mobile'], 'string', 'max' => 15],
+            ['mobile', 'match', 'pattern' => '/^[0-9]+$/'],
+            
+            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            
         ];
     }
 
@@ -46,15 +58,20 @@ class SignupForm extends User
         if ($this->validate()) {
             $user = new User();
             $user->username = $this->username;
+            $user->created_by = $this->username;
+            $user->modified_by = $this->username;
             $user->email = $this->email;
+            $user->password = $this->password;
+            $user->repassword = $this->repassword;
             $user->setPassword($this->password);
             $user->generateAuthKey();
-            
+            $user->first_name = $this->first_name;
+            $user->last_name = $this->last_name;
+            $user->mobile = $this->mobile;
             if ($user->save()) {
                 return $user;
             }
         }
-
         return null;
     }
 }

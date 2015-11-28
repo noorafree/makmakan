@@ -35,12 +35,10 @@ AppAsset::register($this);
                     <?php
                     if (Yii::$app->user->isGuest) {
                         echo '<li>';
-                        echo Html::a('Masuk', '#', ['value' => Url::to('index.php?r=site/login'), 'id' => 'loginLink',
-                            'data-toggle' => 'modal', 'data-dismiss' => 'modal', 'data-modal' => 'loginModal', 'data-backdrop' => 'static', 'data-keyboard' => 'false']);
+                        echo Html::a('Masuk', '#', ['value' => Url::to('index.php?r=site/login'), 'id' => 'loginLink']);
                         echo '</li>';
                         echo '<li>';
-                        echo Html::a('Daftar', '#', ['value' => Url::to('index.php?r=site/signup'), 'id' => 'signupLink',
-                            'data-toggle' => 'modal', 'data-dismiss' => 'modal', 'data-modal' => 'signupModal']);
+                        echo Html::a('Daftar', '#', ['value' => Url::to('index.php?r=site/signup'), 'id' => 'signupLink']);
                         echo '</li>';
                     } else {
                         echo '<li>';
