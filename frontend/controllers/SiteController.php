@@ -98,7 +98,7 @@ class SiteController extends Controller {
             if($model->login()){
                 echo "success";
             }else{                
-                echo "Incorrect username or password.";
+                echo "Incorrect email or password.";
             }
         }
     }
@@ -122,8 +122,9 @@ class SiteController extends Controller {
     
     public function actionSubmitSignup(){
          $model = new SignupForm();
-         $submitResponse;
+         $submitResponse[]='';
         if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = 'json';
             if ($model->validate() && $model->signup()) {
                 $model->sendEmailActivation();
                 $submitResponse= ['isSuccess'=>true,
@@ -132,7 +133,7 @@ class SiteController extends Controller {
             }else{
                 $submitResponse= ['isSuccess'=>false,
                                   'message'=>'Registrasi Gagal'];
-                return $submitResponse;
+                echo $submitResponse;
             }
         }
     }

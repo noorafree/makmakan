@@ -84,7 +84,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['first_name', 'username','mobile', 'email', 'created_by', 'modified_by'], 'required'],
+            [['first_name', 'mobile', 'email', 'created_by', 'modified_by'], 'required'],
             [['birthdate', 'last_login_date', 'created_date', 'modified_date'], 'safe'],
             [['sex', 'address'], 'string'],
             [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer'],
@@ -353,5 +353,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ]);
     }
     
+     /**
+     * Finds user by email
+     *
+     * @param string $email
+     * @return static|null
+     */
+    public static function findUserByEmail($email)
+    {
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+    }
     
 }

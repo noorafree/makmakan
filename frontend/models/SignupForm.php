@@ -20,10 +20,10 @@ class SignupForm extends User
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 3, 'max' => 30],
+//            ['username', 'filter', 'filter' => 'trim'],
+//            ['username', 'required'],
+//            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+//            ['username', 'string', 'min' => 3, 'max' => 30],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
@@ -57,9 +57,9 @@ class SignupForm extends User
     {
         if ($this->validate()) {
             $user = new User();
-            $user->username = $this->username;
-            $user->created_by = $this->username;
-            $user->modified_by = $this->username;
+//            $user->username = $this->username;
+            $user->created_by = $this->email;
+            $user->modified_by = $this->email;
             $user->email = $this->email;
             $user->password = $this->password;
             $user->repassword = $this->repassword;
