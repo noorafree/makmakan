@@ -14,6 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
+use mcms\cart\Cart;
 
 /**
  * Site controller
@@ -80,7 +81,7 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionLogin() {
-            if (!\Yii::$app->user->isGuest) {
+        if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
@@ -91,18 +92,18 @@ class SiteController extends Controller {
             ]);
         }
     }
-    
+
     public function actionSubmitLogin() {
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
-            if($model->login()){
+            if ($model->login()) {
                 echo "success";
-            }else{                
+            } else {
                 echo "Incorrect email or password.";
             }
         }
     }
-    
+
     /**
      * Render Signs user up.
      *
@@ -112,27 +113,27 @@ class SiteController extends Controller {
         $model = new SignupForm();
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = 'json';
-                return ActiveForm::validate($model);
-        }else{
+            return ActiveForm::validate($model);
+        } else {
             return $this->renderAjax('signup', [
                         'model' => $model,
             ]);
         }
     }
-    
-    public function actionSubmitSignup(){
-         $model = new SignupForm();
-         $submitResponse[]='';
+
+    public function actionSubmitSignup() {
+        $model = new SignupForm();
+        $submitResponse[] = '';
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = 'json';
             if ($model->validate() && $model->signup()) {
                 $model->sendEmailActivation();
-                $submitResponse= ['isSuccess'=>true,
-                                  'message'=>'Registrasi Berhasil, Silahkan aktifkan akun anda melalui email.'];
+                $submitResponse = ['isSuccess' => true,
+                    'message' => 'Registrasi Berhasil, Silahkan aktifkan akun anda melalui email.'];
                 return $submitResponse;
-            }else{
-                $submitResponse= ['isSuccess'=>false,
-                                  'message'=>'Registrasi Gagal'];
+            } else {
+                $submitResponse = ['isSuccess' => false,
+                    'message' => 'Registrasi Gagal'];
                 echo $submitResponse;
             }
         }
@@ -228,7 +229,7 @@ class SiteController extends Controller {
     }
 
     public function actionProduct() {
-        if(!isset($_GET['Search'])) {
+        if (!isset($_GET['Search'])) {
             $_GET['Search'] = '';
         }
         $searchModel = new \common\models\ProductSearch();
@@ -236,15 +237,44 @@ class SiteController extends Controller {
         $dataProvider = $searchModel->searchBy($_GET['Search']);
 
         return $this->render('product', array(
-            'dataProvider' => $dataProvider,
+                    'dataProvider' => $dataProvider,
         ));
     }
 
     public function actionDetail($id) {
-        $product = Product::findOne($id);
-        
-        $this->render('detail', array(
-            'product' => $product,
+        $product = \common\models\Product::findOne($id);
+
+        $productForm = new \common\models\ProductForm();
+        $productForm->id = $product->id;
+        $productForm->name = $product->name;
+        $productForm->description = $product->description;
+        $productForm->price = $product->selling_price;
+        $productForm->filename = $product->productPhotos[0]->id;
+
+        if (Yii::$app->request->post('ProductForm')) {
+            $productForm->attributes = $_POST['ProductForm'];
+            $this->addToCart($productForm);
+            Yii::$app->response->redirect(array('cart/cart'));
+        }
+
+        return $this->render('detail', array(
+                    'product' => $product,
+                    'productForm' => $productForm
         ));
     }
+
+    public function addToCart($productForm) {
+        $cart = new \common\models\Cart();
+
+        $data = array(
+            'id' => $productForm->id,
+            'qty' => $productForm->quantity,
+            'price' => $productForm->price,
+            'name' => $productForm->name,
+            'options' => array('Featured' => 'L', 'Nope' => 'Red')
+        );
+
+        $cart->insert($data);
+    }
+
 }

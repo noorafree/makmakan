@@ -157,4 +157,13 @@ return array (
       '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput',
     ),
   ),
+  'omnilight/yii2-shopping-cart' => 
+  array (
+    'name' => 'omnilight/yii2-shopping-cart',
+    'version' => '1.2.2.0',
+    'alias' => 
+    array (
+      '@yz/shoppingcart' => $vendorDir . '/omnilight/yii2-shopping-cart',
+    ),
+  ),
 );
