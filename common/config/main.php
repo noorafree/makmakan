@@ -20,5 +20,16 @@ return [
             'thousandSeparator' => ' ',
             'currencyCode' => 'IDR',
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+            'class' => 'Swift_SmtpTransport',
+            'host' => 'smtp.gmail.com',
+            'username' => 'noor.afree@gmail.com',
+            'password' => 'p4ssw0rdgw123',
+            'port' => '587',
+            'encryption' => 'tls',
+            ],
+        ],
     ],
 ];

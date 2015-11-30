@@ -1,7 +1,7 @@
 <?php
 return [
     'adminEmail' => 'admin@makmakan.com',
-    'supportEmail' => 'support@makmakan.com ',
+    'supportEmail' => 'noor.afree@gmail.com',
     'user.passwordResetTokenExpire' => 3600,
-    'user.activationCodeExpire' => 86400,
+    'user.activationCodeExpire' => 3600,
 ];

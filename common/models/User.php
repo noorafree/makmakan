@@ -114,6 +114,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ];
     }
 
+     /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return [
+            'user-update-status' => ['status'],
+        ];
+    }
     
     
     /**
@@ -327,7 +336,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      /**
      * Finds out if user activation is valid
      *
-     * @param string $token password reset token
+     * @param string $code for activation
      * @return boolean
      */
     public static function isUserActivationCodeValid($code)
@@ -338,7 +347,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
         $timestamp = (int) substr($code, strrpos($code, '_') + 1);
         $expire = Yii::$app->params['user.activationCodeExpire'];
-        return $timestamp + $expire >= time();
+        return $timestamp + ($expire * 24) >= time();
     }
     
     public static function findByActivationCode($code)
@@ -349,7 +358,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'activation_code' => $code,
-            'status' => self::STATUS_ACTIVE,
+            'status' => self::STATUS_INACTIVE,
         ]);
     }
     

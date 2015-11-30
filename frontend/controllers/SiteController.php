@@ -14,6 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
+use common\models\User;
 
 /**
  * Site controller
@@ -126,7 +127,7 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = 'json';
             if ($model->validate() && $model->signup()) {
-                $model->sendEmailActivation();
+                $isSend = $model->sendEmailActivation();
                 $submitResponse= ['isSuccess'=>true,
                                   'message'=>'Registrasi Berhasil, Silahkan aktifkan akun anda melalui email.'];
                 return $submitResponse;
@@ -246,5 +247,34 @@ class SiteController extends Controller {
         $this->render('detail', array(
             'product' => $product,
         ));
+    }
+    
+    
+    /**
+     * activate user.
+     *
+     * @param string $code
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionUserActivation($code) {
+//        try {
+//            $model = new ResetPasswordForm($token);
+//        } catch (InvalidParamException $e) {
+//            throw new BadRequestHttpException($e->getMessage());
+//        }
+        $user = User::findByActivationCode($code);
+        $user->setScenario('user-update-status');
+        if ($user!=NULL) {
+            $user->status = User::STATUS_ACTIVE;
+            if ($user->save()) {
+                Yii::$app->session->setFlash('success', 'Aktifasi User Berhasil.');
+            }else{
+                Yii::$app->session->setFlash('error', 'Aktifasi User Gagal.');
+            }
+            return $this->goHome();
+        }else{
+            Yii::$app->session->setFlash('error', 'Aktifasi User Sudah melebihi batas waktu.');
+        }
     }
 }
