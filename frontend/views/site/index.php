@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row "id="starts">
             <div class="col-md-12 col-sm-12 col-xs-12 work-list">
-                <h2 class="text-center portfolio-text">TOP CATEGORIES</h2>
+                <h2 class="text-center portfolio-text portfolio-text-before">TOP CATEGORIES</h2>
                 <div class="col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story1.png" data-lightbox="image-1">
                         <div class="featured-img">
@@ -111,7 +111,7 @@
     <div class="container">
         <div class="row" id="starts">
             <div class="col-md-12 col-sm-12 col-xs-12 work-list">
-                <h2 class="text-center portfolio-text">MOST POPULAR DISHES</h2>
+                <h2 class="text-center portfolio-text portfolio-text-before">MOST POPULAR DISHES</h2>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 work-space">
                     <a href="images/story1.png" data-lightbox="image-1">
                         <div class="featured-img">

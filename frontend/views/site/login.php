@@ -39,8 +39,8 @@ use yii\bootstrap\ActiveForm;
 
         <div class="form-group">
             <?= Html::submitButton('Masuk', ['id'=>'login-btn','class' => 'btn btn-default btn-block', 'name' => 'login-button', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']) ?>
-            <?= Html::submitButton('Masuk dengan Facebook', ['class' => 'btn btn-default btn-block', 'name' => 'login-button', 'style' => 'background: #3b5998; color: #FFF; border: 1px solid #3b5998; border-radius: 0; font-size: 12px']) ?>
-            <?= Html::submitButton('Masuk dengan G+', ['class' => 'btn btn-default btn-block', 'name' => 'login-button', 'style' => 'background: #ff0000; color: #FFF; border: 1px solid #ff0000; border-radius: 0; font-size: 12px']) ?>
+            <!-- <?= Html::submitButton('Masuk dengan Facebook', ['class' => 'btn btn-default btn-block', 'name' => 'login-button', 'style' => 'background: #3b5998; color: #FFF; border: 1px solid #3b5998; border-radius: 0; font-size: 12px']) ?>
+            <?= Html::submitButton('Masuk dengan G+', ['class' => 'btn btn-default btn-block', 'name' => 'login-button', 'style' => 'background: #ff0000; color: #FFF; border: 1px solid #ff0000; border-radius: 0; font-size: 12px']) ?> -->
         </div>
 
         <?php ActiveForm::end(); ?>

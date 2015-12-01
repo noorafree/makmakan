@@ -36,7 +36,7 @@ class AppAsset extends AssetBundle {
         'https://maps.googleapis.com/maps/api/js',
         'js/lightbox.min.js',
         'js/modal.js',
-        'js/bootstrap-treeview.js',
+        'js/ddaccordion.js',
         'js/usermenu.js',
     ];
     

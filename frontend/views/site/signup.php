@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 
 <div class="site-signup">
 
-    <p>Dengan mendaftar anda berarti telah menyetujui <?= Html::a('persetujuan pengguna Makmakan', ['#']) ?> </p>
+    <p>Dengan mendaftar anda berarti telah menyetujui <?= Html::a('persetujuan pengguna.', ['#']) ?> </p>
 
     <div class="row">
         <div class="col-lg-12">
