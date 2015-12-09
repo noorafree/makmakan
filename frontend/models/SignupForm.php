@@ -20,11 +20,6 @@ class SignupForm extends User
     public function rules()
     {
         return [
-//            ['username', 'filter', 'filter' => 'trim'],
-//            ['username', 'required'],
-//            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-//            ['username', 'string', 'min' => 3, 'max' => 30],
-
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -57,6 +52,7 @@ class SignupForm extends User
     {
         if ($this->validate()) {
             $user = new User();
+            $user->setScenario("user-create");
 //            $user->username = $this->username;
             $user->created_by = $this->email;
             $user->modified_by = $this->email;
@@ -88,9 +84,10 @@ class SignupForm extends User
             if (!User::isUserActivationCodeValid($user->activation_code)) {
                 $user->generateUserActivationCode();
             }
-
+            $from = Yii::$app->params['supportEmail'];
+            $as= [\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'];
             return \Yii::$app->mailer->compose(['html' => 'userActivation-html', 'text' => 'userActivation-text'], ['user' => $user])
-                ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                ->setFrom(\Yii::$app->params['supportEmail'])
                 ->setTo($this->email)
                 ->setSubject('Aktifasi Akun untuk ' . \Yii::$app->name)
                 ->send();

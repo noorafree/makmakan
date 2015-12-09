@@ -14,6 +14,16 @@ $(function(){
        $('#loginModal').css('top','40px').modal('show')
                .find('#loginModalContent')
                .load($(this).attr('value'));
+   });
+   
+   $('#cartLink').click(function(e){
+       e.preventDefault();
+       //close all dialog
+       $('.modal').modal('hide');
+       // select login lodel to show
+       $('#cartModal').css('top','40px').modal('show')
+               .find('#cartModalContent')
+               .load($(this).attr('value'));
    });  
    
    $('#signupLink').click(function(e){

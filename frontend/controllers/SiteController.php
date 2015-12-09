@@ -112,6 +112,7 @@ class SiteController extends Controller {
      */
     public function actionSignup() {
         $model = new SignupForm();
+        $model->setScenario('user-create');
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = 'json';
             return ActiveForm::validate($model);
@@ -124,6 +125,7 @@ class SiteController extends Controller {
 
     public function actionSubmitSignup() {
         $model = new SignupForm();
+        $model->setScenario('user-create');
         $submitResponse[] = '';
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = 'json';
@@ -139,7 +141,8 @@ class SiteController extends Controller {
             }
         }
     }
-
+    
+    
     /**
      * Logs out the current user.
      *
@@ -192,8 +195,7 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
+                return $this->refresh();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
             }
@@ -277,18 +279,19 @@ class SiteController extends Controller {
 //        } catch (InvalidParamException $e) {
 //            throw new BadRequestHttpException($e->getMessage());
 //        }
-        $user = User::findByActivationCode($code);
-        $user->setScenario('user-update-status');
-        if ($user != NULL) {
+        $user = User::findByActivationCode($code);       
+        if ($user!=NULL) {
+            $user->setScenario('user-update-status');
             $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
                 Yii::$app->session->setFlash('success', 'Aktifasi User Berhasil.');
             } else {
                 Yii::$app->session->setFlash('error', 'Aktifasi User Gagal.');
             }
-            return $this->goHome();
-        } else {
+            return $this->render("userVerification");
+        }else{
             Yii::$app->session->setFlash('error', 'Aktifasi User Sudah melebihi batas waktu.');
+            return $this->render("userVerification");
         }
     }
 

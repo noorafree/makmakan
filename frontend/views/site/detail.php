@@ -6,6 +6,8 @@
  */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
 ?>
 
 <div class="container-fluid work" id="work">
@@ -179,19 +181,27 @@ use yii\helpers\Html;
                         <div class="row">
                             <div style="float: left; margin-right: 5px"><?php //echo Html::image(Yii::app()->request->baseUrl . '/images/shopping_cart.png', '', array('style' => 'vertical-align: bottom')); ?></div>
                             <div style="float: left"><?php echo Html::activeTextInput($productForm, 'quantity', array('size' => 3, 'maxlength' => 3, 'style' => 'text-align: center')); ?></div>
-                            <div style="float: left; margin-left: 5px"><?php echo Html::submitButton('Add to cart'); ?></div>
+                            <div style="float: left; margin-left: 5px"><?= Html::a('Add to cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'id' => 'cartLink']); ?></div>
+                            <div style="float: left; margin-left: 5px"><?= Html::submitButton('Add to cart'); ?></div>
                             <div class="clear"><?php echo Html::error($productForm, 'quantity'); ?></div>
                         </div>
                         <?php echo Html::endForm(); ?>
                     </div>
                 </div>
 
-
-
             </div>
         </div>
     </div>
 </div>
+<?php
+        Modal::begin([
+            'id' => 'cartModal',
+            'size' => 'modal-sm',
+            'header' => '<img src="images/logo.png" class="modal-logo" />',
+        ]);
+        echo "<div id=cartModalContent> </div> ";
+        Modal::end();
+        ?>
 
 <div style="clear: both"></div>
 

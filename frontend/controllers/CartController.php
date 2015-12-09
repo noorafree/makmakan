@@ -18,7 +18,7 @@ class CartController extends Controller {
 
     public function actionCart() {
 
-        return $this->render('cart');
+        return $this->renderAjax('cart');
     }
 
     public function actionRemove($id) {
