@@ -46,6 +46,7 @@ AppAsset::register($this);
                         echo '</li>';
                     }
                     ?>
+                    <li><?= Html::a('Cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'id' => 'cartLink']); ?></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
                 </ul>
             </div>
@@ -116,6 +117,15 @@ AppAsset::register($this);
             'header' => '<img src="images/logo.png" class="modal-logo" />',
         ]);
         echo "<div id=signupModalContent> </div> ";
+        Modal::end();
+        ?>
+        <?php
+        Modal::begin([
+            'id' => 'cartModal',
+            'size' => 'modal-sm',
+            'header' => '<img src="images/logo.png" class="modal-logo" />',
+        ]);
+        echo "<div id=cartModalContent> </div> ";
         Modal::end();
         ?>
     </body>
