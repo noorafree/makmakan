@@ -319,7 +319,7 @@ class SiteController extends Controller {
             Yii::$app->session->setFlash('success', 'Update Success.');
             return $this->refresh();
         } else {
-            return $this->render('user-profile', [
+            return $this->render('userProfile', [
                         'model' => $model,
             ]);
         }
