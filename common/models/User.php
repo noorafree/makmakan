@@ -84,33 +84,33 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['first_name', 'mobile', 'email', 'created_by', 'modified_by'], 'required'],
-            [['birthdate', 'last_login_date', 'created_date', 'modified_date'], 'safe'],
-            [['sex', 'address'], 'string'],
-            [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer'],
-            [['first_name', 'last_name'], 'string', 'max' => 30],
-            [['phone', 'mobile'], 'string', 'max' => 15],
-            [['username', 'password_hash', 'password_reset_token','activation_code'], 'string', 'max' => 255],
-            [['image_path'], 'string', 'max' => 200],
-            [['bank_account_number', 'bank_account_name', 'created_by', 'modified_by'], 'string', 'max' => 50],
-            [['auth_key'], 'string', 'max' => 32],
+            [['first_name', 'mobile', 'email', 'created_by', 'modified_by'], 'required','on'=>['user-create','default']],
+            [['birthdate', 'last_login_date', 'created_date', 'modified_date'], 'safe','on'=>['default']],
+            [['sex', 'address'], 'string','on'=>['default']],
+            [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer','on'=>['default']],
+            [['first_name', 'last_name'], 'string', 'max' => 30,'on'=>['user-create','default']],
+            [['phone', 'mobile'], 'string', 'max' => 15,'on'=>['user-create','default']],
+            [['username', 'password_hash', 'password_reset_token','activation_code'], 'string', 'max' => 255,'on'=>['user-create','default']],
+            [['image_path'], 'string', 'max' => 200,'on'=>['default']],
+            [['bank_account_number', 'bank_account_name', 'created_by', 'modified_by'], 'string', 'max' => 50,'on'=>['default']],
+            [['auth_key'], 'string', 'max' => 32,'on'=>['user-create','default']],
             [['username'], 'unique'],
-            [['email'], 'unique'],
-            [['password_reset_token'], 'unique'],
-            [['activation_code'],'unique'],
-            [['file'], 'safe'],
-            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1],
+            [['email'], 'unique','on'=>['user-create','default']],
+            [['password_reset_token'], 'unique','on'=>['user-create']],
+            [['activation_code'],'unique','on'=>['user-create']],
+            [['file'], 'safe','on'=>['default']],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1,'on'=>['default']],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            [['password','repassword'],'required'],
-            ['repassword','compare','compareAttribute'=>'password'],
-            [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
+            [['password','repassword'],'required','on'=>['user-create','default']],
+            ['repassword','compare','compareAttribute'=>'password','on'=>['user-create','default']],
+            [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30,'on'=>['user-create','default']],
             // Username
             ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
             ['username', 'string', 'min' => 3, 'max' => 30],
             // E-mail
-            ['email', 'string', 'max' => 100],
-            ['email', 'email'],
+            ['email', 'string', 'max' => 100,'on'=>['user-create','default']],
+            ['email', 'email','on'=>['user-create','default']],
         ];
     }
 
@@ -120,7 +120,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function scenarios()
     {
         return [
+            'default'=>['first_name','last_name', 'mobile', 'email', 'created_by', 'modified_by','status','auth_key','password_hash', 
+                'password_reset_token','activation_code','password','repassword', 'birthdate','sex', 'address','phone', 'mobile','image_path',
+                'bank_account_number', 'bank_account_name','file','featured', 'makmakan_credit', 'sn_bank_id'],
+            'user-create'=>['first_name', 'mobile', 'email', 'created_by', 'modified_by','status',
+                'auth_key','password_hash', 'password_reset_token','activation_code','password','repassword'],
             'user-update-status' => ['status'],
+            'user-password-reset-request'=>['password_reset_token'],
         ];
     }
     
@@ -352,9 +358,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     
     public static function findByActivationCode($code)
     {
-        if (!static::isUserActivationCodeValid($code)) {
-            return null;
-        }
+//        if (!static::isUserActivationCodeValid($code)) {
+//            return null;
+//        }
 
         return static::findOne([
             'activation_code' => $code,

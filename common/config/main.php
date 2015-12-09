@@ -22,14 +22,18 @@ return [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
             'transport' => [
-            'class' => 'Swift_SmtpTransport',
-            'host' => 'smtp.gmail.com',
-            'username' => 'noor.afree@gmail.com',
-            'password' => 'p4ssw0rdgw123',
-            'port' => '587',
-            'encryption' => 'tls',
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'mail.makmakan.com',
+                'username' => 'admin@makmakan.com',
+                'password' => 'admin123',
+                'port' => '465',
+                'encryption' => 'ssl',
             ],
+//            'messageConfig' => [
+//            'from' => ['admin@makmakan.com' => 'Admin'], // this is needed for sending emails
+//            'charset' => 'UTF-8',],
         ],
     ],
 ];

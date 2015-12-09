@@ -70,6 +70,7 @@ class UserController extends Controller
             $model->modified_by = Yii::$app->user->identity->username;
             $model->modified_date = date('Y-m-d h:m:s');
             $model->status = Status::STATUS_ACTIVE;
+            $model->generateUserActivationCode();
 //            $model->password_hash = md5($model->auth_key);
 //            $model->save();
             $imageName = substr(md5(rand()), 0, 7);
