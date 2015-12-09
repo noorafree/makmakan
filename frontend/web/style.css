@@ -381,12 +381,12 @@ h2.features-text::after {
     margin: 5px 0;
     padding: 0;
     width: 170px; /*width of menu*/
-    border: 1px solid #9A9A9A;
+    border: 0px solid #FFFFFF;
     border-bottom-width: 0;
 }
 
 .glossymenu a.menuitem{
-    background: black url("images/glossyback.gif");
+    background: black url("images/accmenubg.png");
     font: bold 14px "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
     color: white;
     display: block;
@@ -409,7 +409,7 @@ h2.features-text::after {
 }
 
 .glossymenu a.menuitem:hover{
-    background-image: url("images/glossyback2.gif");
+    background-image: url("images/accmenubgselected.png");
 }
 
 .glossymenu div.submenu{ /*DIV that contains each sub menu*/
@@ -423,7 +423,7 @@ h2.features-text::after {
 }
 
 .glossymenu div.submenu ul li{
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid #FF9999;
 }
 
 .glossymenu div.submenu ul li a{
