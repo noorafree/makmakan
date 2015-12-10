@@ -265,7 +265,7 @@ class SiteController extends Controller {
                     'productForm' => $productForm
         ));
     }
-    
+
     /**
      * activate user.
      *
@@ -279,14 +279,13 @@ class SiteController extends Controller {
 //        } catch (InvalidParamException $e) {
 //            throw new BadRequestHttpException($e->getMessage());
 //        }
-        $user = User::findByActivationCode($code);
-       
+        $user = User::findByActivationCode($code);       
         if ($user!=NULL) {
             $user->setScenario('user-update-status');
             $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
                 Yii::$app->session->setFlash('success', 'Aktifasi User Berhasil.');
-            }else{
+            } else {
                 Yii::$app->session->setFlash('error', 'Aktifasi User Gagal.');
             }
             return $this->render("userVerification");
@@ -309,4 +308,37 @@ class SiteController extends Controller {
 
         $cart->insert($data);
     }
+
+    public function actionProfile($id = 1) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->last_modified_by = Yii::$app->user->identity->username;
+            $model->last_modified_date = date('Y-m-d h:m:s');
+            $model->save();
+            Yii::$app->session->setFlash('success', 'Update Success.');
+            return $this->refresh();
+        } else {
+            return $this->render('userProfile', [
+                        'model' => $model,
+            ]);
+        }
+    }
+    
+    /**
+     * Finds the Faq model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Faq the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
 }
