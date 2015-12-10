@@ -16,7 +16,7 @@ $(function(){
                .load($(this).attr('value'));
    });
    
-   $('#cartLink').click(function(e){
+   $('.cartLink').click(function(e){
        e.preventDefault();
        //close all dialog
        $('.modal').modal('hide');

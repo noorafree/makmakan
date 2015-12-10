@@ -46,7 +46,7 @@ AppAsset::register($this);
                         echo '</li>';
                     }
                     ?>
-                    <li><?= Html::a('Cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'id' => 'cartLink']); ?></li>
+                    <li><?= Html::a('Cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'class' => 'cartLink']); ?></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
                 </ul>
             </div>
