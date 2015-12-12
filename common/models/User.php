@@ -125,8 +125,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
                 'bank_account_number', 'bank_account_name','file','featured', 'makmakan_credit', 'sn_bank_id'],
             'user-create'=>['first_name', 'mobile', 'email', 'created_by', 'modified_by','status',
                 'auth_key','password_hash', 'password_reset_token','activation_code','password','repassword'],
+            'user-update'=>['first_name','last_name', 'mobile', 'email', 'birthdate','sex', 'address','phone', 'mobile','image_path',
+                'bank_account_number', 'bank_account_name','file','featured', 'sn_bank_id'],
             'user-update-status' => ['status'],
-            'user-password-reset-request'=>['password_reset_token'],
+            'user-request-password-reset'=>['password_reset_token'],
+            'user-reset-password'=>['password','repassword'],
         ];
     }
     

@@ -9,9 +9,9 @@ use Yii;
 /**
  * Password reset form
  */
-class ResetPasswordForm extends Model
+class ResetPasswordForm extends User
 {
-    public $password;
+//    public $password;
 
     /**
      * @var \common\models\User
@@ -44,8 +44,9 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            [['password','repassword'],'required'],
+            ['repassword','compare','compareAttribute'=>'password'],
+            [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
         ];
     }
 
@@ -59,7 +60,9 @@ class ResetPasswordForm extends Model
         $user = $this->_user;
         $user->setPassword($this->password);
         $user->removePasswordResetToken();
-
+        $user->modified_by = $this->email;
+        $user->modified_date = date('Y-m-d h:m:s');
+        $user->setScenario('user-reset-password');
         return $user->save(false);
     }
 }

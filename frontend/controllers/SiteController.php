@@ -195,7 +195,7 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->refresh();
+//                return $this->refresh();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
             }
@@ -310,7 +310,8 @@ class SiteController extends Controller {
     }
 
     public function actionProfile($id = 1) {
-        $model = $this->findModel($id);
+        $model = new User();
+//        $model = $model->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
             $model->last_modified_by = Yii::$app->user->identity->username;

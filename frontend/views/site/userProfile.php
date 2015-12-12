@@ -90,7 +90,7 @@ use common\models\Status;
 
                                     <?=
                                     $form->field($model, 'sn_bank_id')->dropDownList(
-                                            ArrayHelper::map(SnBank::find()->where(['status' => [Status::STATUS_ACTIVE, Status::STATUS_INACTIVE]])->all(), 'id', 'bank'), ['prompt' => 'Select Bank']
+                                            ArrayHelper::map(SnBank::find()->where(['status' => [Status::STATUS_ACTIVE]])->all(), 'id', 'bank'), ['prompt' => 'Select Bank']
                                     );
                                     ?>
 
