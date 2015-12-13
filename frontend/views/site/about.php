@@ -8,9 +8,8 @@ use yii\helpers\Html;
     <div class="container">
         <div class="row">
             <div class="col-md-2 col-sm-2 hidden-xs">                
-                <div class="glossymenu" style="margin:auto; width: 130%">
+                <div class="glossymenu" style="margin:auto; width: 135%">
                     <?= Html::a('Profil Pengguna', ['site/profile'], ['class' => 'menuitem']); ?>
-                    <a class="menuitem" href="http://www.cssdrive.com">Profil Pengguna</a>
                     <a class="menuitem submenuheader" href="http://www.cssdrive.com">Pembelian</a>
                     <div class="submenu">
                         <ul>
@@ -34,7 +33,7 @@ use yii\helpers\Html;
                     <a class="menuitem" href="http://www.cssdrive.com">Keluar</a>
                 </div>
             </div>
-            <div class="col-md-10 col-sm-10 col-xs-12">
+            <div class="col-md-8 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                 <p>Assuming the current page is named "current.htm", the below links when navigated to expands a particular header on that page:</p>
                 <p>
                     - <a href="current.htm?submenuheader=0">Expand 1st header within "submenuheader" header group</a><br />
