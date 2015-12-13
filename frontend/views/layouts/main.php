@@ -122,8 +122,8 @@ AppAsset::register($this);
         <?php
         Modal::begin([
             'id' => 'cartModal',
-            'size' => 'modal-sm',
-            'header' => '<img src="images/logo.png" class="modal-logo" />',
+            'size' => 'modal-md',
+            'header' => '<img src="images/logo.png" class="modal-logo-md" />',
         ]);
         echo "<div id=cartModalContent> </div> ";
         Modal::end();
