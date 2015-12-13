@@ -563,4 +563,12 @@ h2.features-text::after {
     .footer .division div {
         text-align: center;
     }
+
+    .modal-logo-md
+    {
+        width:60%; 
+        height:auto; 
+        display: block;
+        margin:0 auto;
+    }
 }

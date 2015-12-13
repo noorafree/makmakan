@@ -14,17 +14,17 @@ if ($_POST) {
 
 <!--<p>Keranjang belanja anda masih kosong. <br/> <?= Html::a('Belanja sekarang!', ['#']) ?></p>-->
 
-<div class="row" style="margin-bottom: 20px;">
+<div class="row" style="margin-bottom: 15px;">
     <div class="col-lg-12" style="text-align: center; color: #FF9999; font-size: 16px;">
         <i class="glyphicon glyphicon-ok"/> Capcay Enak telah ditambahkan ke keranjang Anda
     </div>
 </div>
 
 <div class="row" style="margin-bottom: 20px;">
-    <div class="col-lg-6" style="text-align: right">
-        <img style="width: 50%; height: auto" src="images/10.jpg">
+    <div class="col-xs-6" style="text-align: right;">
+        <img style="width: 50%; height: auto;" src="images/10.jpg">
     </div>
-    <div class="col-lg-6">
+    <div class="col-xs-6 col-md-6">
         <div class="row">
             <div class="col-lg-12">
                 Capcay Enak
@@ -49,26 +49,26 @@ if ($_POST) {
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="row" style="margin-bottom: 5px">
-                    <div class="col-lg-6">
+                    <div class="col-xs-6">
                         Subtotal
                     </div>
-                    <div class="col-lg-6" style="text-align: right">
+                    <div class="col-xs-6" style="text-align: right">
                         Rp 150.000,-
                     </div>
-                    <div class="col-lg-6" style="border-bottom: 1px">
+                    <div class="col-xs-6" style="border-bottom: 1px">
                         Biaya Pengiriman
                     </div>
-                    <div class="col-lg-6" style="text-align: right">
+                    <div class="col-xs-6" style="text-align: right">
                         Rp 20.000,-
                     </div>
                     <br/>
                 </div>
 
                 <div class="row" style="margin-bottom: 10px">
-                    <div class="col-lg-6" style="font-weight: 900; font-size: 16px">
+                    <div class="col-xs-6" style="font-weight: 900; font-size: 16px">
                         Total
                     </div>
-                    <div class="col-lg-6" style="text-align: right; font-weight: 900; font-size: 16px">
+                    <div class="col-xs-6" style="text-align: right; font-weight: 900; font-size: 16px">
                         Rp 170.000,-
                     </div>
                 </div>
