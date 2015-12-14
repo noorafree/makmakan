@@ -6,6 +6,7 @@ use dosamigos\datepicker\DatePicker;
 use yii\helpers\ArrayHelper;
 use common\models\SnBank;
 use common\models\Status;
+use dmstr\widgets\Alert;
 ?>
 
 <div class="container-fluid site-content">
@@ -45,6 +46,7 @@ use common\models\Status;
                     <div class="user-form">
                         <div class="row">
                             <div class="box box-primary">
+                                <?= Alert::widget() ?>
                                 <div class="box-body">
                                     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
@@ -54,20 +56,17 @@ use common\models\Status;
 
                                             <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
                                         </div>
-                                        <div class="col-xs-6 pull-right">
+                                        <div class="col-xs-3">
                                             <?= $form->field($model, 'file')->fileInput() ?>
                                             
                                             Status Peringatan Seller
                                         </div>
+                                        <div class="col-xs-3 pull-right">
+                                            <?php echo Html::img(Yii::getAlias('backendUrl').'/'.$model->image_path) ?>
+                                        </div>
                                     </div>
 
                                     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-                                    <?php if (Yii::$app->controller->action->id != 'update') { ?>
-                                        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 30]) ?>
-
-                                        <?= $form->field($model, 'repassword')->passwordInput(['maxlength' => 30]) ?>
-                                    <?php } ?>
 
                                     <?=
                                     $form->field($model, 'birthdate')->widget(

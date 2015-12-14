@@ -16,6 +16,7 @@ use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
 use common\models\User;
 use mcms\cart\Cart;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -310,20 +311,37 @@ class SiteController extends Controller {
     }
 
     public function actionProfile($id = 1) {
-        $model = new User();
+        $model = User::findOne(Yii::$app->user->id);
+        $model->setScenario('user-update');
 //        $model = $model->findModel($id);
-
         if ($model->load(Yii::$app->request->post())) {
-            $model->last_modified_by = Yii::$app->user->identity->username;
-            $model->last_modified_date = date('Y-m-d h:m:s');
-            $model->save();
-            Yii::$app->session->setFlash('success', 'Update Success.');
-            return $this->refresh();
-        } else {
-            return $this->render('userProfile', [
-                        'model' => $model,
-            ]);
+            $model->modified_by = $model->email;
+            $model->modified_date = date('Y-m-d h:m:s');
+            $imageName = substr(md5(rand()), 0, 7);
+            if (UploadedFile::getInstance($model, 'file')) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $model->image_path = 'uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
+            }
+
+            if ($model->save()) {
+                if($model->image_path!= null){
+                    $basePath = str_replace(DIRECTORY_SEPARATOR.'protected', "", str_replace('frontend', '', Yii::$app->basePath));
+                    $uploadDir = 'backend/web/uploads/user';
+//                    $model->file->saveAs($basePath .$uploadDir. $fileName);
+                    
+                    $model->file->saveAs($basePath . $uploadDir . $model->file->baseName . $imageName . '.' . $model->file->extension);
+                    Yii::$app->session->setFlash('success', 'Update Success.');
+                }else{
+                    Yii::$app->session->setFlash('error', 'Update Failed. Cannot Upload Image');
+                }
+            }else{
+                Yii::$app->session->setFlash('error', 'Update Failed. Cannot Save Data');
+            }
         }
+        
+        return $this->render('userProfile', [
+            'model' => $model,
+        ]);
     }
     
     /**

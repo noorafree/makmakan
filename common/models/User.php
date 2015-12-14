@@ -84,22 +84,22 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['first_name', 'mobile', 'email', 'created_by', 'modified_by'], 'required','on'=>['user-create','default']],
+            [['first_name', 'mobile', 'email', 'created_by', 'modified_by'], 'required','on'=>['user-create','default','user-update']],
             [['birthdate', 'last_login_date', 'created_date', 'modified_date'], 'safe','on'=>['default']],
-            [['sex', 'address'], 'string','on'=>['default']],
-            [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer','on'=>['default']],
-            [['first_name', 'last_name'], 'string', 'max' => 30,'on'=>['user-create','default']],
-            [['phone', 'mobile'], 'string', 'max' => 15,'on'=>['user-create','default']],
+            [['sex', 'address'], 'string','on'=>['default','user-update']],
+            [['featured', 'makmakan_credit', 'sn_bank_id', 'status'], 'integer','on'=>['default','user-update']],
+            [['first_name', 'last_name'], 'string', 'max' => 30,'on'=>['user-create','default','user-update']],
+            [['phone', 'mobile'], 'string', 'max' => 15,'on'=>['user-create','default','user-update']],
             [['username', 'password_hash', 'password_reset_token','activation_code'], 'string', 'max' => 255,'on'=>['user-create','default']],
-            [['image_path'], 'string', 'max' => 200,'on'=>['default']],
-            [['bank_account_number', 'bank_account_name', 'created_by', 'modified_by'], 'string', 'max' => 50,'on'=>['default']],
+            [['image_path'], 'string', 'max' => 200,'on'=>['default','user-update']],
+            [['bank_account_number', 'bank_account_name', 'created_by', 'modified_by'], 'string', 'max' => 50,'on'=>['default','user-update']],
             [['auth_key'], 'string', 'max' => 32,'on'=>['user-create','default']],
             [['username'], 'unique'],
-            [['email'], 'unique','on'=>['user-create','default']],
+            [['email'], 'unique','on'=>['user-create','default','user-update']],
             [['password_reset_token'], 'unique','on'=>['user-create']],
             [['activation_code'],'unique','on'=>['user-create']],
-            [['file'], 'safe','on'=>['default']],
-            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1,'on'=>['default']],
+            [['file'], 'safe','on'=>['default','user-update']],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024*1024, 'maxFiles' => 1,'on'=>['default','user-update']],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
             [['password','repassword'],'required','on'=>['user-create','default']],
@@ -109,8 +109,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
             ['username', 'string', 'min' => 3, 'max' => 30],
             // E-mail
-            ['email', 'string', 'max' => 100,'on'=>['user-create','default']],
-            ['email', 'email','on'=>['user-create','default']],
+            ['email', 'string', 'max' => 100,'on'=>['user-create','default','user-update']],
+            ['email', 'email','on'=>['user-create','default','user-update']],
         ];
     }
 
@@ -126,7 +126,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'user-create'=>['first_name', 'mobile', 'email', 'created_by', 'modified_by','status',
                 'auth_key','password_hash', 'password_reset_token','activation_code','password','repassword'],
             'user-update'=>['first_name','last_name', 'mobile', 'email', 'birthdate','sex', 'address','phone', 'mobile','image_path',
-                'bank_account_number', 'bank_account_name','file','featured', 'sn_bank_id'],
+                'bank_account_number', 'bank_account_name','file','featured', 'sn_bank_id','file'],
             'user-update-status' => ['status'],
             'user-request-password-reset'=>['password_reset_token'],
             'user-reset-password'=>['password','repassword'],
