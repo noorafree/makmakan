@@ -12,7 +12,7 @@ use yii\i18n\Formatter
 <div class="col-md-4 col-sm-6 col-xs-12 work-space">
     <a href="<?= Yii::$app->urlManager->createUrl(['site/detail', 'id' => $model->id]) ?>">
         <div class="featured-img">
-            <?= Html::img(Yii::$app->request->baseUrl . '/images/product/'. Html::encode($model->productPhotos[0]->id), '', ['class' => 'img-responsive']); ?>
+            <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl . '/images/product/'. Html::encode($model->productPhotos[0]->id), '', ['class' => 'img-responsive']); ?>
         </div>
         <div class="image-hover">
             <i class="glyphicon glyphicon-eye-open"></i>

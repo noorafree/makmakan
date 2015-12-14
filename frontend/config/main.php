@@ -28,6 +28,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'urlManager' => [
+            // here is your frontend URL rules
+        ],
+        'urlManagerBackEnd' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => '/makmakan/backend/web',
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+        ],
     ],
     'params' => $params,
 ];
