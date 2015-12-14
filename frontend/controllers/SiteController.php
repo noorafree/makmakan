@@ -141,8 +141,7 @@ class SiteController extends Controller {
             }
         }
     }
-    
-    
+
     /**
      * Logs out the current user.
      *
@@ -254,10 +253,11 @@ class SiteController extends Controller {
         $productForm->price = $product->selling_price;
         $productForm->filename = $product->productPhotos[0]->id;
 
-        if (Yii::$app->request->post('ProductForm')) {
-            $productForm->attributes = $_POST['ProductForm'];
+        if ($productForm->load(Yii::$app->request->post())) {
+            $productForm->attributes = Yii::$app->request->post();
             $this->addToCart($productForm);
-            Yii::$app->response->redirect(array('cart/cart'));
+            
+            return $this->getView()->registerJs('modal.js');
         }
 
         return $this->render('detail', array(
@@ -279,8 +279,8 @@ class SiteController extends Controller {
 //        } catch (InvalidParamException $e) {
 //            throw new BadRequestHttpException($e->getMessage());
 //        }
-        $user = User::findByActivationCode($code);       
-        if ($user!=NULL) {
+        $user = User::findByActivationCode($code);
+        if ($user != NULL) {
             $user->setScenario('user-update-status');
             $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
@@ -289,7 +289,7 @@ class SiteController extends Controller {
                 Yii::$app->session->setFlash('error', 'Aktifasi User Gagal.');
             }
             return $this->render("userVerification");
-        }else{
+        } else {
             Yii::$app->session->setFlash('error', 'Aktifasi User Sudah melebihi batas waktu.');
             return $this->render("userVerification");
         }
@@ -325,7 +325,7 @@ class SiteController extends Controller {
             ]);
         }
     }
-    
+
     /**
      * Finds the Faq model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -333,13 +333,12 @@ class SiteController extends Controller {
      * @return Faq the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
 }
