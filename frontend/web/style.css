@@ -25,7 +25,16 @@ html *
 {
     width:70%; 
     height:auto; 
-    margin-left:35px;
+    display: block;
+    margin:0 auto;
+}
+
+.modal-logo-md
+{
+    width:35%; 
+    height:auto; 
+    display: block;
+    margin:0 auto;
 }
 
 .modal-header {
@@ -281,8 +290,9 @@ h2.features-text::after {
 }
 
 .image-hover:hover i
-{	display: block;
-  color: #212A3F;
+{	
+    display: block;
+    color: #212A3F;
 }
 
 .work-list a h3 {
@@ -375,6 +385,14 @@ h2.features-text::after {
 
 .copyright p {
     text-align:  center;
+}
+
+.text-title {
+    margin-bottom: 30px; 
+    margin-top: 0px; 
+    padding-bottom: 20px; 
+    text-align: center; 
+    border-bottom: 1px solid #FF9999;
 }
 
 .glossymenu{
@@ -544,5 +562,13 @@ h2.features-text::after {
 
     .footer .division div {
         text-align: center;
+    }
+
+    .modal-logo-md
+    {
+        width:60%; 
+        height:auto; 
+        display: block;
+        margin:0 auto;
     }
 }

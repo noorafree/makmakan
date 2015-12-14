@@ -8,6 +8,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 ?>
 
 <div class="container-fluid work" id="work">
@@ -177,15 +178,14 @@ use yii\bootstrap\Modal;
                     </a>
 
                     <div class="form">
-                        <?php echo Html::beginForm(); ?>
+                        <?= Html::beginForm(); ?>
                         <div class="row">
                             <div style="float: left; margin-right: 5px"><?php //echo Html::image(Yii::app()->request->baseUrl . '/images/shopping_cart.png', '', array('style' => 'vertical-align: bottom'));  ?></div>
                             <div style="float: left"><?php echo Html::activeTextInput($productForm, 'quantity', array('size' => 3, 'maxlength' => 3, 'style' => 'text-align: center')); ?></div>
-                            <div style="float: left; margin-left: 5px"><?= Html::a('Add to cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'class' => 'cartLink']); ?></div>
-                            <div style="float: left; margin-left: 5px"><?php //echo Html::submitButton('Add to cart');  ?></div>
+                            <div style="float: left; margin-left: 5px"><?= Html::submitButton('Add to cart', ['value' => Url::to(['/cart/cart']), 'class' => 'cartLink', 'data-method' => 'POST']); ?></div>
                             <div class="clear"><?php echo Html::error($productForm, 'quantity'); ?></div>
                         </div>
-                        <?php echo Html::endForm(); ?>
+                        <?= Html::endForm(); ?>
                     </div>
                 </div>
 

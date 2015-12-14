@@ -40,7 +40,7 @@ use dmstr\widgets\Alert;
             </div>
             <div class="col-md-8 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                         
-                <h1 style="margin-bottom: 30px; margin-top: 0px; padding-bottom: 20px; text-align: center; border-bottom: 1px solid #FF9999">Profil Pengguna</h1>
+                <h1 class="text-title">Profil Pengguna</h1>
                         
                 <div class="user-update">
                     <div class="user-form">
@@ -100,7 +100,7 @@ use dmstr\widgets\Alert;
                                     <?= $form->field($model, 'makmakan_credit')->textInput(['readonly' => !$model->isNewRecord]) ?> 
 
                                     <div class="form-group pull-right">
-                                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']) ?>
+                                        <?= Html::submitButton('Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']) ?>
                                     </div>
 
                                     <?php ActiveForm::end(); ?>
