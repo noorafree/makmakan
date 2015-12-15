@@ -1,4 +1,5 @@
 <?php
+
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
@@ -11,7 +12,7 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            //'defaultRoles' => ['guest'],
+        //'defaultRoles' => ['guest'],
         ],
         'formatter' => [
             'dateFormat' => 'yyyy-MM-dd',
