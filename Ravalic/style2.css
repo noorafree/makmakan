@@ -69,10 +69,6 @@ h4.portfolio-text::before {
     content: "";
 }
 
-.option {
-    border-bottom: 1px groove;
-}
-
 .workspace .best-selling{
     margin-bottom: 30px !important;
     height: auto;
@@ -93,4 +89,12 @@ img#best-selling {
 .pagination{
     float: right;
     padding-right: 20px;
+}
+
+.left-side{
+    background-color: #aaaaaa;
+}
+
+section{
+    border-bottom: 1px groove;
 }
