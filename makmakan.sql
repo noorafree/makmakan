@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2015 at 05:51 PM
+-- Generation Time: Dec 19, 2015 at 05:40 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -507,7 +507,14 @@ CREATE TABLE IF NOT EXISTS `product` (
   `modified_by` varchar(30) NOT NULL,
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `plu`, `name`, `selling_price`, `sn_product_category_id`, `selling_type`, `user_id`, `seen`, `sold`, `stock`, `po_start_date`, `po_end_date`, `expired_date`, `expired_time`, `is_non_halal`, `minimum_order`, `featured`, `description`, `meta_tag`, `meta_description`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(10, '123123', 'Kangkung', 20000, 5, 'Ready Stock', 1, 1, 1, 5, NULL, NULL, '2015-12-02', 5, 1, NULL, 1, '123123', '123123', '123123', 'Sandy', '2015-12-02 15:28:58', 'Sandy', '2015-12-02 15:28:58', 1);
 
 -- --------------------------------------------------------
 
@@ -526,7 +533,17 @@ CREATE TABLE IF NOT EXISTS `product_photo` (
   `modified_by` varchar(30) NOT NULL,
   `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_photo`
+--
+
+INSERT INTO `product_photo` (`id`, `image_path`, `caption`, `product_id`, `product_photo_order`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(2, 'uploads/product/asrd4b2aeb.jpg\r\n', 'sddsds', 7, 34, 'admin', '2015-11-09 16:11:22', 'admin', '2015-11-09 16:11:22', 1),
+(3, 'uploads/product/New-CB150Ra370d17.jpg', 'New-CB150Ra370d17', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
+(4, 'uploads/product/producer8047131.png', 'producer8047131', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
+(5, 'uploads/product/sensorycoupled728587.jpg', 'sensorycoupled728587', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1);
 
 -- --------------------------------------------------------
 
@@ -701,7 +718,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `birthdate` date DEFAULT NULL,
   `phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mobile` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sex` enum('Male','Female') COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_login_date` timestamp NULL DEFAULT NULL,
   `image_path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -717,6 +734,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `sn_geostructure_id` int(11) DEFAULT NULL,
+  `warn_status` enum('Clear','Warning','Danger','') COLLATE utf8_unicode_ci DEFAULT 'Clear',
   `status` smallint(6) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -728,9 +746,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `description`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `sn_geostructure_id`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
-(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 0, 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
-(2, 'qweqwe', 'qweqweqwe', '2015-11-05', '12312312', '3123123123', 'sandy', 'Male', NULL, 'uploads/user/abb2079.jpg', '123123123', NULL, 1, NULL, '', '', NULL, '123', '202cb962ac59075b964b07152d234b70', '', '123123@yahoo.com', 0, 1, '2015-10-31 22:11:35', '2015-10-31 22:11:35', 'admin', 'admin');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `description`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `sn_geostructure_id`, `warn_status`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
+(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 0, 'Clear', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(2, 'qweqwe', 'qweqweqwe', '2015-11-05', '12312312', '3123123123', 'sandy', 'Male', NULL, 'uploads/user/abb2079.jpg', '123123123', NULL, 1, NULL, '', '', NULL, '123', '202cb962ac59075b964b07152d234b70', '', '123123@yahoo.com', 0, 'Clear', 1, '2015-10-31 22:11:35', '2015-10-31 22:11:35', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -924,6 +942,12 @@ ALTER TABLE `owner_bank_account`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product_photo`
 --
 ALTER TABLE `product_photo`
@@ -975,7 +999,7 @@ ALTER TABLE `subscriber`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
 
 --
 -- Indexes for table `user_complaint`
@@ -1085,10 +1109,15 @@ ALTER TABLE `order_detail`
 ALTER TABLE `owner_bank_account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
 -- AUTO_INCREMENT for table `product_photo`
 --
 ALTER TABLE `product_photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `product_review`
 --
