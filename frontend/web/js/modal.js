@@ -15,6 +15,16 @@ $(function () {
                 .find('#loginModalContent')
                 .load($(this).attr('value'));
     });
+    
+    $('#signupLink').click(function(e){
+       e.preventDefault();
+       //close all dialog
+       $('.modal').modal('hide');
+       // select login modal to show
+       $('#signupModal').css('top','40px').modal('show')
+               .find('#signupModalContent')
+               .load($(this).attr('value'));
+   });   
 
     $('.cartLink').on('click', function (e) {
         e.preventDefault();
