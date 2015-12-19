@@ -732,6 +732,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `auth_key` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password_hash` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `activation_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `sn_geostructure_id` int(11) DEFAULT NULL,
   `warn_status` enum('Clear','Warning','Danger','') COLLATE utf8_unicode_ci DEFAULT 'Clear',
@@ -745,10 +746,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 -- Dumping data for table `user`
 --
-
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `description`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `sn_geostructure_id`, `warn_status`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
-(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 0, 'Clear', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
-(2, 'qweqwe', 'qweqweqwe', '2015-11-05', '12312312', '3123123123', 'sandy', 'Male', NULL, 'uploads/user/abb2079.jpg', '123123123', NULL, 1, NULL, '', '', NULL, '123', '202cb962ac59075b964b07152d234b70', '', '123123@yahoo.com', 0, 'Clear', 1, '2015-10-31 22:11:35', '2015-10-31 22:11:35', 'admin', 'admin');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `description`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `sn_geostructure_id`, `warn_status`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`,`activation_code`) VALUES
+(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 0, 'Clear', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '',''),
+(2, 'qweqwe', 'qweqweqwe', '2015-11-05', '12312312', '3123123123', 'sandy', 'Male', NULL, 'uploads/user/abb2079.jpg', '123123123', NULL, 1, NULL, '', '', NULL, '123', '202cb962ac59075b964b07152d234b70', '', '123123@yahoo.com', 0, 'Clear', 1, '2015-10-31 22:11:35', '2015-10-31 22:11:35', 'admin', 'admin','');
 
 -- --------------------------------------------------------
 

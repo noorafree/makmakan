@@ -6,7 +6,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use yii\i18n\Formatter
+use yii\i18n\Formatter;
 ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12 work-space">

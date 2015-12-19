@@ -62,7 +62,8 @@ use dmstr\widgets\Alert;
                                             Status Peringatan Seller
                                         </div>
                                         <div class="col-xs-3 pull-right">
-                                            <?php echo Html::img(Yii::getAlias('backendUrl').'/'.$model->image_path) ?>
+                                            <?php // echo Html::img(Yii::$app->urlManagerBackEnd->baseUrl . '/'. $model->image_path) ?>
+                                            <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl .'/'.  Html::encode($model->image_path), '', ['class' => 'img-responsive']); ?>
                                         </div>
                                     </div>
 

@@ -4,7 +4,7 @@
  * User: Chandra
  * Date: 11/14/2015
  * Time: 6:06 PM
- */?>
+ */ ?>
 
 <div class="container-fluid footer" id="section4">
     <div class="container">
@@ -12,26 +12,38 @@
             <div class="col-md-12">
                 <div class="col-md-3 col-sm-6 col-xs-12 division">
                     <h3>CATEGORIES</h3>
+
                     <p>American Foods</p>
+
                     <p>Indonesian Foods</p>
+
                     <p>Asian Foods</p>
+
                     <p>Indian Foods</p>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 division">
                     <h3>CONTACT US</h3>
+
                     <p>Ruko Garden Shopping Arcade Jl. Letjen S.Parman Kav. 28</p
+
                     <p>Grogol - Petamburan Jakarta Barat 11470</p>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 division">
                     <br/><br/>
+
                     <p>Email: sales@makmakan.com
+
                     <p>Senin - Jumat: 10.00 - 19.00</p>
+
                     <p>Sabtu: 10.00 - 17.00</p>
+
                     <p>Minggu: 12.00 - 17.00</p>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 division">
                     <h3>KEEP IN TOUCH</h3>
-                    <input style="border-radius: 0;" id="subscriber" type="text" class="form-control" placeholder="enter your email here"/>
+                    <input style="border-radius: 0;" id="subscriber" type="text" class="form-control"
+                           placeholder="enter your email here"/>
+
                     <h3>BE SOCIAL</h3>
                     <a href="#"><img src="images/facebook.gif" style="width: 20%; height: auto;"/></a>
                     <a href="#"><img src="images/twitter.gif" style="width: 20%; height: auto;"/></a>

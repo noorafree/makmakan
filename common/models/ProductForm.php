@@ -26,7 +26,7 @@ class ProductForm extends Model {
             [['id', 'name', 'quantity'], 'required'],
             [['quantity'], 'number', 'min' => 1],
             [['price'], 'string', 'max' => 18],
-            [['$filename', '$description'], 'safe'],
+            [['filename', 'description'], 'safe'],
         ];
     }
 

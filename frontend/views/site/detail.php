@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
+use yii\bootstrap\ActiveForm;
 ?>
 
 <div class="container-fluid work" id="work">
@@ -179,13 +180,22 @@ use yii\widgets\Pjax;
 
                     <div class="form">
                         <?= Html::beginForm(); ?>
+                        <?php
+                        $form = ActiveForm::begin(['id' => 'cart-form',
+                                    'options' => ['onsubmit' => 'return false;']])
+                        ?>
                         <div class="row">
-                            <div style="float: left; margin-right: 5px"><?php //echo Html::image(Yii::app()->request->baseUrl . '/images/shopping_cart.png', '', array('style' => 'vertical-align: bottom'));  ?></div>
-                            <div style="float: left"><?php echo Html::activeTextInput($productForm, 'quantity', array('size' => 3, 'maxlength' => 3, 'style' => 'text-align: center')); ?></div>
-                            <div style="float: left; margin-left: 5px"><?= Html::submitButton('Add to cart', ['value' => Url::to(['cart/cart']), 'class' => 'cartLink', 'data-method' => 'POST']); ?></div>
+                            <div style="float: left; margin-right: 5px"><?php //echo Html::image(Yii::app()->request->baseUrl . '/images/shopping_cart.png', '', array('style' => 'vertical-align: bottom'));      ?></div>
+                            <div style="float: left"><?php //echo Html::activeTextInput($productForm, 'quantity', array('size' => 3, 'maxlength' => 3, 'style' => 'text-align: center'));   ?>
+                                <?= $form->field($productForm, 'quantity')->label(false); ?>
+                            </div>
+                            <div style="float: left; margin-left: 5px">
+                                <?php //Html::submitButton('Add to cart', ['value' => Url::to(['cart/cart']), 'class' => 'cartLink', 'data-method' => 'POST']); ?>
+                                <?= Html::submitButton('Add to cart', ['id' => 'cart-btn', 'class' => 'btn btn-default btn-block', 'name' => 'cart-button', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']) ?>
+                            </div>
                             <div class="clear"><?php echo Html::error($productForm, 'quantity'); ?></div>
                         </div>
-                        <?= Html::endForm(); ?>
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
 
@@ -194,16 +204,41 @@ use yii\widgets\Pjax;
     </div>
 </div>
 <?php
-    Modal::begin([
-        'id' => 'cartModal',
-        'size' => 'modal-sm',
-        'header' => '<img src="images/logo.png" class="modal-logo" />',
-    ]);
-    
-    echo "<div id=cartModalContent> </div> ";
-    
-    Modal::end();
-?>
+Modal::begin([
+    'id' => 'cartModal',
+    'size' => 'modal-sm',
+    'header' => '<img src="images/logo.png" class="modal-logo" />',
+]);
 
+echo "<div id=cartModalContent> </div> ";
+
+Modal::end();
+?>
+<!--<script type="text/javascript">        
+        $(document).ready(function (){
+            $('#cart-btn').on('click',function(){
+                var data=$("#cart-form").serialize();
+                $.ajax({
+                 type: 'POST',
+                 url: '<?php echo \Yii::$app->getUrlManager()->createUrl('site/test') ?>',
+                 data:data,
+                 success:function(data){
+                        if(data=="success"){
+                            var passwordField = ".field-loginform-password";
+                            $(passwordField).removeClass('has-error');
+                            $(passwordField).find('.help-block').text("");
+                            window.location="<?php echo Yii::$app->getHomeUrl(); ?>";
+                        }else{
+                            var passwordField = ".field-loginform-password";
+                            $(passwordField).addClass('has-error').find('.help-block').text(data).fadeIn("fast");
+                        }                           
+                 },
+                 error: function(data) { // if error occured
+                        console.log("server error");
+                  }
+                });
+            });
+        });
+</script>-->
 <div style="clear: both"></div>
 

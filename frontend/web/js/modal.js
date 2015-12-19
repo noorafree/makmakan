@@ -10,7 +10,7 @@ $(function () {
         e.preventDefault();
         //close all dialog
         $('.modal').modal('hide');
-        // select login modal to show
+        // select login lodel to show
         $('#loginModal').css('top', '40px').modal('show')
                 .find('#loginModalContent')
                 .load($(this).attr('value'));
@@ -25,12 +25,21 @@ $(function () {
                .find('#signupModalContent')
                .load($(this).attr('value'));
    });   
+   $('#signupMethodLink').click(function(e){
+       e.preventDefault();
+       //close all dialog
+       $('.modal').modal('hide');
+       // select login modal to show
+       $('#signupMethodModal').css('top','40px').modal('show')
+               .find('#signupMethodModalContent')
+               .load($(this).attr('value'));
+   });  
 
     $('.cartLink').on('click', function (e) {
         e.preventDefault();
         //close all dialog
         $('.modal').modal('hide');
-        // select login modal to show
+        // select login lodel to show
         $('#cartModal').css('top', '80px').modal('show')
                 .find('#cartModalContent')
                 .load($(this).attr('value'));
