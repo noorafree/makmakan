@@ -255,16 +255,27 @@ class SiteController extends Controller {
         $productForm->filename = $product->productPhotos[0]->id;
 
         if ($productForm->load(Yii::$app->request->post())) {
-            $productForm->attributes = Yii::$app->request->post();
+           $productForm->attributes = Yii::$app->request->post();
             $this->addToCart($productForm);
             
-            return $this->getView()->registerJs('modal.js');
+            Yii::$app->response->redirect(array('cart/cart'));
         }
 
         return $this->render('detail', array(
                     'product' => $product,
                     'productForm' => $productForm
         ));
+    }
+    
+    public function actionTest() {
+        $model = new \common\models\ProductForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($this->addToCart($model)) {
+                echo "success";
+            } else {
+                echo "Incorrect email or password.";
+            }
+        }
     }
 
     /**
