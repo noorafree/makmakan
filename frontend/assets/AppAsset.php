@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle {
     public $css = [
         'css/bootstrap.min.css',
         'css/bootstrap.offcanvas.min.css',
+        'css/bootstrap-timepicker.min.css',
         'custom-style.css',
         'css/lightbox.css',
         'style.css',
@@ -33,6 +34,7 @@ class AppAsset extends AssetBundle {
 //        'js/jquery-2.1.4.min.js',
         'js/bootstrap.min.js',
         'js/bootstrap.offcanvas.min.js',
+        'js/bootstrap-timepicker.min.js',
         'https://maps.googleapis.com/maps/api/js',
         'js/lightbox.min.js',
         'js/modal.js',

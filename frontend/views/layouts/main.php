@@ -128,6 +128,12 @@ AppAsset::register($this);
         echo "<div id=cartModalContent> </div> ";
         Modal::end();
         ?>
+        
+        <script type="text/javascript">
+            $('#timepicker1').timepicker();
+        </script>
+        
     </body>
 </html>
+
 <?php $this->endPage() ?>
