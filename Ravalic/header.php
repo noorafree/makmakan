@@ -28,7 +28,7 @@
     <!-- <link rel="stylesheet" href="css/pygments.css"/>
      <link rel="stylesheet" href="css/easyzoom.css"/> -->
 
-     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -37,6 +37,55 @@
 
     <script src="js/main.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+
+    <script src="js/nouislider.js"></script>
+
+    <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="css/nouislider.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="css/nouislider.pips.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="css/nouislider.tooltips.css" type="text/css" media="all"/>
+
+    <!--<script src="js/jquery-ui-slider-pips.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui-slider-pips.css" type="text/css" media="all"/>-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var snapSlider = document.getElementById('slider-snap');
+
+            noUiSlider.create(snapSlider, {
+                start: [25000, 200000],
+                connect: true,
+                step:1000,
+                range: {
+                    'min': 0,
+                    'max': 250000
+                }
+            });
+
+            var snapValues = [
+                document.getElementById('slider-snap-value-lower'),
+                document.getElementById('slider-snap-value-upper')
+            ];
+
+            snapSlider.noUiSlider.on('update', function (values, handle) {
+                snapValues[handle].innerHTML = values[handle];
+            });
+        });
+
+        /*$(document).ready(function () {
+         $(".slider").slider({
+         min: 10000,
+         max: 500000,
+         range: true,
+         values: [25000, 100000]
+         }).slider("pips", {
+         rest: "label"
+         }).slider("float");
+         });*/
+    </script>
+
 </head>
 <body>
 <header class="header">

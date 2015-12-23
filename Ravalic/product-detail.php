@@ -39,122 +39,109 @@ include 'header.php';
                     </li>
                 </ul>
 
-                <h4 class="text-center portfolio-text">Advanced Search</h4>
-                <input type="text" class="form-control" placeholder="Enter keyword..."/>
-                <section>
-                    <h5 class="portfolio-text">By Chef : </h5>
+                <form>
+                    <h4 class="text-center portfolio-text">Advanced Search</h4>
+                    <input type="text" class="form-control" placeholder="Enter keyword..."/>
+                    <section>
+                        <h5 class="portfolio-text">By Price : (IDR)</h5>
 
-                    <div class="option">
-                        <div class="checkbox">
-                            <label><input type="checkbox">Susi Susanti</label>
+                        <div id="slider-snap"></div>
+                        <div class="col-md-6">
+                            <label id="slider-snap-value-lower" class="float-left"/>
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Nyonya Meneer</label>
+                        <div class="col-md-6">
+                            <label id="slider-snap-value-upper" class="float-right"/>
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Restaurant Dynasty</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Momosuki</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Ani Jubaidah</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Chef Lulung</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Pak Gentong</label>
-                        </div>
-                    </div>
-                </section>
 
-                <section>
-                    <h5 class="portfolio-text">By Category : </h5>
+                        <div class="clearfix"></div>
+                    </section>
 
-                    <div class="option">
-                        <div class="checkbox">
-                            <label><input type="checkbox">American Food</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Indonesian Food</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Chinese Food</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Japanese Food</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Mexican Food</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Korean Food</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Australian Food</label>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <div class="rating">
-                        <h5 class="portfolio-text">Rating : </h5>
+                    <section>
+                        <h5 class="portfolio-text">By Category : </h5>
 
-                        <div class="checkbox">
-                            <label><input type="checkbox">
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </label>
+                        <div class="option">
+                            <div class="checkbox">
+                                <label><input type="checkbox">American Food</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Indonesian Food</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Chinese Food</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Japanese Food</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Mexican Food</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Korean Food</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Australian Food</label>
+                            </div>
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">
-                                <span class="glyphicon glyphicon-star"></span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                    <section>
+                        <div class="rating">
+                            <h5 class="portfolio-text">Rating : </h5>
 
-                <section>
-                    <h5 class="portfolio-text">Others : </h5>
+                            <div class="checkbox">
+                                <label><input type="checkbox">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
 
-                    <div class="option">
-                        <div class="checkbox">
-                            <label><input type="checkbox">Latest</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Best Selling</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox">Promo</label>
-                        </div>
-                    </div>
-                </section>
-                <a href="#" class="add-cart item_add">Search</a>
+                    <section>
+                        <h5 class="portfolio-text">Others : </h5>
 
+                        <div class="option">
+                            <div class="checkbox">
+                                <label><input type="checkbox">Latest</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Best Selling</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox">Promo</label>
+                            </div>
+                        </div>
+                    </section>
+                    <a href="#" class="add-cart item_add">Search</a>
+                </form>
                 <h4 class="text-center portfolio-text">Best Selling Products</h4>
 
                 <div class="col-md-12 col-sm-12 col-xs-12 work-space">
@@ -280,13 +267,15 @@ include 'header.php';
 
                 <div class="cd-tabs">
                     <ul class="cd-tabs-navigation">
-                        <li><a data-toggle="tab" href="#desc">Description </a></li>
+                        <li><a data-toggle="tab" href="#desc" class="selected">Description </a></li>
                         <li><a data-toggle="tab" href="#rev">Reviews (1)</a></li>
                     </ul>
 
                     <div class="tab-content">
                         <div id="desc" class="tab-pane fade in active facts">
-                            <p> There are many variations of passages of Lorem Ipsum available, but the majority
+                            <p class="all-text">
+                                There are many variations of passages of Lorem Ipsum available, but the
+                                majority
                                 have
                                 suffered alteration in some form, by injected humour, or randomised words which
                                 don't
@@ -297,7 +286,8 @@ include 'header.php';
                                 necessary,
                                 making this the first true generator on the Internet. It uses a dictionary of over
                                 200
-                                Latin words, combined </p>
+                                Latin words, combined
+                            </p>
                         </div>
 
                         <div id="rev" class="tab-pane fade">
@@ -319,52 +309,26 @@ include 'header.php';
                                 </div>
                                 <div class="clearfix"></div>
                                 <a class="add-re" href="#">ADD REVIEW</a>
+                                <script>
+                                    $(".add-re").click(function () {
+                                        $(".form-comment").show("slow");
+                                        $("a.add-re").hide("slow");
+                                    });
+                                </script>
+
+                                <div class="form-comment">
+                                    <form>
+                                        <textarea rows="5" class="form-control"
+                                                  placeholder="Enter your review here..."></textarea>
+                                        <a class="button float-right" href="#">SUBMIT</a>
+                                    </form>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-
-                    <!--<ul class="cd-tabs-content">
-                        <li data-content="desc">
-                            <div class="facts">
-                                <p> There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have
-                                    suffered alteration in some form, by injected humour, or randomised words which
-                                    don't
-                                    look even slightly believable. If you are going to use a passage of Lorem Ipsum, you
-                                    need to be sure there isn't anything embarrassing hidden in the middle of text. All
-                                    the
-                                    Lorem Ipsum generators on the Internet tend to repeat predefined chunks as
-                                    necessary,
-                                    making this the first true generator on the Internet. It uses a dictionary of over
-                                    200
-                                    Latin words, combined </p>
-                            </div>
-                        </li>
-
-                        <li data-content="rev" class="selected">
-                            <div class="comments-top-top"  id="rev">
-                                <div class="top-comment-left">
-                                    <img class="img-responsive" src="images/co.png" alt="">
-                                </div>
-                                <div class="top-comment-right">
-                                    <h6><a href="#">Hendri</a> - September 3, 2014</h6>
-                                    <label>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                    </label>
-
-                                    <p>Wow nice!</p>
-                                </div>
-                                <div class="clearfix"></div>
-                                <a class="add-re" href="#">ADD REVIEW</a>
-                            </div>
-
-                        </li>
-                        <div class="clearfix"></div>
-                    </ul>-->
                 </div>
             </div>
         </div>
