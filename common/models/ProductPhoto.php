@@ -14,8 +14,8 @@ use Yii;
  * @property integer $product_photo_order
  * @property string $created_by
  * @property string $created_date
- * @property string $last_modified_by
- * @property string $last_modified_date
+ * @property string $modified_by
+ * @property string $modified_date
  * @property integer $status
  *
  * @property Product $product
@@ -36,9 +36,9 @@ class ProductPhoto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image_path', 'caption', 'product_id', 'product_photo_order', 'created_by', 'last_modified_by', 'status'], 'required'],
+            [['image_path', 'caption', 'product_id', 'product_photo_order', 'created_by', 'modified_by', 'status'], 'required'],
             [['product_id', 'product_photo_order', 'status'], 'integer'],
-            [['created_date', 'last_modified_date'], 'safe'],
+            [['created_date', 'modified_date'], 'safe'],
             [['image_path', 'caption'], 'string', 'max' => 100],
             [['created_by', 'last_modified_by'], 'string', 'max' => 30],
         ];
@@ -57,8 +57,8 @@ class ProductPhoto extends \yii\db\ActiveRecord
             'product_photo_order' => 'Product Photo Order',
             'created_by' => 'Created By',
             'created_date' => 'Created Date',
-            'last_modified_by' => 'Last Modified By',
-            'last_modified_date' => 'Last Modified Date',
+            'modified_by' => 'Modified By',
+            'modified_date' => 'Modified Date',
             'status' => 'Status',
         ];
     }

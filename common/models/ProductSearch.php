@@ -18,7 +18,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'status'], 'integer'],
+            [['id', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_non_halal', 'minimum_order', 'featured', 'status'], 'integer'],
             [['plu', 'name', 'po_start_date', 'po_end_date', 'expired_date', 'description', 'meta_tag', 'meta_description', 'created_by', 'created_date', 'modified_by', 'modified_date'], 'safe'],
         ];
     }
@@ -63,13 +63,11 @@ class ProductSearch extends Product
             'seen' => $this->seen,
             'sold' => $this->sold,
             'stock' => $this->stock,
-            'is_po' => $this->is_po,
             'po_start_date' => $this->po_start_date,
             'po_end_date' => $this->po_end_date,
             'expired_date' => $this->expired_date,
             'is_non_halal' => $this->is_non_halal,
             'minimum_order' => $this->minimum_order,
-            'is_ready_for_order' => $this->is_ready_for_order,
             'featured' => $this->featured,
             'created_date' => $this->created_date,
             'modified_date' => $this->modified_date,

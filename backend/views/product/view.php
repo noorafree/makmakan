@@ -24,10 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'seen',
             'sold',
             'stock',
-            array(
-                'label' => 'PO',
-                'value' => $model->getPo(),
-            ),
             [
                 'attribute' => 'po_start_date',
                 'value' => date("d-M-Y", strtotime($model->po_start_date)),
@@ -40,19 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'expired_date',
                 'value' => date("d-M-Y", strtotime($model->expired_date)),
             ],
-            array(
+            [
                 'label' => 'Non Halal',
                 'value' => $model->getNonHalal(),
-            ),
+            ],
             'minimum_order',
-            array(
-                'label' => 'Ready For Order',
-                'value' => $model->getReadyForOrder(),
-            ),
-            array(
+            [
                 'label' => 'Featured',
                 'value' => $model->getFeatured(),
-            ),
+            ],
             'description:html',
             'meta_tag',
             'meta_description',

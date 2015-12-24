@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use common\models\SnProductCategory;
-use dosamigos\datepicker\DatePicker;
 use common\models\Status;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProductSearch */

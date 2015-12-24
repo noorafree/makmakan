@@ -26,6 +26,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 <?= $form->field($product, 'name')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($product, 'selling_price')->textInput() ?>
+                
+                <?= $form->field($product, 'selling_type')->dropDownList([ Product::READY_STOCK => Product::READY_STOCK, Product::READY_ORDER => Product::READY_ORDER, Product::PURCHASE_ORDER => Product::PURCHASE_ORDER], ['prompt' => 'Select Selling Type']) ?>
 
                 <?=
                 $form->field($product, 'sn_product_category_id')->dropDownList(
@@ -34,9 +36,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 ?>
 
                 <?= $form->field($product, 'stock')->textInput() ?>
-
-                <?= $form->field($product, 'is_po')->dropDownList([ Product::YES => Product::YES_LITERAL, Product::NO => Product::NO_LITERAL,], ['prompt' => 'Select PO']) ?>
-
+                
                 <?=
                 $form->field($product, 'po_start_date')->widget(
                         DatePicker::className(), [
@@ -73,8 +73,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 <?= $form->field($product, 'is_non_halal')->dropDownList([ Product::YES => Product::YES_LITERAL, Product::NO => Product::NO_LITERAL,], ['prompt' => 'Select Non Halal']) ?>
 
                 <?= $form->field($product, 'minimum_order')->textInput() ?>
-
-                <?= $form->field($product, 'is_ready_for_order')->dropDownList([ Product::YES => Product::YES_LITERAL, Product::NO => Product::NO_LITERAL,], ['prompt' => 'Select Ready For Order']) ?>
 
                 <?= $form->field($product, 'featured')->dropDownList([ Product::YES => Product::YES_LITERAL, Product::NO => Product::NO_LITERAL,], ['prompt' => 'Select Featured']) ?>
 

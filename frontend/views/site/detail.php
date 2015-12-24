@@ -168,10 +168,14 @@ use yii\bootstrap\ActiveForm;
                     <li><a href="#"><i class="glyphicon glyphicon-home"></i></a></li>
                     <li><a href="#"><?= Html::encode($product->name) ?></a></li>
                 </ol>
-
+                
+               
                 <h2 class="text-center portfolio-text"><?= Html::encode($product->name) ?></h2>
 
                 <div class="col-md-4 col-sm-6 col-xs-12 work-space">
+                     <div class="featured-img">
+                    <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl . '/'. Html::encode($product->productPhotos[0]->image_path), '', ['class' => 'img-responsive']); ?>
+                </div>
                     <a href="#">
                         <h3><?= Html::encode($product->snProductCategory->category); ?></h3>
                         <h3><?= Html::encode($product->name) ?></h3>

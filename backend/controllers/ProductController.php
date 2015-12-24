@@ -140,8 +140,8 @@ class ProductController extends Controller {
                                 $productPhoto->product_photo_order = 0;
                                 $productPhoto->created_by = Yii::$app->user->identity->username;
                                 $productPhoto->created_date = date('Y-m-d h:m:s');
-                                $productPhoto->last_modified_by = Yii::$app->user->identity->username;
-                                $productPhoto->last_modified_date = date('Y-m-d h:m:s');
+                                $productPhoto->modified_by = Yii::$app->user->identity->username;
+                                $productPhoto->modified_date = date('Y-m-d h:m:s');
                                 $productPhoto->status = Status::STATUS_ACTIVE;
                                 $productPhoto->image_path = 'uploads/product/' . $imageName . '.' . $file->extension;
 
@@ -244,8 +244,8 @@ class ProductController extends Controller {
                                 $productPhoto->product_photo_order = 0;
                                 $productPhoto->created_by = Yii::$app->user->identity->username;
                                 $productPhoto->created_date = date('Y-m-d h:m:s');
-                                $productPhoto->last_modified_by = Yii::$app->user->identity->username;
-                                $productPhoto->last_modified_date = date('Y-m-d h:m:s');
+                                $productPhoto->modified_by = Yii::$app->user->identity->username;
+                                $productPhoto->modified_date = date('Y-m-d h:m:s');
                                 $productPhoto->status = Status::STATUS_ACTIVE;
                                 $productPhoto->image_path = 'uploads/product/' . $imageName . '.' . $file->extension;
 

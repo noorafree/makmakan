@@ -16,7 +16,6 @@ use Yii;
  * @property integer $seen
  * @property integer $sold
  * @property integer $stock
- * @property integer $is_po
  * @property string $po_start_date
  * @property string $po_end_date
  * @property string $expired_date
@@ -43,19 +42,14 @@ class Product extends \yii\db\ActiveRecord {
     const NO = 1;
     const YES_LITERAL = 'Yes';
     const NO_LITERAL = 'No';
-
+    const READY_STOCK = 'Ready Stock';
+    const READY_ORDER = 'Ready Order';
+    const PURCHASE_ORDER = 'Purchase Order';
+    
     public $files;
-
-    public function getPo() {
-        return ($this->is_po) ? self::NO_LITERAL : self::YES_LITERAL;
-    }
 
     public function getNonHalal() {
         return ($this->is_non_halal) ? self::NO_LITERAL : self::YES_LITERAL;
-    }
-
-    public function getReadyForOrder() {
-        return ($this->is_ready_for_order) ? self::NO_LITERAL : self::YES_LITERAL;
     }
 
     public function getFeatured() {
@@ -83,10 +77,10 @@ class Product extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['plu', 'files', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'], 'required'],
-            [['selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'status'], 'integer'],
+            [['plu', 'name', 'selling_price', 'sn_product_category_id', 'selling_type', 'user_id', 'seen', 'sold', 'is_non_halal', 'featured', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'], 'required'],
+            [['selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'expired_time', 'is_non_halal', 'minimum_order', 'featured', 'status'], 'integer'],
+            [['selling_type', 'description', 'meta_tag', 'meta_description'], 'string'],
             [['po_start_date', 'po_end_date', 'expired_date', 'created_date', 'modified_date'], 'safe'],
-            [['description', 'meta_tag', 'meta_description'], 'string'],
             [['plu'], 'string', 'max' => 10],
             [['name'], 'string', 'max' => 50],
             [['created_by', 'modified_by'], 'string', 'max' => 30],
@@ -96,8 +90,8 @@ class Product extends \yii\db\ActiveRecord {
 
     public function scenarios() {
         return [
-            'product-create' => ['plu', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],
-            'product-update' => ['plu', 'name', 'selling_price', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'is_po', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'is_ready_for_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],
+            'product-create' => ['plu', 'name', 'selling_price', 'selling_type', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],
+            'product-update' => ['plu', 'name', 'selling_price', 'selling_type', 'sn_product_category_id', 'user_id', 'seen', 'sold', 'stock', 'po_start_date', 'po_end_date', 'expired_date', 'is_non_halal', 'minimum_order', 'featured', 'description', 'meta_tag', 'meta_description', 'created_by', 'modified_by', 'status'],
             'product-status' => ['status'],
         ];
     }
@@ -108,21 +102,21 @@ class Product extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'plu' => 'Price Look Up Code',
+            'plu' => 'Plu',
             'name' => 'Name',
             'selling_price' => 'Selling Price',
             'sn_product_category_id' => 'Product Category',
-            'user_id' => 'User',
+            'selling_type' => 'Selling Type',
+            'user_id' => 'User ID',
             'seen' => 'Seen',
             'sold' => 'Sold',
             'stock' => 'Stock',
-            'is_po' => 'Po',
             'po_start_date' => 'Po Start Date',
             'po_end_date' => 'Po End Date',
             'expired_date' => 'Expired Date',
+            'expired_time' => 'Expired Time',
             'is_non_halal' => 'Non Halal',
             'minimum_order' => 'Minimum Order',
-            'is_ready_for_order' => 'Ready For Order',
             'featured' => 'Featured',
             'description' => 'Description',
             'meta_tag' => 'Meta Tag',
