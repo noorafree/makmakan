@@ -1176,3 +1176,21 @@ ALTER TABLE `voucher`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+INSERT INTO `product` (`id`, `plu`, `name`, `selling_price`, `sn_product_category_id`, `selling_type`, `user_id`, `seen`, `sold`, `stock`, `po_start_date`, `po_end_date`, `expired_date`, `expired_time`, `is_non_halal`, `minimum_order`, `featured`, `description`, `meta_tag`, `meta_description`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(10, '123123', 'Kangkung', 20000, 5, 'Ready Stock', 1, 1, 1, 5, NULL, NULL, '2015-12-02', 5, 1, NULL, 1, '123123', '123123', '123123', 'Sandy', '2015-12-02 15:28:58', 'Sandy', '2015-12-02 15:28:58', 1),
+(12, '00001', 'Bakmie', 25000, 6, 'Ready Stock', 0, 0, 0, 1000, '2015-12-01', '2015-12-31', '2016-01-31', NULL, 0, 1, 0, '<p><span style="font-size:12px"><span style="font-family:courier new,courier,monospace"><strong>Bakmi adalah<span style="color:rgb(34, 34, 34)">&nbsp;salah satu jenis sajian mi yang dipopulerkan oleh pedagang-pedagang Tiongkok ke Indonesia.&nbsp;</span>Bakmi<span style="color:rgb(34, 34, 34)">&nbsp;juga sering disebut yamien atau yahun.&nbsp;</span>Bakmi<span style="color:rgb(34, 34, 34)">&nbsp;juga merupakan makanan yang terkenal terutama di daerah-daerah &quot;pecinan&quot; di Indonesia.</span></strong></span></span></p>\r\n', 'Bakmie', 'Bakmie Lezat', 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1);
+
+--
+-- Dumping data untuk tabel `product_photo`
+--
+
+INSERT INTO `product_photo` (`id`, `image_path`, `caption`, `product_id`, `product_photo_order`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(2, 'uploads/product/asrd4b2aeb.jpg\r\n', 'sddsds', 7, 34, 'admin', '2015-11-09 16:11:22', 'admin', '2015-11-09 16:11:22', 1),
+(3, 'uploads/product/New-CB150Ra370d17.jpg', 'New-CB150Ra370d17', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
+(4, 'uploads/product/producer8047131.png', 'producer8047131', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
+(5, 'uploads/product/sensorycoupled728587.jpg', 'sensorycoupled728587', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
+(6, 'uploads/product/bakmi722bdeb.jpg', 'bakmi722bdeb', 12, 0, 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1),
+(7, 'uploads/product/ramenc3b7cab.jpg', 'ramenc3b7cab', 12, 0, 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1),
+(8, 'uploads/product/toppokie6c2dc3.jpg', 'toppokie6c2dc3', 12, 0, 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1);
