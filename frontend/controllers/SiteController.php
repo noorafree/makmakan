@@ -221,9 +221,8 @@ class SiteController extends Controller {
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password was saved.');
-
-            return $this->goHome();
+//            Yii::$app->session->setFlash('success', 'New password was saved.');
+            return $this->render('resetPasswordVerification');
         }
 
         return $this->render('resetPassword', [
@@ -296,9 +295,9 @@ class SiteController extends Controller {
             $user->setScenario('user-update-status');
             $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
-                Yii::$app->session->setFlash('success', 'Aktifasi User Berhasil.');
+//                Yii::$app->session->setFlash('success', 'Aktifasi User Berhasil.');
             } else {
-                Yii::$app->session->setFlash('error', 'Aktifasi User Gagal.');
+//                Yii::$app->session->setFlash('error', 'Aktifasi User Gagal.');
             }
             return $this->render("userVerification");
         } else {
@@ -335,16 +334,14 @@ class SiteController extends Controller {
             }
 
             if ($model->save()) {
-                if($model->image_path!= null){
+                if($model->file!= null){
                     $basePath = str_replace(DIRECTORY_SEPARATOR.'protected', "", str_replace('frontend', '', Yii::$app->basePath));
                     $uploadDir = 'backend/web/uploads/user';
 //                    $model->file->saveAs($basePath .$uploadDir. $fileName);
                     
                     $model->file->saveAs($basePath . $uploadDir . $model->file->baseName . $imageName . '.' . $model->file->extension);
-                    Yii::$app->session->setFlash('success', 'Update Success.');
-                }else{
-                    Yii::$app->session->setFlash('error', 'Update Failed. Cannot Upload Image');
                 }
+                Yii::$app->session->setFlash('success', 'Update Success.');
             }else{
                 Yii::$app->session->setFlash('error', 'Update Failed. Cannot Save Data');
             }

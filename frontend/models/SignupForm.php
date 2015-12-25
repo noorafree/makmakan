@@ -33,7 +33,8 @@ class SignupForm extends User
             // Username
             ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
             
-            [['first_name'], 'required'],
+            [['first_name','last_name'], 'required'],
+            [['last_name'], 'string','max'=>30],
             [['mobile'], 'string', 'max' => 15],
             ['mobile', 'match', 'pattern' => '/^[0-9]+$/'],
             
