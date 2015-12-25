@@ -251,7 +251,7 @@ class SiteController extends Controller {
         $productForm->name = $product->name;
         $productForm->description = $product->description;
         $productForm->price = $product->selling_price;
-        $productForm->filename = $product->productPhotos[0]->id;
+        $productForm->filename = $product->productPhotos[0]->image_path;
 
         if ($productForm->load(Yii::$app->request->post())) {
            $productForm->attributes = Yii::$app->request->post();
@@ -314,6 +314,7 @@ class SiteController extends Controller {
             'qty' => $productForm->quantity,
             'price' => $productForm->price,
             'name' => $productForm->name,
+            'filename'=> $productForm->filename,
             'options' => array('Featured' => 'L', 'Nope' => 'Red')
         );
 

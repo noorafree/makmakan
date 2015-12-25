@@ -20,10 +20,24 @@ class InformationForm extends Model {
      */
     public function rules() {
         return [
-            // username and password are both required
-            [['delivery_address', 'delivery_contact'], 'required'],
-            [['first_name','last_name','delivery_address', 'delivery_contact'], 'safe'],
+            [['first_name','last_name', 'delivery_address', 'delivery_contact'], 'required'],
+            [['first_name','last_name'], 'string','max'=>30],
+            [['delivery_contact'], 'string', 'max' => 15],
+            ['delivery_contact', 'match', 'pattern' => '/^[0-9]+$/'],
+            [['first_name','last_name', 'delivery_address', 'delivery_contact'], 'safe'],
         ];
+    }
+    
+    public function valid()
+    {
+        if ($this->validate()) {
+            $user = new InformationForm();
+            $user->first_name = $this->first_name;
+            $user->last_name = $this->last_name;
+            $user->delivery_address = $this->delivery_address;
+            $user->delivery_contact = $this->delivery_contact;
+        }
+        return null;
     }
 
     /**

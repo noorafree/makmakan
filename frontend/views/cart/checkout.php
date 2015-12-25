@@ -4,12 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Cart;
 
-$cart = new Cart();
-
-if ($_POST) {
-    $cart->update($_POST);
-    Yii::$app->controller->refresh();
-}
 ?>
 <div class="container">
     <div class="row" id="starts">
@@ -35,43 +29,61 @@ if ($_POST) {
                                 <?= Html::hiddenInput($i . '[rowid]', $items['rowid']) ?>
                                 <tr>
                                     <td>
-                                        <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl . '/'. Html::encode($items['filename']), ['style' => 'width: 80%; height: 20%;']); ?>
+                                        <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl . '/'. Html::encode($items['filename']), ['style' => 'width: 80%; height: 10%;']); ?>
                                     </td>
                                     <td width="23%">
                                         <?= $items['name']; ?><br/>
                                         <?= Html::encode(Yii::$app->formatter->asCurrency($items['price'])); ?>
                                     </td>
                                     <td width="22%">
-                                        <?= Html::textInput($i . '[qty]', $items['qty'], ['maxlength' => '3', 'size' => '5', 'class' => 'form-control input-small']); ?>
+                                        <?= Html::encode($items['qty']); ?>
                                         <br/>
                                         <div class="input-group bootstrap-timepicker timepicker">
-                                            <input id="timepicker1" type="text" class="form-control input-small">
+                                            <input id="timepicker1" type="text" class="form-control input-small" disabled="true">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                                         </div>
                                     </td>
                                     <td width="20%" style="text-align:right"><?= Html::encode(Yii::$app->formatter->asCurrency($items['subtotal'])); ?></td>
-                                    <td width="5%" style="text-align:right">
-                                        <?=
-                                        Html::a('<span class="glyphicon glyphicon-remove"></span>', Yii::$app->urlManager->createUrl(['cart/remove', 'id' => $items['rowid']]), ['data' => [
-                                                'confirm' => 'Are you sure you want to remove this item?',
-                                                'method' => 'post',
-                                        ]]);
-                                        ?>
-                                    </td>
-                                </tr>
+                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
                         </table>
-
-                        <div class="form-group">
-                            <div style="margin-top: 10px">
-                                <?= Html::submitButton('Perbaharui Keranjang', ['class' => 'btn btn-default pull-right', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']); ?>
-                            </div>
-
-                        </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <p style="font-weight: 900; font-size: 16px">Keranjang Belanja Anda (<?= Html::encode($i - 1); ?>)</p>
+                        <div class="row" style="margin-bottom: 5px">
+                            <div class="col-xs-6">
+                                Nama
+                            </div>
+                            <div class="col-xs-6" style="text-align: right">
+                                <?php if ($destination === null) { ?>
+                                <?= Html::encode($personalData->first_name); ?>
+                                <?php } else { ?>
+                                <?= Html::encode($destination->first_name); ?>
+                                <?php } ?>
+                            </div>
+                            <div class="col-xs-6" style="border-bottom: 1px">
+                                Alamat
+                            </div>
+                            <div class="col-xs-6" style="text-align: right">
+                                <?php if ($destination === null) { ?>
+                                <?= Html::encode($personalData->delivery_address); ?>
+                                <?php } else { ?>
+                                <?= Html::encode($destination->delivery_address); ?>
+                                <?php } ?>
+                            </div>
+                            <div class="col-xs-6" style="border-bottom: 1px">
+                                Kontak Person
+                            </div>
+                            <div class="col-xs-6" style="text-align: right">
+                                 <?php if ($destination === null) { ?>
+                                <?= Html::encode($personalData->delivery_contact); ?>
+                                <?php } else { ?>
+                                <?= Html::encode($destination->delivery_contact); ?>
+                                <?php } ?>
+                            </div>
+                            <br/>
+                        </div>
                         <div class="row" style="margin-bottom: 5px">
                             <div class="col-xs-6">
                                 Subtotal
@@ -96,25 +108,15 @@ if ($_POST) {
                                 <?= Html::encode(Yii::$app->formatter->asCurrency($cart->total() + 20000)); ?>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-lg-12">
-                                <div><?= Html::submitButton('Lanjutkan Ke Pengiriman', ['class' => 'btn btn-default btn-block', 'name' => 'Proceed', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']); ?></div>
+                                <div><?= Html::submitButton('Selesai', ['class' => 'btn btn-default btn-block', 'name' => 'Proceed', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']); ?></div>
                             </div>
                         </div>
                     </div>
                     <?php ActiveForm::end() ?>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6" style="border-top: solid 1px #FF9999; padding-top: 20px; margin-top: 30px;">
-                <h4>Petunjuk Pengiriman</h4>
-
-                <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum arcu diam, auctor quis efficitur ut, pharetra nec augue. Vestibulum nec sapien tellus. Vestibulum consectetur interdum ipsum sed venenatis. Nam auctor vehicula euismod. Etiam finibus nibh id maximus mattis. Vivamus non ultricies lectus. Aenean laoreet mauris sollicitudin scelerisque tempor. Morbi iaculis neque sed nisl eleifend, in congue eros consequat.</p>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6" style="border-top: solid 1px #FF9999; padding-top: 20px; margin-top: 30px;">
-                <h4>Petunjuk Pembayaran</h4>
-
-                <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum arcu diam, auctor quis efficitur ut, pharetra nec augue. Vestibulum nec sapien tellus. Vestibulum consectetur interdum ipsum sed venenatis. Nam auctor vehicula euismod. Etiam finibus nibh id maximus mattis. Vivamus non ultricies lectus. Aenean laoreet mauris sollicitudin scelerisque tempor. Morbi iaculis neque sed nisl eleifend, in congue eros consequat.</p> 
             </div>
         </div>
     </div>
