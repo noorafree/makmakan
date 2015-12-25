@@ -320,7 +320,7 @@ class SiteController extends Controller {
         $cart->insert($data);
     }
 
-    public function actionProfile($id = 1) {
+    public function actionProfile() {
         $model = User::findOne(Yii::$app->user->id);
         $model->setScenario('user-update');
 //        $model = $model->findModel($id);
@@ -336,8 +336,7 @@ class SiteController extends Controller {
             if ($model->save()) {
                 if($model->file!= null){
                     $basePath = str_replace(DIRECTORY_SEPARATOR.'protected', "", str_replace('frontend', '', Yii::$app->basePath));
-                    $uploadDir = 'backend/web/uploads/user';
-//                    $model->file->saveAs($basePath .$uploadDir. $fileName);
+                    $uploadDir = 'backend' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'user' . DIRECTORY_SEPARATOR;
                     
                     $model->file->saveAs($basePath . $uploadDir . $model->file->baseName . $imageName . '.' . $model->file->extension);
                 }
