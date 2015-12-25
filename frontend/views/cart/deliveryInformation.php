@@ -159,8 +159,7 @@ use yii\bootstrap\Modal;
                         <?php echo Html::beginForm(); ?>
 
                         <div class="row">
-                           <h3><?= Html::encode($personalData->first_name); ?></h3>
-                           <h3><?= Html::encode($personalData->last_name); ?></h3>
+                           <h3><?= Html::encode($personalData->first_name); ?> <?= Html::encode($personalData->last_name); ?></h3>
                         </div>
 
                         <div class="row">

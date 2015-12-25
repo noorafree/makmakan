@@ -156,15 +156,29 @@ use yii\bootstrap\Modal;
             <div class="col-md-10 col-sm-9 col-xs-12 work-list">
                 <div class="col-md-4 col-sm-6 col-xs-12 work-space">
                     <div class="form" id="customer-form">
-                        <?php echo Html::beginForm(); ?>
+                        <?= Html::beginForm(); ?>
                         <div class="row">
-                            <?= Html::activeTextInput($information, 'delivery_address');   ?>
-                            <?= Html::error($information, 'delivery_address'); ?>
+                            <?= Html::activeLabel($destination, 'first_name');  ?>
+                            <?= Html::activeTextInput($destination, 'first_name');  ?>
+                            <?= Html::error($destination, 'first_name'); ?>
                         </div>
                         
                         <div class="row">
-                            <?= Html::activeTextInput($information, 'delivery_contact');   ?>
-                            <?= Html::error($information, 'delivery_contact'); ?>
+                             <?= Html::activeLabel($destination, 'last_name');  ?>
+                            <?= Html::activeTextInput($destination, 'last_name');   ?>
+                            <?= Html::error($destination, 'last_name'); ?>
+                        </div>
+                        
+                        <div class="row">
+                            <?= Html::activeLabel($destination, 'delivery_address');   ?>
+                            <?= Html::activeTextInput($destination, 'delivery_address');   ?>
+                            <?= Html::error($destination, 'delivery_address'); ?>
+                        </div>
+                        
+                        <div class="row">
+                            <?= Html::activeLabel($destination, 'delivery_address');   ?>
+                            <?= Html::activeTextInput($destination, 'delivery_contact');   ?>
+                            <?= Html::error($destination, 'delivery_contact'); ?>
                         </div>
                         <div style="height: 50px">
                             &nbsp;
@@ -177,7 +191,7 @@ use yii\bootstrap\Modal;
                             <div><?= Html::submitButton('Continue'); ?></div>
                         </div>
 
-                        <?php echo Html::endForm(); ?>
+                        <?= Html::endForm(); ?>
                     </div>
                 </div>
             </div>

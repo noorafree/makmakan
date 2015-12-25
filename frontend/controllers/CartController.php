@@ -13,16 +13,16 @@ use common\models\Product;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Cart;
 
 class CartController extends Controller {
 
     public function actionCart() {
-
         if (isset($_POST['Proceed'])) {
              if (Yii::$app->user->isGuest) {
                 return $this->redirect(['method']);
              } else {
-                return $this->redirect(['billing']);
+                return $this->redirect(['delivery-information']);
              }
         }
         
@@ -34,21 +34,22 @@ class CartController extends Controller {
     }
     
     public function actionDeliveryInformation() {
-        $information = new \common\models\InformationForm();
         $personalData = (Yii::$app->session['PersonalData'] === null) ? new \common\models\InformationForm() : Yii::$app->session['PersonalData'];
         
         if (!Yii::$app->user->isGuest) {
             $user = \common\models\User::findOne(Yii::$app->user->id);
             if ($user !== null) {
-                $information->delivery_address = $user->address;
-                $information->delivery_contact = $user->phone;
+                $personalData->first_name = $user->first_name;
+                $personalData->last_name = $user->last_name;
+                $personalData->delivery_address = $user->address;
+                $personalData->delivery_contact = $user->phone;
                 
                 if (isset($_POST['IsDifferentAddress']))
-                    $this->checkDifferentAddress();
+                     $this->checkDifferentAddress();
             }
         }
 
-        Yii::app()->session['PersonalData'] = $personalData;
+        Yii::$app->session['PersonalData'] = $personalData;
 
         return $this->render('deliveryInformation', array(
             'personalData' => $personalData,
@@ -56,18 +57,30 @@ class CartController extends Controller {
     }
     
     public function actionDestination() {
-        $information = (Yii::$app->session['Destination'] === null) ? new \common\models\InformationForm() : Yii::$app->session['Destination'];
-
-        if (isset($_POST['Information'])) {
-            $information->attributes = $_POST['Information'];
-            if ($information->validate())
+        $destination = (Yii::$app->session['Destination'] === null) ? new \common\models\InformationForm() : Yii::$app->session['Destination'];
+   
+        if ($destination->load(Yii::$app->request->post())) {
+            $destination->attributes = Yii::$app->request->post();
+            if ($destination->validate())
                 $this->redirect(array('checkout'));
         }
 
-        Yii::app()->session['Destination'] = $information;
+        Yii::$app->session['Destination'] = $destination;
 
         return $this->render('destination', array(
-            'information' => $information,
+            'destination' => $destination,
+        ));
+    }
+    
+    public function actionCheckout() {
+        $cart = new Cart();
+        $personalData = (Yii::$app->session['PersonalData'] === null) ? new \common\models\InformationForm() : Yii::$app->session['PersonalData'];
+        $destination = (Yii::$app->session['Destination'] === null) ? new \common\models\InformationForm() : Yii::$app->session['Destination'];
+
+        return $this->render('checkout', array(
+            'cart' => $cart,
+            'personalData' => $personalData,
+            'destination' => $destination->validate() ? $destination : null,
         ));
     }
     
@@ -76,7 +89,7 @@ class CartController extends Controller {
             return $this->redirect(['destination']);
         else {
             Yii::$app->session->remove('Destination');
-            return $this->redirect(['shipment']);
+            return $this->redirect(['checkout']);
         }
     }
 
