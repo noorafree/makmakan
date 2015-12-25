@@ -41,13 +41,71 @@ AppAsset::register($this);
                         echo Html::a('Daftar', '#', ['value' => Url::to('index.php?r=site/signup'), 'id' => 'signupLink']);
                         echo '</li>';
                     } else {
+                        echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile</a>';
+                        echo '<ul class="dropdown-menu" style="left:0">';
+
+                        echo '<li>';
+                        echo Html::a('Ubah Profile', ['site/profile'], ['data-method' => 'post']);
+                        echo '</li>';
+                        
+                        echo '<li role="separator" class="divider"></li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Pemesanan Saya', ['#']);
+                        echo '</li>';
+                        echo '<li>';
+                        echo Html::a('Status Pemesanan', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li role="separator" class="divider"></li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Daftar Produk', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Pendaftaran Produk', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Saldo & mutasi', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Laporan Pembayaran', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Laporan Penjualan', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Top 5 Food', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Rating Penilaian User', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li>';
+                        echo Html::a('Rating Menurut Waktu', ['#']);
+                        echo '</li>';
+                        
+                        echo '<li role="separator" class="divider"></li>';
+                        
                         echo '<li>';
                         echo Html::a('Keluar', ['site/logout'], ['data-method' => 'post']);
+                        echo '</li>';
+                        
+                        
+                        
+                        echo '</ul>';
                         echo '</li>';
                     }
                     ?>
                     <li><?= Html::a('Cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'class' => 'cartLink']); ?></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
+                    
                 </ul>
             </div>
         </header>
