@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2015 at 05:40 PM
+-- Generation Time: Dec 25, 2015 at 07:02 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -507,14 +507,15 @@ CREATE TABLE IF NOT EXISTS `product` (
   `modified_by` varchar(30) NOT NULL,
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`id`, `plu`, `name`, `selling_price`, `sn_product_category_id`, `selling_type`, `user_id`, `seen`, `sold`, `stock`, `po_start_date`, `po_end_date`, `expired_date`, `expired_time`, `is_non_halal`, `minimum_order`, `featured`, `description`, `meta_tag`, `meta_description`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
-(10, '123123', 'Kangkung', 20000, 5, 'Ready Stock', 1, 1, 1, 5, NULL, NULL, '2015-12-02', 5, 1, NULL, 1, '123123', '123123', '123123', 'Sandy', '2015-12-02 15:28:58', 'Sandy', '2015-12-02 15:28:58', 1);
+(10, '123123', 'Kangkung', 20000, 5, 'Ready Stock', 1, 1, 1, 5, NULL, NULL, '2015-12-02', 5, 1, NULL, 1, '123123', '123123', '123123', 'Sandy', '2015-12-02 08:28:58', 'Sandy', '2015-12-02 08:28:58', 1),
+(12, '00001', 'Bakmie', 25000, 6, 'Ready Stock', 0, 0, 0, 1000, '2015-12-01', '2015-12-31', '2016-01-31', NULL, 0, 1, 0, '<p><span style="font-size:12px"><span style="font-family:courier new,courier,monospace"><strong>Bakmi adalah<span style="color:rgb(34, 34, 34)">&nbsp;salah satu jenis sajian mi yang dipopulerkan oleh pedagang-pedagang Tiongkok ke Indonesia.&nbsp;</span>Bakmi<span style="color:rgb(34, 34, 34)">&nbsp;juga sering disebut yamien atau yahun.&nbsp;</span>Bakmi<span style="color:rgb(34, 34, 34)">&nbsp;juga merupakan makanan yang terkenal terutama di daerah-daerah &quot;pecinan&quot; di Indonesia.</span></strong></span></span></p>\r\n', 'Bakmie', 'Bakmie Lezat', 'admin', '2015-12-23 12:12:36', 'admin', '2015-12-23 12:12:36', 1);
 
 -- --------------------------------------------------------
 
@@ -533,17 +534,20 @@ CREATE TABLE IF NOT EXISTS `product_photo` (
   `modified_by` varchar(30) NOT NULL,
   `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` smallint(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_photo`
 --
 
 INSERT INTO `product_photo` (`id`, `image_path`, `caption`, `product_id`, `product_photo_order`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
-(2, 'uploads/product/asrd4b2aeb.jpg\r\n', 'sddsds', 7, 34, 'admin', '2015-11-09 16:11:22', 'admin', '2015-11-09 16:11:22', 1),
-(3, 'uploads/product/New-CB150Ra370d17.jpg', 'New-CB150Ra370d17', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
-(4, 'uploads/product/producer8047131.png', 'producer8047131', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
-(5, 'uploads/product/sensorycoupled728587.jpg', 'sensorycoupled728587', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1);
+(2, 'uploads/product/asrd4b2aeb.jpg\r\n', 'sddsds', 7, 34, 'admin', '2015-11-09 09:11:22', 'admin', '2015-11-09 09:11:22', 1),
+(3, 'uploads/product/New-CB150Ra370d17.jpg', 'New-CB150Ra370d17', 10, 0, 'admin', '2015-11-09 09:11:01', 'admin', '2015-11-09 09:11:01', 1),
+(4, 'uploads/product/producer8047131.png', 'producer8047131', 10, 0, 'admin', '2015-11-09 09:11:01', 'admin', '2015-11-09 09:11:01', 1),
+(5, 'uploads/product/sensorycoupled728587.jpg', 'sensorycoupled728587', 10, 0, 'admin', '2015-11-09 09:11:01', 'admin', '2015-11-09 09:11:01', 1),
+(6, 'uploads/product/bakmi722bdeb.jpg', 'bakmi722bdeb', 12, 0, 'admin', '2015-12-23 12:12:36', 'admin', '2015-12-23 12:12:36', 1),
+(7, 'uploads/product/ramenc3b7cab.jpg', 'ramenc3b7cab', 12, 0, 'admin', '2015-12-23 12:12:36', 'admin', '2015-12-23 12:12:36', 1),
+(8, 'uploads/product/toppokie6c2dc3.jpg', 'toppokie6c2dc3', 12, 0, 'admin', '2015-12-23 12:12:36', 'admin', '2015-12-23 12:12:36', 1);
 
 -- --------------------------------------------------------
 
@@ -591,6 +595,23 @@ INSERT INTO `sn_bank` (`id`, `bank`, `status`, `created_date`, `created_by`, `mo
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sn_city`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_city` (
+  `id` int(11) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sn_delivery_agent`
 --
 
@@ -611,6 +632,23 @@ CREATE TABLE IF NOT EXISTS `sn_delivery_agent` (
 INSERT INTO `sn_delivery_agent` (`id`, `delivery_agent`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
 (1, 'JNE', 'admin', '2015-10-28 16:06:28', 'admin', '2015-10-27 22:10:02', -1),
 (2, 'asd', 'admin', '2015-10-27 22:10:36', 'admin', '2015-10-27 22:10:36', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sn_district`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_district` (
+  `id` int(11) NOT NULL,
+  `district` varchar(100) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -684,6 +722,39 @@ INSERT INTO `sn_product_category` (`id`, `category`, `status`, `created_by`, `cr
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sn_province`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_province` (
+  `id` int(11) NOT NULL,
+  `province` varchar(100) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sn_subdistrict`
+--
+
+CREATE TABLE IF NOT EXISTS `sn_subdistrict` (
+  `id` int(11) NOT NULL,
+  `subdistrict` varchar(100) NOT NULL,
+  `district_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(30) NOT NULL,
+  `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subscriber`
 --
 
@@ -734,7 +805,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `activation_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `sn_geostructure_id` int(11) DEFAULT NULL,
+  `post_code` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rt` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rw` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sn_province_id` int(11) DEFAULT NULL,
+  `sn_city_id` int(11) DEFAULT NULL,
+  `sn_district_id` int(11) DEFAULT NULL,
+  `sn_subdistrict_id` int(11) DEFAULT NULL,
   `warn_status` enum('Clear','Warning','Danger','') COLLATE utf8_unicode_ci DEFAULT 'Clear',
   `status` smallint(6) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -746,9 +823,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 -- Dumping data for table `user`
 --
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `description`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `sn_geostructure_id`, `warn_status`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`,`activation_code`) VALUES
-(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', 'admin@gmail.com', 0, 'Clear', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '',''),
-(2, 'qweqwe', 'qweqweqwe', '2015-11-05', '12312312', '3123123123', 'sandy', 'Male', NULL, 'uploads/user/abb2079.jpg', '123123123', NULL, 1, NULL, '', '', NULL, '123', '202cb962ac59075b964b07152d234b70', '', '123123@yahoo.com', 0, 'Clear', 1, '2015-10-31 22:11:35', '2015-10-31 22:11:35', 'admin', 'admin','');
+
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `birthdate`, `phone`, `mobile`, `username`, `sex`, `last_login_date`, `image_path`, `address`, `description`, `featured`, `makmakan_credit`, `bank_account_number`, `bank_account_name`, `sn_bank_id`, `auth_key`, `password_hash`, `password_reset_token`, `activation_code`, `email`, `post_code`, `rt`, `rw`, `sn_province_id`, `sn_city_id`, `sn_district_id`, `sn_subdistrict_id`, `warn_status`, `status`, `created_date`, `modified_date`, `created_by`, `modified_by`) VALUES
+(1, '', NULL, '0000-00-00', NULL, '', 'admin123', '', NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, 'dEKNVY5MRjBBzHk01NQtlCjghYutK7qP', '$2y$13$UzUF33ZOCD7cIvT3jUN75eVY57QYManypAbM79Rm0qIhuGshdU2uC', '4d6z43RnnPXI_1xtptu4vvOz8lvht3fv_1444146439', '', 'admin@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Clear', 10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(2, 'qweqwe', 'qweqweqwe', '2015-11-05', '12312312', '3123123123', 'sandy', 'Male', NULL, 'uploads/user/abb2079.jpg', '123123123', NULL, 1, NULL, '', '', NULL, '123', '202cb962ac59075b964b07152d234b70', '', '', '123123@yahoo.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Clear', 1, '2015-10-31 22:11:35', '2015-10-31 22:11:35', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -966,9 +1044,21 @@ ALTER TABLE `sn_bank`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sn_city`
+--
+ALTER TABLE `sn_city`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sn_delivery_agent`
 --
 ALTER TABLE `sn_delivery_agent`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_district`
+--
+ALTER TABLE `sn_district`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -987,6 +1077,18 @@ ALTER TABLE `sn_payment_method`
 -- Indexes for table `sn_product_category`
 --
 ALTER TABLE `sn_product_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_province`
+--
+ALTER TABLE `sn_province`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sn_subdistrict`
+--
+ALTER TABLE `sn_subdistrict`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1112,12 +1214,12 @@ ALTER TABLE `owner_bank_account`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `product_photo`
 --
 ALTER TABLE `product_photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `product_review`
 --
@@ -1129,10 +1231,20 @@ ALTER TABLE `product_review`
 ALTER TABLE `sn_bank`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `sn_city`
+--
+ALTER TABLE `sn_city`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `sn_delivery_agent`
 --
 ALTER TABLE `sn_delivery_agent`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `sn_district`
+--
+ALTER TABLE `sn_district`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sn_geostructure`
 --
@@ -1148,6 +1260,16 @@ ALTER TABLE `sn_payment_method`
 --
 ALTER TABLE `sn_product_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `sn_province`
+--
+ALTER TABLE `sn_province`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sn_subdistrict`
+--
+ALTER TABLE `sn_subdistrict`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `subscriber`
 --
@@ -1176,21 +1298,3 @@ ALTER TABLE `voucher`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-INSERT INTO `product` (`id`, `plu`, `name`, `selling_price`, `sn_product_category_id`, `selling_type`, `user_id`, `seen`, `sold`, `stock`, `po_start_date`, `po_end_date`, `expired_date`, `expired_time`, `is_non_halal`, `minimum_order`, `featured`, `description`, `meta_tag`, `meta_description`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
-(10, '123123', 'Kangkung', 20000, 5, 'Ready Stock', 1, 1, 1, 5, NULL, NULL, '2015-12-02', 5, 1, NULL, 1, '123123', '123123', '123123', 'Sandy', '2015-12-02 15:28:58', 'Sandy', '2015-12-02 15:28:58', 1),
-(12, '00001', 'Bakmie', 25000, 6, 'Ready Stock', 0, 0, 0, 1000, '2015-12-01', '2015-12-31', '2016-01-31', NULL, 0, 1, 0, '<p><span style="font-size:12px"><span style="font-family:courier new,courier,monospace"><strong>Bakmi adalah<span style="color:rgb(34, 34, 34)">&nbsp;salah satu jenis sajian mi yang dipopulerkan oleh pedagang-pedagang Tiongkok ke Indonesia.&nbsp;</span>Bakmi<span style="color:rgb(34, 34, 34)">&nbsp;juga sering disebut yamien atau yahun.&nbsp;</span>Bakmi<span style="color:rgb(34, 34, 34)">&nbsp;juga merupakan makanan yang terkenal terutama di daerah-daerah &quot;pecinan&quot; di Indonesia.</span></strong></span></span></p>\r\n', 'Bakmie', 'Bakmie Lezat', 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1);
-
---
--- Dumping data untuk tabel `product_photo`
---
-
-INSERT INTO `product_photo` (`id`, `image_path`, `caption`, `product_id`, `product_photo_order`, `created_by`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
-(2, 'uploads/product/asrd4b2aeb.jpg\r\n', 'sddsds', 7, 34, 'admin', '2015-11-09 16:11:22', 'admin', '2015-11-09 16:11:22', 1),
-(3, 'uploads/product/New-CB150Ra370d17.jpg', 'New-CB150Ra370d17', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
-(4, 'uploads/product/producer8047131.png', 'producer8047131', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
-(5, 'uploads/product/sensorycoupled728587.jpg', 'sensorycoupled728587', 10, 0, 'admin', '2015-11-09 16:11:01', 'admin', '2015-11-09 16:11:01', 1),
-(6, 'uploads/product/bakmi722bdeb.jpg', 'bakmi722bdeb', 12, 0, 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1),
-(7, 'uploads/product/ramenc3b7cab.jpg', 'ramenc3b7cab', 12, 0, 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1),
-(8, 'uploads/product/toppokie6c2dc3.jpg', 'toppokie6c2dc3', 12, 0, 'admin', '2015-12-23 19:12:36', 'admin', '2015-12-23 19:12:36', 1);
