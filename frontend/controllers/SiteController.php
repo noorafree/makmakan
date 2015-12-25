@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
 use common\models\User;
 use mcms\cart\Cart;
 use yii\web\UploadedFile;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -322,30 +323,33 @@ class SiteController extends Controller {
 
     public function actionProfile() {
         $model = User::findOne(Yii::$app->user->id);
+        if($model !== NULL){
+            if ($model->load(Yii::$app->request->post())) {
+                $model->modified_by = $model->email;
+                $model->modified_date = date('Y-m-d h:m:s');
+                $imageName = substr(md5(rand()), 0, 7);
+                if (UploadedFile::getInstance($model, 'file')) {
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    $model->image_path = 'uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
+                }
+
+                if ($model->save()) {
+                    if($model->file!= null){
+                        $basePath = str_replace(DIRECTORY_SEPARATOR.'protected', "", str_replace('frontend', '', Yii::$app->basePath));
+                        $uploadDir = 'backend' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'user' . DIRECTORY_SEPARATOR;
+
+                        $model->file->saveAs($basePath . $uploadDir . $model->file->baseName . $imageName . '.' . $model->file->extension);
+                    }
+                    Yii::$app->session->setFlash('success', 'Update Success.');
+                }else{
+                    Yii::$app->session->setFlash('error', 'Update Failed. Cannot Save Data');
+                }
+            }
+        }else{
+             throw new NotFoundHttpException('The requested page does not exist.');
+        }
         $model->setScenario('user-update');
 //        $model = $model->findModel($id);
-        if ($model->load(Yii::$app->request->post())) {
-            $model->modified_by = $model->email;
-            $model->modified_date = date('Y-m-d h:m:s');
-            $imageName = substr(md5(rand()), 0, 7);
-            if (UploadedFile::getInstance($model, 'file')) {
-                $model->file = UploadedFile::getInstance($model, 'file');
-                $model->image_path = 'uploads/user/' . $model->file->baseName . $imageName . '.' . $model->file->extension;
-            }
-
-            if ($model->save()) {
-                if($model->file!= null){
-                    $basePath = str_replace(DIRECTORY_SEPARATOR.'protected', "", str_replace('frontend', '', Yii::$app->basePath));
-                    $uploadDir = 'backend' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'user' . DIRECTORY_SEPARATOR;
-                    
-                    $model->file->saveAs($basePath . $uploadDir . $model->file->baseName . $imageName . '.' . $model->file->extension);
-                }
-                Yii::$app->session->setFlash('success', 'Update Success.');
-            }else{
-                Yii::$app->session->setFlash('error', 'Update Failed. Cannot Save Data');
-            }
-        }
-        
         return $this->render('userProfile', [
             'model' => $model,
         ]);

@@ -63,7 +63,7 @@ use dmstr\widgets\Alert;
                                         </div>
                                         <div class="col-xs-3 pull-right">
                                             <?php // echo Html::img(Yii::$app->urlManagerBackEnd->baseUrl . '/'. $model->image_path) ?>
-                                            <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl .'/'.  Html::encode($model->image_path), '', ['class' => 'img-responsive']); ?>
+                                            <?= Html::img(Yii::$app->urlManagerBackEnd->baseUrl .'/'.  Html::encode($model->image_path), '', ['class' => 'img-responsive', 'style'=>'width: 100%']); ?>
                                         </div>
                                     </div>
 
