@@ -11,6 +11,10 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
+use yii\web\View;
+
+$jsView = file_get_contents(Yii::getAlias('@webroot/js/product.js'));
+$this->registerJs($jsView, View::POS_END);
 
 ?>
 
