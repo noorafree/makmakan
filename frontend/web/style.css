@@ -63,7 +63,9 @@ html *
 
 .menu li a:hover
 {
-    border-top: 5px solid !important;
+    background-color: #FFFFFF;
+    color: #660000;
+    border-top: 5px solid #660000 !important;
 }
 
 .menu-button
@@ -332,7 +334,7 @@ h2.features-text::after {
     padding: 0px;
 }
 
-.active
+.active-navbar
 {
     color:#ff6666 !important;
     border-top: 5px solid !important;

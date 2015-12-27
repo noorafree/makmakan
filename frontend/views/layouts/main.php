@@ -29,9 +29,10 @@ AppAsset::register($this);
             </div>
             <div class="navbar-offcanvas navbar-offcanvas-touch" style="margin-right: 20px; background-color: #FFF" id="myNavbar" role="navigation">
                 <ul class="nav navbar-nav navbar-right menu">
-                    <li><?= Html::a('Home', ['site/index'], ['class' => Yii::$app->controller->action->id == 'index' ? 'active' : '']); ?></li>
-                    <li><?= Html::a('Menu', ['site/product'], ['class' => Yii::$app->controller->action->id == 'menu' ? 'active' : '']); ?></li>
-                    <li><?= Html::a('About Us', ['site/about'], ['class' => Yii::$app->controller->action->id == 'about' ? 'active' : '']); ?></li>
+                    <li><?= Html::a('Home', ['site/index'], ['class' => Yii::$app->controller->action->id == 'index' ? 'active-navbar' : '']); ?></li>
+                    <li><?= Html::a('About Us', ['site/about'], ['class' => Yii::$app->controller->action->id == 'about' ? 'active-navbar' : '']); ?></li>
+                    <li><?= Html::a('Menu', ['site/product'], ['class' => Yii::$app->controller->action->id == 'menu' ? 'active-navbar' : '']); ?></li>
+                    <li><?= Html::a('<span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)', '#', ['value' => Url::to('index.php?r=cart/cart'), 'class' => 'cartLink']); ?></li>
                     <?php
                     if (Yii::$app->user->isGuest) {
                         echo '<li>';
@@ -41,71 +42,51 @@ AppAsset::register($this);
                         echo Html::a('Daftar', '#', ['value' => Url::to('index.php?r=site/signup'), 'id' => 'signupLink']);
                         echo '</li>';
                     } else {
-                        echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile</a>';
-                        echo '<ul class="dropdown-menu" style="left:0">';
+                        echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span></a>';
+                        echo '<ul class="dropdown-menu" style="right:0">';
 
                         echo '<li>';
-                        echo Html::a('Ubah Profile', ['site/profile'], ['data-method' => 'post']);
+                        echo Html::a('Profil Pengguna', ['site/profile'], ['data-method' => 'post']);
                         echo '</li>';
-                        
+
                         echo '<li role="separator" class="divider"></li>';
-                        
-                        echo '<li>';
-                        echo Html::a('Pemesanan Saya', ['#']);
-                        echo '</li>';
+
                         echo '<li>';
                         echo Html::a('Status Pemesanan', ['#']);
                         echo '</li>';
-                        
+
                         echo '<li role="separator" class="divider"></li>';
-                        
+
                         echo '<li>';
                         echo Html::a('Daftar Produk', ['#']);
                         echo '</li>';
-                        
+
                         echo '<li>';
                         echo Html::a('Pendaftaran Produk', ['#']);
                         echo '</li>';
-                        
+
                         echo '<li>';
-                        echo Html::a('Saldo & mutasi', ['#']);
+                        echo Html::a('Saldo & Mutasi', ['#']);
                         echo '</li>';
-                        
+
                         echo '<li>';
                         echo Html::a('Laporan Pembayaran', ['#']);
                         echo '</li>';
-                        
+
                         echo '<li>';
                         echo Html::a('Laporan Penjualan', ['#']);
                         echo '</li>';
-                        
-                        echo '<li>';
-                        echo Html::a('Top 5 Food', ['#']);
-                        echo '</li>';
-                        
-                        echo '<li>';
-                        echo Html::a('Rating Penilaian User', ['#']);
-                        echo '</li>';
-                        
-                        echo '<li>';
-                        echo Html::a('Rating Menurut Waktu', ['#']);
-                        echo '</li>';
-                        
+
                         echo '<li role="separator" class="divider"></li>';
-                        
+
                         echo '<li>';
                         echo Html::a('Keluar', ['site/logout'], ['data-method' => 'post']);
                         echo '</li>';
-                        
-                        
-                        
+
                         echo '</ul>';
                         echo '</li>';
                     }
-                    ?>
-                    <li><?= Html::a('Cart', '#', ['value' => Url::to('index.php?r=cart/cart'), 'class' => 'cartLink']); ?></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (0)</a></li>
-                    
+                    ?>    
                 </ul>
             </div>
         </header>
@@ -186,11 +167,11 @@ AppAsset::register($this);
         echo "<div id=cartModalContent> </div> ";
         Modal::end();
         ?>
-        
+
         <script type="text/javascript">
             $('#timepicker1').timepicker();
         </script>
-        
+
     </body>
 </html>
 
