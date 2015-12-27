@@ -159,11 +159,6 @@ include 'header.php';
             <div class="col-md-10 col-sm-9 col-xs-12 work-list">
                 <div class="col-md-5">
                     <div class="flexslider">
-                        <!-- FlexSlider -->
-                        <script src="js/imagezoom.js"></script>
-                        <script defer src="js/jquery.flexslider.js"></script>
-                        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen"/>
-
                         <script>
                             // Can also be used with $(document).ready()
                             $(window).load(function () {
@@ -173,7 +168,6 @@ include 'header.php';
                                 });
                             });
                         </script>
-                        <!-- //FlexSlider-->
 
                         <ul class="slides">
                             <li data-thumb="images/small/image1.png">
@@ -310,7 +304,7 @@ include 'header.php';
                                 <div class="clearfix"></div>
                                 <a class="add-re" href="#">ADD REVIEW</a>
                                 <script>
-                                    $(".add-re").click(function () {
+                                    $("a.add-re").click(function () {
                                         $(".form-comment").show("slow");
                                         $("a.add-re").hide("slow");
                                     });
