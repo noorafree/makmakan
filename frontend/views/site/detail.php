@@ -11,6 +11,7 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
+
 ?>
 
 
@@ -47,6 +48,7 @@ use yii\bootstrap\ActiveForm;
                     <h4 class="text-center portfolio-text">Advanced Search</h4>
                     <input type="text" class="form-control" placeholder="Enter keyword..."/>
                     <section>
+
                         <h5 class="portfolio-text">By Price : (IDR)</h5>
 
                         <div id="slider-snap"></div>
@@ -163,28 +165,16 @@ use yii\bootstrap\ActiveForm;
             <div class="col-md-10 col-sm-9 col-xs-12 work-list">
                 <div class="col-md-5">
                     <div class="flexslider">
-                        <!-- FlexSlider -->
-                        <script src="<?= Yii::$app->urlManagerBackEnd->baseUrl . '/js/imagezoom.js' ?>"></script>
-                        <script defer src="<?= Yii::$app->urlManagerBackEnd->baseUrl . '/js/jquery.flexslider.js' ?>"></script>
-                        <link rel="stylesheet" href="<?= Yii::$app->urlManagerBackEnd->baseUrl . '/css/flexslider.css' ?>" type="text/css" media="screen"/>
 
-                        <script>
-                            // Can also be used with $(document).ready()
-                            $(window).load(function () {
-                                $('.flexslider').flexslider({
-                                    animation: "slide",
-                                    controlNav: "thumbnails"
-                                });
-                            });
-                        </script>
-                        <!-- //FlexSlider-->
 
                         <ul class="slides">
                             <?php foreach ($product->productPhotos as $i => $productPhoto): ?>
                                 <li data-thumb="<?= Yii::$app->urlManagerBackEnd->baseUrl . '/' . Html::encode($productPhoto->image_path); ?>">
                                     <div class="thumb-image">
-                                        <img src="<?= Yii::$app->urlManagerBackEnd->baseUrl . '/' . Html::encode($productPhoto->image_path); ?>" data-imagezoom="true"
-                                             class="img-responsive">
+                                        <img
+                                            src="<?= Yii::$app->urlManagerBackEnd->baseUrl . '/' . Html::encode($productPhoto->image_path); ?>"
+                                            data-imagezoom="true"
+                                            class="img-responsive">
                                     </div>
                                 </li>
                             <?php endforeach; ?>
@@ -252,10 +242,10 @@ use yii\bootstrap\ActiveForm;
                         <?= Html::beginForm(); ?>
                         <div class="row">
                             <div style="float: left">
-                                <?php echo Html::activeTextInput($productForm, 'quantity', array('size' => 3, 'maxlength' => 3, 'style' => 'text-align: center'));   ?>
+                                <?php echo Html::activeTextInput($productForm, 'quantity', array('size' => 3, 'maxlength' => 3, 'style' => 'text-align: center')); ?>
                             </div>
                             <div style="float: left; margin-left: 5px">
-                               <?= Html::submitButton('Add to cart', ['id' => 'cart-btn', 'class' => 'btn btn-default btn-block', 'name' => 'cart-button', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']) ?>
+                                <?= Html::submitButton('Add to cart', ['id' => 'cart-btn', 'class' => 'btn btn-default btn-block', 'name' => 'cart-button', 'style' => 'background: #ff6666; color: #FFF; border: 1px solid #ff9999; border-radius: 0; font-size: 12px']) ?>
                             </div>
                             <div class="clear"><?php echo Html::error($productForm, 'quantity'); ?></div>
                         </div>
@@ -296,12 +286,7 @@ use yii\bootstrap\ActiveForm;
                                 </div>
                                 <div class="clearfix"></div>
                                 <a class="add-re" href="#">ADD REVIEW</a>
-                                <script>
-                                    $(".add-re").click(function () {
-                                        $(".form-comment").show("slow");
-                                        $("a.add-re").hide("slow");
-                                    });
-                                </script>
+
 
                                 <div class="form-comment">
                                     <form>

@@ -15,40 +15,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <!--    <link href="css/bootstrap.css" rel="stylesheet"/>-->
     <link rel="stylesheet" href="style.css" type="text/css"/>
     <link rel="stylesheet" href="style2.css" type="text/css"/>
     <link rel="stylesheet" href="style3.css" type="text/css" media="all"/>
     <link href="css/lightbox.css" rel="stylesheet"/>
-    <link href='http://fonts.googleapis.com/css?family=Poppins:400,600,700,500,300' rel='stylesheet' type='text/css'/>
-    <link
-        href='http://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700italic,700,400italic,500,500italic,300,100italic,100,300italic'
-        rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic' rel='stylesheet'
+          type='text/css'/>
 
-    <!-- <link rel="stylesheet" href="css/pygments.css"/>
-     <link rel="stylesheet" href="css/easyzoom.css"/> -->
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script src="js/main.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-
+    <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/nouislider.js"></script>
 
-    <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="css/nouislider.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="css/nouislider.pips.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="css/nouislider.tooltips.css" type="text/css" media="all"/>
-
-    <!--<script src="js/jquery-ui-slider-pips.js"></script>
-    <link rel="stylesheet" href="css/jquery-ui-slider-pips.css" type="text/css" media="all"/>-->
+    <script src="js/imagezoom.js"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen"/>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -57,7 +41,7 @@
             noUiSlider.create(snapSlider, {
                 start: [25000, 200000],
                 connect: true,
-                step:1000,
+                step: 1000,
                 range: {
                     'min': 0,
                     'max': 250000
@@ -73,17 +57,6 @@
                 snapValues[handle].innerHTML = values[handle];
             });
         });
-
-        /*$(document).ready(function () {
-         $(".slider").slider({
-         min: 10000,
-         max: 500000,
-         range: true,
-         values: [25000, 100000]
-         }).slider("pips", {
-         rest: "label"
-         }).slider("float");
-         });*/
     </script>
 
 </head>
