@@ -190,7 +190,48 @@ AppAsset::register($this);
         <script type="text/javascript">
             $('#timepicker1').timepicker();
         </script>
-        
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var snapSlider = document.getElementById('slider-snap');
+
+                noUiSlider.create(snapSlider, {
+                    start: [25000, 200000],
+                    connect: true,
+                    step: 1000,
+                    range: {
+                        'min': 0,
+                        'max': 250000
+                    }
+                });
+
+                var snapValues = [
+                    document.getElementById('slider-snap-value-lower'),
+                    document.getElementById('slider-snap-value-upper')
+                ];
+
+                snapSlider.noUiSlider.on('update', function (values, handle) {
+                    snapValues[handle].innerHTML = values[handle];
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            // Can also be used with $(document).ready()
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    controlNav: "thumbnails"
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(".add-re").click(function () {
+                $(".form-comment").show("slow");
+                $("a.add-re").hide("slow");
+            });
+        </script>
     </body>
 </html>
 

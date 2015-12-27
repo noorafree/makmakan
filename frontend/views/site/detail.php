@@ -48,30 +48,7 @@ use yii\bootstrap\ActiveForm;
                     <h4 class="text-center portfolio-text">Advanced Search</h4>
                     <input type="text" class="form-control" placeholder="Enter keyword..."/>
                     <section>
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                var snapSlider = document.getElementById('slider-snap');
 
-                                noUiSlider.create(snapSlider, {
-                                    start: [25000, 200000],
-                                    connect: true,
-                                    step: 1000,
-                                    range: {
-                                        'min': 0,
-                                        'max': 250000
-                                    }
-                                });
-
-                                var snapValues = [
-                                    document.getElementById('slider-snap-value-lower'),
-                                    document.getElementById('slider-snap-value-upper')
-                                ];
-
-                                snapSlider.noUiSlider.on('update', function (values, handle) {
-                                    snapValues[handle].innerHTML = values[handle];
-                                });
-                            });
-                        </script>
                         <h5 class="portfolio-text">By Price : (IDR)</h5>
 
                         <div id="slider-snap"></div>
@@ -188,15 +165,7 @@ use yii\bootstrap\ActiveForm;
             <div class="col-md-10 col-sm-9 col-xs-12 work-list">
                 <div class="col-md-5">
                     <div class="flexslider">
-                       <script>
-                            // Can also be used with $(document).ready()
-                            $(window).load(function () {
-                                $('.flexslider').flexslider({
-                                    animation: "slide",
-                                    controlNav: "thumbnails"
-                                });
-                            });
-                        </script>
+
 
                         <ul class="slides">
                             <?php foreach ($product->productPhotos as $i => $productPhoto): ?>
@@ -317,12 +286,7 @@ use yii\bootstrap\ActiveForm;
                                 </div>
                                 <div class="clearfix"></div>
                                 <a class="add-re" href="#">ADD REVIEW</a>
-                                <script>
-                                    $(".add-re").click(function () {
-                                        $(".form-comment").show("slow");
-                                        $("a.add-re").hide("slow");
-                                    });
-                                </script>
+
 
                                 <div class="form-comment">
                                     <form>
